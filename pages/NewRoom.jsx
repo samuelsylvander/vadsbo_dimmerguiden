@@ -1,26 +1,30 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHouseChimney, faBuilding, faPhone } from "@fortawesome/free-solid-svg-icons";
 import Quantity from "./Quantity";
+import Switch from "./Switch";
+import Text from "./Text";
+import TypeTable from "./TypeTable"
 
-function NewRoom() {
+function NewRoom(props) {
+
+    function saveRoom(event) {
+        props.setAppState("newroom2");
+        event.preventDefault();
+    }
+
     return (
     <div className="container">
         <h1>Add a new room</h1>
-        <h2>Type of room</h2>
-        <FontAwesomeIcon icon={faHouseChimney} />
-        <FontAwesomeIcon icon={faBuilding} />
-        <FontAwesomeIcon icon={faPhone} />
-
-        <label>
-            Room name
-            <input type="text" placeholder="Room name"></input>
-        </label>
-
         
+        <TypeTable />
 
-        <button className="btn btn-primary m-3">Button Primary</button>
-        <Quantity />
+        <Text />
+
+        <Quantity field="Lights" />
+
+        <Switch field="switch-type" />
+
+        <Quantity field="Switches" />
+
     </div>
     )
 };
