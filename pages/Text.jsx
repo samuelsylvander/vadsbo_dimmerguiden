@@ -2,14 +2,14 @@ import React from "react";
 
 function Text(props) {
     return (
-        <p><div className="container">
+        <div className="container">
             <div className="row">
                 <label>
-                    Room name
+                    <h3>{props.label}</h3>
                     <input type="text" placeholder="Room name"></input>
                 </label>
             </div>
-        </div></p>
+        </div>
     )
 }
 

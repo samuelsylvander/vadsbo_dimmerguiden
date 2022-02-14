@@ -3,31 +3,42 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 function Quantity(props) {
+
+    function handleQuantity(event) {
+        props.setRoomDetails(prevVal => ({...prevVal, [props.property]: event.target.value}));
+    }
+
+    function handleIncrement(event) {
+        let value = props.roomDetails[props.property];
+        if (event.currentTarget.dataset.type == "plus") {
+            value = value + 1;
+        } else if (event.currentTarget.dataset.type == "minus") {
+            value = value - 1;
+        }
+        props.setRoomDetails(prevVal => ({...prevVal, [props.property]: value}));
+    }
+
     return (
-        <p>
         <div className="container bg-primary">
-            <div className="row">
-                <div className="col"><h3>{props.field}</h3></div>
-                <div className="col">
-                    <div className="input-group">
-                        <span className="input-group-btn">
-                            <button type="button" className="btn btn-success btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
-                                <FontAwesomeIcon icon={faMinus} />
-                            </button>
-                        </span>
-                        <input type="text" name="quant[1]" className="form-control input-number" placeholder="1" min="1" max="10" />
-                        <span className="input-group-btn">
-                            <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="quant[1]">
-                                <FontAwesomeIcon icon={faPlus} />
-                            </button>
-                        </span>
+            <div className="row justify-content-between">
+                <div className="col-4"><h3>{props.label}</h3></div>
+                <div className="col-2">
+                    <div className="input-group mb-3">
+                        <button type="button" className="btn btn-success" data-type="minus" onClick={handleIncrement}>
+                            <FontAwesomeIcon icon={faMinus} data-type="minus" />
+                        </button>
+                        <input id={props.field + "-text"} type="text" className="form-control input-number" value={props.roomDetails[props.property]} onChange={handleQuantity} />
+                        <button type="button" className="btn btn-success" data-type="plus" onClick={handleIncrement} >
+                            <FontAwesomeIcon icon={faPlus} data-type="plus" />
+                        </button>
                     </div>
                 </div>
                 {props.children}
             </div>
         </div>
-        </p>
     )
 };
 
 export default Quantity;
+
+//

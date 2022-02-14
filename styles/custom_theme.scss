@@ -3,6 +3,107 @@ $danger: #FFDFCA;
 $success: #FFF6C6;
 $warning: #CDD9EE;
 $info: #FFAF7D;
-$body-bg: #F7F7F7;
+$body-bg: #e4e4e4;
 
-@import "bootstrap"
+@import "bootstrap";
+
+.container {
+    margin: 1.5rem 0;
+    padding: 0.7rem;
+}
+
+button {
+    font-size: 1.5rem;
+}
+
+.roomtype-passive {
+    background: #343A40;
+    color: $primary;
+    font-size: 1.5rem;
+    padding: 1rem;
+    margin: 1rem;
+    display: inline;
+    text-align: center;
+}
+
+.roomtype-active {
+    background: $primary;
+    color: #343A40;
+    font-size: 1.5rem;
+    padding: 1rem;
+    margin: 1rem;
+    display: inline;
+    text-align: center;
+}
+
+#basket {
+    background: rgba(0,0,0,0.7);
+    position: absolute;
+    right: -300px;
+    top: 0px;
+    width: 300px;
+    height: 100%;
+    font-size: 1.2rem;
+    transition: all 0.5s;
+    z-index: 2;
+}
+
+#basket ul {
+    list-style: none;
+}
+
+#basket li {
+    color: white;
+    padding: 1rem;
+}
+
+#basket-items {
+    width: 100%;
+    margin-top: 2rem;
+}
+
+#app {
+    background: #F7F7F7;
+    max-width: 900px;
+    margin: auto;
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#basket-buttons {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
+
+#sidebar-button {
+    font-size: 30px;
+    padding: 8px;
+    text-align: center;
+    position: absolute;
+    bottom: 10px;
+    left: -50px;
+    width: 50px;
+    height: 60px;
+    background: rgba(0,0,0,0.5);
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    transition: color, 0.1s;
+}
+
+#sidebar-button:hover {
+    color: $primary;
+}
+
+#contact {
+    background: $info;
+    margin: 0;
+    padding: 1.2rem;
+}
+
+#pdf {
+    background: $primary;
+    margin: 0;
+    padding: 1.2rem;
+}

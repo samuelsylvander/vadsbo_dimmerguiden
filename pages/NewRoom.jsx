@@ -1,10 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
 import Quantity from "./Quantity";
-import Switch from "./Switch";
+import SwitchButtons from "./SwitchButtons";
 import Text from "./Text";
 import TypeTable from "./TypeTable"
 
+
 function NewRoom(props) {
+    const blankRoom = {"room": "", "icon": "", "lights": 3, "switches": 1, "app": false}
+    const [roomDetails, setRoomDetails] = useState(blankRoom);
 
     function saveRoom(event) {
         props.setAppState("newroom2");
@@ -15,15 +18,42 @@ function NewRoom(props) {
     <div className="container">
         <h1>Add a new room</h1>
         
-        <TypeTable />
+        <TypeTable 
+            property="room" 
+            setRoomType={setRoomDetails}
+        />
 
-        <Text />
+        <Text 
+            property="name" 
+            setRoomName={setRoomDetails} 
+            label="Room Name"
+        />
 
-        <Quantity field="Lights" />
+        <Quantity 
+            property="lights"
+            roomDetails={roomDetails}
+            setRoomDetails={setRoomDetails} 
+            label="Lights" 
+        />
 
-        <Switch field="switch-type" />
+        <SwitchButtons 
+            property="app"
+            setRoomApp={setRoomDetails} 
+            label="How do you want to control the lights?" 
+            field={["App", "Switch"]} 
+        />
 
-        <Quantity field="Switches" />
+        <Quantity 
+            property="switches"
+            roomDetails={roomDetails}
+            setRoomDetails={setRoomDetails} 
+            label="Switches" 
+        />
+
+        <p>
+                <button className="button btn-dark" onClick={() => props.setAppState("summary")}>Save Room</button>
+                <button className="button btn-dark" onClick={() => props.setAppState("newroom2")}>More Options</button>
+        </p>
 
     </div>
     )
