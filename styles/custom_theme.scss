@@ -107,3 +107,30 @@ button {
     margin: 0;
     padding: 1.2rem;
 }
+
+div.custom-warning {
+    position: relative;
+}
+
+div.custom-warning-pointer {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    transform: rotate(-45deg) translate(40px, 4px);
+}
+
+svg path:hover {
+    fill: $info;
+}
+
+path.select {
+    fill: $primary;
+}
+
+div.collapsable {
+    height: 0;
+    box-sizing: border-box;
+    transition: all 1s;
+    overflow: hidden;
+    margin: 0;
+}

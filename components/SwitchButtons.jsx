@@ -12,6 +12,7 @@ function SwitchButtons(props) {
                 buttons[i].className="button btn-dark"
             }
         };
+        props.setRoomDetails(prevVal => ({...prevVal, [props.property]: event.target.innerHTML}))
     }
 
     return (
