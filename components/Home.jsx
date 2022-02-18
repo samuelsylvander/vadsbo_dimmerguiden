@@ -1,16 +1,32 @@
-import React from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import Image from "next/image";
 import phoneAppPic from "../public/phone-app.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
 function Home(props) {
+    const [savedProjects, setSavedProjects] = useState([]);
+
+    function setProjectName(event) {
+        let name = event.target.value;
+        props.setProject(name);
+    }
 
     function handleSubmit(event) {
-        console.log("started");
-        props.setAppState("newroom1")
+        const projectName = document.getElementById("start-project").value;
+        props.setAppState("newroom1");
         event.preventDefault();
     };
+
+    function loadProject(projectName) {
+        props.setProject(projectName);
+        props.setRoomList(savedProjects[projectName]);
+        props.setAppState("summary");
+    }
+
+    useEffect( () => {
+        setSavedProjects(JSON.parse(window.localStorage.getItem("projects")));
+    }, [])
 
     return (
         <div className="container">
@@ -35,11 +51,13 @@ function Home(props) {
                     <h3>Start Planning</h3>
                     <label>
                         Project Name<br/>
-                        <input type="text" placeholder="Give your project a name" />
+                        <input id="start-project" type="text" value={props.project} onChange={setProjectName} placeholder="Give your project a name" />
                     </label>
-                    <br/><br/>
                     <button className="button btn-dark" type="submit">Start Project</button>
                     </form>
+                    
+                    {Object.keys(savedProjects).length > 0 && <><br /><h4>Or Load a Previous Project</h4></>}
+                    {Object.keys(savedProjects).map(key => <button key={key} className="button btn-dark" onClick={() => loadProject(key)}>{key}</button>)}
                 </div>
                 <div className="col py-3">
                     <br />

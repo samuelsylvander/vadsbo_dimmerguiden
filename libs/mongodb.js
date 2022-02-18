@@ -1,6 +1,11 @@
 import { MongoClient } from "mongodb";
 
-const MONGODB_URI = process.env.MONGODB_URI;
+//uri = mongodb+srv://samuel:Zm4Ch6EdfKxlp3YL@samuel.5dn7l.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+
+//mongo connection string: mongo "mongodb+srv://samuel.5dn7l.mongodb.net/myFirstDatabase" --apiVersion 1 --username samuel
+//pwd Zm4Ch6EdfKxlp3YL
+
+const MONGODB_URI = "mongodb+srv://samuel:Zm4Ch6EdfKxlp3YL@samuel.5dn7l.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
 // check the MongoDB URI
 if (!MONGODB_URI) {
@@ -23,7 +28,7 @@ export async function connectToDatabase() {
   // Connect to cluster
   let client = new MongoClient(MONGODB_URI);
   await client.connect();
-  let db = client.db();
+  let db = client.db("vadsboDB");
 
   // set cache
   cachedClient = client;

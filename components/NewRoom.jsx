@@ -34,7 +34,7 @@ function NewRoom(props) {
 
     return (
     <div className="container">
-        <h1>Add a new room</h1>
+        <h1>Add a new room to {props.project}</h1>
         
         <TypeTable 
             property="icon"

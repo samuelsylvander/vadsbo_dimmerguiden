@@ -38,7 +38,7 @@ button {
 
 #basket {
     background: rgba(0,0,0,0.7);
-    position: absolute;
+    position: fixed;
     right: -300px;
     top: 0px;
     width: 300px;
@@ -68,7 +68,8 @@ button {
     margin: auto;
     position: relative;
     height: 100vh;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 #basket-buttons {
@@ -119,18 +120,14 @@ div.custom-warning-pointer {
     transform: rotate(-45deg) translate(40px, 4px);
 }
 
-svg path:hover {
-    fill: $info;
-}
-
 path.select {
     fill: $primary;
 }
 
 div.collapsable {
-    height: 0;
+    max-height: 300px;
     box-sizing: border-box;
-    transition: all 1s;
+    transition: max-height 0.5s;
     overflow: hidden;
     margin: 0;
 }

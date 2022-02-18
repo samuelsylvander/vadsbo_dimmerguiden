@@ -10,7 +10,8 @@ function Summary(props) {
                 <button className="button btn-dark" onClick={() => props.setAppState("newroom1")}>Add Room</button>
                 <button className="button btn-dark" onClick={() => props.setAppState("moreoptions")}>More Options</button>
             </p>
-            {JSON.stringify(props.roomList)}
+            <button className="button btn-dark" onClick={props.saveProject}>Save Project</button>
+            {"Currently in Project: " + JSON.stringify(props.roomList)}
         </div>
     )
 };

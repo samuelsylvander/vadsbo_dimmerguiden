@@ -35,12 +35,12 @@ function RoomQuantity(props) {
 
     function handleDetails() {
         let info = document.getElementById("summarydetails" + props.index);
-        if (info.style.height === "0px") {
-            info.style.height = "auto";
+        if (info.style.maxHeight === "0px") {
+            info.style.maxHeight = "300px";
             info.style.padding = null;
         } else {
-            info.style.height = "0px";
-            info.style.padding = "0px";
+            info.style.maxHeight = "0px";
+            setTimeout( ()=> info.style.padding = "0px", 300);            
         }
     }
 
