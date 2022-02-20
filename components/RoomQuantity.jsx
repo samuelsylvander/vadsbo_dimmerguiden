@@ -74,10 +74,10 @@ function RoomQuantity(props) {
                     Number of Switches: <strong>{props.roomList[props.index].switches}</strong>
                 </div>
                 <div className="col">
-                    <div className="text-end fs-4">
+                    <div className="text-end fs-4" onClick={()=>props.loadRoom(props.label)}>
                     Edit <FontAwesomeIcon icon={faPenToSquare} />
                     </div>
-                    <div className="text-end fs-4">
+                    <div className="text-end fs-4" onClick={()=>props.deleteRoom(props.label)}>
                     Delete <FontAwesomeIcon icon={faTrashCan} />
                     </div>
                 </div>

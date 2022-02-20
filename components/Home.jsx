@@ -1,36 +1,38 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import phoneAppPic from "../public/phone-app.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
-function Home(props) {
-    const [savedProjects, setSavedProjects] = useState([]);
+    // props required:
+    // project - name of current project
+    // setProject - function to set "project"
+    // setAppState - function to change current page in app
+    // setRoomList - function used to import details from local storage or database
+    // dbProjects - project details stored in database (currently unused)
 
-    function setProjectName(event) {
+function Home(props) {
+    function handleUpdate(event) {
         let name = event.target.value;
         props.setProject(name);
     }
 
     function handleSubmit(event) {
-        const projectName = document.getElementById("start-project").value;
-        props.setAppState("newroom1");
+        props.setAppState("newroom");
         event.preventDefault();
     };
 
-    function loadProject(projectName) {
-        props.setProject(projectName);
-        props.setRoomList(savedProjects[projectName]);
+    function loadProject(index) {
+        props.setProject(props.projectList[index].projectName);
+        props.setRoomList(props.projectList[index].roomList);
         props.setAppState("summary");
     }
 
-    useEffect( () => {
-        setSavedProjects(JSON.parse(window.localStorage.getItem("projects")));
-    }, [])
-
     return (
         <div className="container">
+
             <div className="row">
+
                 <div className="col-6 p-5">
                     <h4>Välkommen till dimmerGuiden™</h4>
                     <p>Produkterna vi utvecklar är riktade till dig som 
@@ -41,31 +43,37 @@ function Home(props) {
                     installationsförfarande. dimmerGuiden™ innehåller 
                     enkla tips på hur du lyckas med din installation.</p>
                 </div>
+
                 <div className="col-6">
                     <Image src={phoneAppPic} alt="A Phone using the Vadsbo App" />
                 </div>
+
             </div>
+
             <div className="row">
+
                 <div className="col-6 bg-primary p-4 m-3">
                     <form onSubmit={handleSubmit} >
                     <h3>Start Planning</h3>
                     <label>
                         Project Name<br/>
-                        <input id="start-project" type="text" value={props.project} onChange={setProjectName} placeholder="Give your project a name" />
+                        <input id="start-project" type="text" value={props.project} onChange={handleUpdate} placeholder="Give your project a name" />
                     </label>
                     <button className="button btn-dark" type="submit">Start Project</button>
                     </form>
-                    
-                    {Object.keys(savedProjects).length > 0 && <><br /><h4>Or Load a Previous Project</h4></>}
-                    {Object.keys(savedProjects).map(key => <button key={key} className="button btn-dark" onClick={() => loadProject(key)}>{key}</button>)}
+                    {props.projectList.length > 0 && <><br /><h4>Or Load a Previous Project</h4></>}
+                    {props.projectList.map((project, index) => <button key={project.projectName} className="button btn-dark" onClick={() => loadProject(index)}>{project.projectName}</button>)}
                 </div>
+
                 <div className="col py-3">
                     <br />
                     <p><FontAwesomeIcon icon={faCheck} /> Du får en klar överblick</p>
                     <p><FontAwesomeIcon icon={faCheck} /> En tydlig plocklista att ge till din grossist</p>
                     <p><FontAwesomeIcon icon={faCheck} /> Ytterligare en motiverande USP</p>
                 </div>
+
             </div>
+
         </div>
     )
 };

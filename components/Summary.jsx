@@ -5,13 +5,14 @@ function Summary(props) {
     return (
         <div className="container">
             <h1>Summary</h1>
-            {props.roomList.map((item, index) => <p><RoomQuantity label={item.name} index={index} roomList={props.roomList} setRoomList={props.setRoomList} /></p>)}
-            <p>
-                <button className="button btn-dark" onClick={() => props.setAppState("newroom1")}>Add Room</button>
-                <button className="button btn-dark" onClick={() => props.setAppState("moreoptions")}>More Options</button>
-            </p>
+            {props.roomList.map((item, index) => <RoomQuantity label={item.name} index={index} roomList={props.roomList} setRoomList={props.setRoomList} loadRoom={props.loadRoom} deleteRoom={props.deleteRoom} />)}
+            <button className="button btn-dark" onClick={props.addRoom}>Add Room</button>
+            <button className="button btn-dark" onClick={() => props.setAppState("moreoptions")}>More Options</button>
+            <br/>
+            <br/>
             <button className="button btn-dark" onClick={props.saveProject}>Save Project</button>
-            {"Currently in Project: " + JSON.stringify(props.roomList)}
+
+            {/* display roomList for debugging {"Currently in Project: " + JSON.stringify(props.roomList)} */}
         </div>
     )
 };

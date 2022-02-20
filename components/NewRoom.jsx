@@ -1,83 +1,64 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import Quantity from "./Quantity";
 import SwitchButtons from "./SwitchButtons";
 import Text from "./Text";
 import TypeTable from "./TypeTable";
 
+// props required:
+// roomDetails - values to display/set
+// setRoomDetails - function to update roomDetails
+// project - name of project to display
+// setRoom - function to submit details
+// error - array containing missing fields
+
 
 function NewRoom(props) {
-    let newRoom;
-    if (props.initialise.name = "") {
-        newRoom = blankRoom
-    } else {
-        newRoom = props.initialise
-    }
-    const [roomDetails, setRoomDetails] = useState(newRoom);
-    const [error, setError] = useState([]);
-
-    function saveRoom() {
-        if (checkDetails()) {
-            props.setRoomList(prevVal => [...prevVal, roomDetails])
-            props.setAppState("summary")
-        }
-    }
-
-    function checkDetails() {
-        for (let prop in roomDetails) {
-            if (roomDetails[prop] == "") {
-                setError(prop)
-                return false;
-            };
-        };
-        return true;
-    }
-
     return (
     <div className="container">
         <h1>Add a new room to {props.project}</h1>
         
         <TypeTable 
             property="icon"
-            error={error}
-            setRoomDetails={setRoomDetails}
+            error={props.error}
+            roomDetails={props.roomDetails}
+            setRoomDetails={props.setRoomDetails}
         />
 
         <Text 
             property="name" 
-            error={error}
-            roomDetails={roomDetails}
-            setRoomDetails={setRoomDetails} 
+            error={props.error}
+            roomDetails={props.roomDetails}
+            setRoomDetails={props.setRoomDetails} 
             label="Room Name"
         />
 
         <Quantity 
             property="lights"
-            roomDetails={roomDetails}
-            setRoomDetails={setRoomDetails} 
+            roomDetails={props.roomDetails}
+            setRoomDetails={props.setRoomDetails} 
             label="Lights" 
         />
 
         <SwitchButtons 
-            error={error}
+            error={props.error}
             property="app"
-            setRoomDetails={setRoomDetails} 
+            roomDetails={props.roomDetails}
+            setRoomDetails={props.setRoomDetails} 
             label="How do you want to control the lights?" 
             field={["App", "Switch"]} 
         />
 
         <Quantity 
             property="switches"
-            roomDetails={roomDetails}
-            setRoomDetails={setRoomDetails} 
+            roomDetails={props.roomDetails}
+            setRoomDetails={props.setRoomDetails} 
             label="Switches" 
         />
 
-        <p>
-                <button className="button btn-dark" onClick={saveRoom}>Save Room</button>
-                <button className="button btn-dark" onClick={() => props.setAppState("newroom2")}>More Options</button>
-        </p>
-
-        <p>{JSON.stringify(roomDetails)}</p>
+        <button className="button btn-dark" onClick={props.saveRoom}>Save Room</button>
+      
+        {/* display roomDetails contents for debugging */}
+        <p>{JSON.stringify(props.roomDetails)}</p>
 
     </div>
     )
