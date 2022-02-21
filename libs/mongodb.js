@@ -1,11 +1,6 @@
 import { MongoClient } from "mongodb";
 
-//uri = mongodb+srv://samuel:Zm4Ch6EdfKxlp3YL@samuel.5dn7l.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
-
-//mongo connection string: mongo "mongodb+srv://samuel.5dn7l.mongodb.net/myFirstDatabase" --apiVersion 1 --username samuel
-//pwd Zm4Ch6EdfKxlp3YL
-
-const MONGODB_URI = "mongodb+srv://samuel:Zm4Ch6EdfKxlp3YL@samuel.5dn7l.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const MONGODB_URI = process.env.MONGODB_URI;
 
 // check the MongoDB URI
 if (!MONGODB_URI) {

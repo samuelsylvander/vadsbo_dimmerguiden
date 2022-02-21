@@ -1,181 +1,71 @@
 import Head from 'next/head'
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 config.autoAddCss = false;
-import Header from "../components/Header";
-import Home from "../components/Home";
-import NewRoom from "../components/NewRoom";
-import Summary from "../components/Summary";
-import MoreOptions from '../components/MoreOptions';
-import Sidebar from "../components/Sidebar";
-import GetQuote from "../components/GetQuote";
-import { connectToDatabase } from '../libs/mongodb';
-import savetoDB from '../libs/savetodb';
+import Image from 'next/image';
+import phoneAppPic from "../public/phone-app.png"
 
 
-export default function MyApp(props) {
-	const blankRoom = {"name": "", "icon": "", "lights": 1, "switches": 1, "app": "", "noOfRooms": 1}
-	const [project, setProject] = useState("");
-	const [appState, setAppState] = useState("home");
-	const [roomList, setRoomList] = useState([]); //array of all current rooms
-	const [basket, setBasket] = useState([]); //array of all basket items (not yet implemented)
-	const [roomDetails, setRoomDetails] = useState(blankRoom); //object containing details of current room
-	const [roomError, setRoomError] = useState([]); // array with errors from New Room form
-	const [projectList, setProjectList] = useState([]); // array with all projects
 
+export default function Home(props) {
+	const [projectName, setProjectName] = useState("");
 
-	function saveRoom() {
-        if (checkDetails()) {
-            setRoomList(prevVal => [...prevVal, roomDetails])
-            setAppState("summary")
-        }
-    };
-
-	function checkDetails() {
-        let currentErrors = [];
-        for (let prop in roomDetails) {
-            if (roomDetails[prop] === "") {
-                currentErrors.push(prop);
-            };
-        };
-		console.log(currentErrors)
-        if (currentErrors.length == 0) {
-			setRoomError([]);
-            return true
-        } else {
-			setRoomError(currentErrors);
-            return false
-        };
-    };
-
-	function saveProject() {
-		// save to both localStorage and to database
-		const savedProjects = JSON.parse(window.localStorage.getItem("projects"));
-		if (savedProjects) {
-			window.localStorage.setItem("projects", JSON.stringify([...savedProjects, {projectName: project, roomList: roomList, date: new Date()}]));
-		} else {
-			window.localStorage.setItem("projects", JSON.stringify([{projectName: project, roomList: roomList, date: new Date()}]))
-		};
-		savetoDB(project, roomList);
-	};
-
-	function addRoom() {
-		setRoomDetails(blankRoom)
-		setRoomError([])
-		setAppState("newroom")
+	function handleUpdate(event) {
+		let name = event.target.value;
+        setProjectName(name);
 	}
-
-	function loadRoom(loadedRoomName) {
-		setRoomDetails(roomList.filter(room => room.name == loadedRoomName)[0]);
-		setRoomList(prevVal => prevVal.filter(room => room.name != loadedRoomName));
-		setRoomError([]);
-		setAppState("newroom") 
-	}
-
-	function deleteRoom(deletedRoomName) {
-		setRoomList(prevVal => prevVal.filter(room => room.name != deletedRoomName));
-	}
-
-	function initialiseProjects() {
-		const localProjects = JSON.parse(window.localStorage.getItem("projects"))
-		const output = [];
-	
-		if (localProjects == undefined) {
-			return props.dbProjects
-		}
-		console.log(localProjects.length)
-
-		if (props.dbProjects.length >= localProjects.length) {
-			props.dbProjects.forEach(dbproject => {
-				const localproject = localProjects.find(search => search.projectName === dbproject.projectName);
-				if (localproject != undefined && dbproject.date < localproject.date) {
-					output.push(localproject)
-				} else {
-					output.push(dbproject)
-				}
-			})
-		} else {
-			localProjects.forEach(localproject => {
-				const dbproject = props.dbProjects.find(search => search.projectName === localproject.projectName);
-				if (dbproject != undefined && localproject.date < dbproject.date) {
-					output.push(dbproject)
-				} else {
-					output.push(localproject)
-				}
-			})
-		}
-		return output
-	}
-
-	useEffect( () => {
-		setProjectList(initialiseProjects())
-	}, [])
 
 	return (
-		<div id="app">
-			<Head> 
-				<title>Vadsbo dimmerGuiden</title>
-			</Head>
-			<Header />
-			<Sidebar basket={basket} />
-			{appState == "home" && <Home 
-				project={project}
-				setProject={setProject} 
-				projectList={projectList}
-				setRoomList={setRoomList} 
-				setAppState={setAppState}
-				dbProjects={props.dbProjects}
-			/>}
-			{appState == "newroom" && <NewRoom  
-				project={project} 
-				roomDetails={roomDetails}
-				setRoomDetails={setRoomDetails}
-				saveRoom={saveRoom}
-				error={roomError}
-			/>}
-			{appState == "summary" && <Summary 
-				roomList={roomList} 
-				setRoomList={setRoomList} 
-				setAppState={setAppState} 
-				project={project} 
-				saveProject={saveProject}
-				addRoom={addRoom}
-				loadRoom={loadRoom}
-				deleteRoom={deleteRoom}
-			/>}
-			{appState == "moreoptions" && <MoreOptions
-				setAppState={setAppState}
-			/>}
-			{appState == "getquote" && <GetQuote 
-				setAppState={setAppState}
-			/>}
+		<>
+		<Head> 
+			<title>Vadsbo dimmerGuiden</title>
+		</Head>
+        <div className="container">
 
-			{/* {error && <Popup {...popup}/>} */}
+            <div className="row">
 
-			{/*   debugging code to test database API    */}
-			{/* {"Currently in Database: " + props.dbProjects}
-			<button type="button" onClick={savetoDB}>Test API</button> */}
-		</div>
-	)
+                <div className="col-6 p-5">
+                    <h4>Välkommen till dimmerGuiden™</h4>
+                    <p>Produkterna vi utvecklar är riktade till dig som 
+                    vill lösa din installation på ett enkelt och praktiskt 
+                    sätt. I dimmerGuiden™ har vi samlat våra produkter 
+                    (som fanns 2015 alltså), mätningar och tekniska 
+                    framsteg i form av förklaringar kring dimring och 
+                    installationsförfarande. dimmerGuiden™ innehåller 
+                    enkla tips på hur du lyckas med din installation.</p>
+                </div>
+
+                <div className="col-6">
+                    <Image src={phoneAppPic} alt="A Phone using the Vadsbo App" />
+                </div>
+
+            </div>
+
+            <div className="row">
+
+                <div className="col-6 bg-primary p-4 m-3">
+                    <h3>Start Planning</h3>
+                    <label>
+                        Project Name<br/>
+                        <input id="start-project" type="text" value={projectName} onChange={handleUpdate} placeholder="Give your project a name" />
+                    </label>
+                    <br/>
+                    <button className="button btn-dark" type="button" onClick={props.newProject}>Start Project</button>
+                </div>
+
+                <div className="col py-3">
+                    <br />
+                    <p><FontAwesomeIcon icon={faCheck} /> Du får en klar överblick</p>
+                    <p><FontAwesomeIcon icon={faCheck} /> En tydlig plocklista att ge till din grossist</p>
+                    <p><FontAwesomeIcon icon={faCheck} /> Ytterligare en motiverande USP</p>
+                </div>
+
+            </div>
+
+        </div>
+		</>
+    )
 };
-
-export async function getServerSideProps() {
-	let output = [];
-
-	try {
-		const { db } = await connectToDatabase();
-		const dbResults = await db.collection("vadsbo")
-		const find = await dbResults.find({})
-		const results = await find.forEach(document => output.push(document));
-		console.log("database access results: " + results)
-	} catch (e) {
-		console.log(e)
-	}
-
-	return {
-		props: {
-			dbProjects: JSON.parse(JSON.stringify(output))
-		},
-	};
-}

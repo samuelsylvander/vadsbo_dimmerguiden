@@ -5,7 +5,7 @@ function SwitchButtons(props) {
     const showError = (props.error.includes(props.property)) 
 
     function handleSwitch(event) {
-        props.setRoomDetails(prevVal => ({...prevVal, [props.property]: event.target.innerHTML}))
+        props.setCurrentRoom(prevVal => ({...prevVal, [props.property]: event.target.innerHTML}))
     }
 
     return (
@@ -16,7 +16,7 @@ function SwitchButtons(props) {
                     return (
                         <button 
                             key={field} 
-                            className={props.roomDetails[props.property] == field ? "button btn-primary" : "button btn-dark"} 
+                            className={props.currentRoom[props.property] == field ? "button btn-primary" : "button btn-dark"} 
                             onClick={handleSwitch}
                         >
                             {field}

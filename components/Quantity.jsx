@@ -3,26 +3,26 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 // props required:
-// roomDetails: object to edit, controls input field
-// setRoomDetails: function used to edit roomDetails
-// property: property of roomDetails to adjust
+// currentRoom: object to edit, controls input field
+// setCurrentRoom: function used to edit currentRoom
+// property: property of currentRoom to adjust
 // label: what to display
 
 function Quantity(props) {
 
     function handleQuantity(event) {
         let update = event.target.value.replace(/\D/, "");
-        props.setRoomDetails(prevVal => ({...prevVal, [props.property]: update}));
+        props.setCurrentRoom(prevVal => ({...prevVal, [props.property]: update}));
     }
 
     function handleIncrement(event) {
-        let update = parseFloat(props.roomDetails[props.property]);
+        let update = parseFloat(props.currentRoom[props.property]);
         if (event.currentTarget.dataset.type == "plus") {
             update = update + 1;
         } else if (event.currentTarget.dataset.type == "minus" && update > 1) {
             update = update - 1;
         }
-        props.setRoomDetails(prevVal => ({...prevVal, [props.property]: update}));
+        props.setCurrentRoom(prevVal => ({...prevVal, [props.property]: update}));
     }
 
     return (
@@ -34,7 +34,7 @@ function Quantity(props) {
                         <button type="button" className="btn btn-success" data-type="minus" onClick={handleIncrement}>
                             <FontAwesomeIcon icon={faMinus} data-type="minus" />
                         </button>
-                        <input type="text" className="form-control input-number" value={props.roomDetails[props.property]} onChange={handleQuantity} />
+                        <input type="text" className="form-control input-number" value={props.currentRoom[props.property]} onChange={handleQuantity} />
                         <button type="button" className="btn btn-success" data-type="plus" onClick={handleIncrement} >
                             <FontAwesomeIcon icon={faPlus} data-type="plus" />
                         </button>

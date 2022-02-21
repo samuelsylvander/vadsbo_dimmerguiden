@@ -5,7 +5,7 @@ function Text(props) {
     const showError = (props.error.includes(props.property)) 
 
     function handleChange(event) {
-        props.setRoomDetails(prevVal => ({...prevVal, [props.property]: event.target.value}))
+        props.setCurrentRoom(prevVal => ({...prevVal, [props.property]: event.target.value}))
     }
     
     return (
@@ -13,7 +13,7 @@ function Text(props) {
             <div className="row">
                 <label>
                     <h3>{props.label}</h3>
-                    <input type="text" placeholder="Room name" value={props.roomDetails[props.property]} onChange={handleChange}></input>
+                    <input type="text" placeholder="Room name" value={props.currentRoom[props.property]} onChange={handleChange}></input>
                 </label>
             </div>
             {showError && <Error />}
