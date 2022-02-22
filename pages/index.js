@@ -8,6 +8,7 @@ config.autoAddCss = false;
 import Image from 'next/image';
 import phoneAppPic from "../public/phone-app.png"
 import { useRouter } from 'next/router';
+import Header from '../components/Header';
 
 
 
@@ -39,6 +40,7 @@ export default function Home(props) {
 		<Head> 
 			<title>Vadsbo dimmerGuiden</title>
 		</Head>
+        <Header />
         <div className="container">
 
             <div className="row">

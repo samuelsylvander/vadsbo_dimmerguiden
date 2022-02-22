@@ -11,6 +11,7 @@ import React, {useEffect, useState} from "react";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 config.autoAddCss = false;
+import Header from "../components/Header";
 
 export async function getServerSideProps(context) {
 	const pid = context.query.pid;
@@ -109,6 +110,7 @@ export default function Project({ loadedProject }) {
             <Head>
                 <title>Vadsbo dimmerGuiden</title>
             </Head>
+            <Header projectId={loadedProject._id}/>
             <Sidebar basket={basket} />
             {appState == "newroom" && <NewRoom  
                 projectName={projectName} 
