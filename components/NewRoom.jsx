@@ -2,7 +2,6 @@ import React from "react";
 import Quantity from "./Quantity";
 import SwitchButtons from "./SwitchButtons";
 import Text from "./Text";
-import TypeTable from "./TypeTable";
 
 // props required:
 // currentRoom - values to display/set
@@ -23,6 +22,7 @@ function NewRoom(props) {
             currentRoom={props.currentRoom}
             setCurrentRoom={props.setCurrentRoom} 
             label="Room Name"
+            infoText="Choose a name for this room"
         />
 
         <SwitchButtons 
@@ -31,7 +31,8 @@ function NewRoom(props) {
             currentRoom={props.currentRoom}
             setCurrentRoom={props.setCurrentRoom} 
             label="Vad vill du styra?" 
-            field={["Dali", "Dali TW", "Dali RGB"]} 
+            field={["Dali", "Dali TW", "Dali RGB"]}
+            infoText="Info text here"
         />
 
         
@@ -40,6 +41,7 @@ function NewRoom(props) {
             currentRoom={props.currentRoom}
             setCurrentRoom={props.setCurrentRoom} 
             label="Lights" 
+            // infoText="Info text here"
         />
 
         <SwitchButtons 
@@ -48,7 +50,8 @@ function NewRoom(props) {
             currentRoom={props.currentRoom}
             setCurrentRoom={props.setCurrentRoom} 
             label="Vill du styra armaturerna ihop eller individuellt?" 
-            field={["ihop", "individuellt"]} 
+            field={["Ihop", "Individuellt"]} 
+            infoText="Info text here"
         />
 
         <SwitchButtons 
@@ -58,6 +61,7 @@ function NewRoom(props) {
             setCurrentRoom={props.setCurrentRoom} 
             label="Vill du styra med app (t ex tidstyrt) eller knapp?" 
             field={["App", "Switch"]} 
+            infoText="Info text here"
         />
 
         <Quantity 
@@ -65,6 +69,7 @@ function NewRoom(props) {
             currentRoom={props.currentRoom}
             setCurrentRoom={props.setCurrentRoom} 
             label="Switches" 
+            // infoText="Info text here"
         />
 
         <button className="button btn-dark" onClick={props.saveRoom}>Save Room</button>
