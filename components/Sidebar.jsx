@@ -5,7 +5,8 @@ import algorithm from "../libs/algorithm";
 import BasketItem from "./BasketItem";
 
 function Sidebar(props) {
-    const basketItems = algorithm(props.roomList)
+    const basketItems = algorithm(props.roomList);
+    console.log(basketItems)
 
     function openSidebar() {
         const basket = document.getElementById("basket");

@@ -31,7 +31,7 @@ function NewRoom(props) {
             currentRoom={props.currentRoom}
             setCurrentRoom={props.setCurrentRoom} 
             label="Vad vill du styra?" 
-            field={["Dali", "Dali TW", "Dali RGB"]}
+            field={["DALI", "DALI TW", "DALI RGB"]}
             infoText="Info text here"
         />
 
@@ -60,7 +60,7 @@ function NewRoom(props) {
             currentRoom={props.currentRoom}
             setCurrentRoom={props.setCurrentRoom} 
             label="Vill du styra med app (t ex tidstyrt) eller knapp?" 
-            field={["App", "Switch"]} 
+            field={["App", "Knapp"]} 
             infoText="Info text here"
         />
 
