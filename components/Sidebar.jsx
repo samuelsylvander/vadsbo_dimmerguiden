@@ -1,8 +1,12 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDollarSign, faFilePdf } from "@fortawesome/free-solid-svg-icons";
+import algorithm from "../libs/algorithm";
+import BasketItem from "./BasketItem";
 
 function Sidebar(props) {
+    const basketItems = algorithm(props.roomList)
+
     function openSidebar() {
         const basket = document.getElementById("basket");
         if (basket.style.right == "0px") {
@@ -16,9 +20,11 @@ function Sidebar(props) {
         <div id="basket">
             <div id="basket-items">
                 <ul>
-                    <li>Item 1</li>
-                    <li>Item 2</li>
-                    <li>Item 3</li>
+                    {Object.keys(basketItems).map(key => {
+                        if (basketItems[key] > 0) {
+                            return <BasketItem item={key} quantity={basketItems[key]}/>
+                        }
+                    })}
                 </ul>
             </div>
 
