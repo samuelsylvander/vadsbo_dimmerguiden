@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import sweden from "./sweden.jsx"
 
 function GetQuote() {
 

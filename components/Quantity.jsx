@@ -1,4 +1,5 @@
 import React from "react";
+import Info from "./Info";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 
@@ -28,7 +29,10 @@ function Quantity(props) {
     return (
         <div className="container bg-primary">
             <div className="row align-items-center justify-content-between">
-                <div className="col align-self-center"><h3>{props.label}</h3></div>
+                <div className="col align-self-center">
+                    <h3 className="d-inline-block">{props.label}</h3>
+                    {props.infoText && <Info text={props.infoText} />}
+                </div>
                 <div className="col-auto">
                     <div className="input-group align-items-center">
                         <button type="button" className="btn btn-success" data-type="minus" onClick={handleIncrement}>

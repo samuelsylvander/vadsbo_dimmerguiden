@@ -10,8 +10,8 @@ function Popup(props) {
                 {props.body}
             </div>
             <div className="popup-buttons">
-                <button className="button btn-dark" onClick={props.confirm}>OK</button>
-                <button className="button btn-dark" onClick={props.dismiss}>Go Back</button>
+                <button className="button btn-dark" onClick={props.confirm[1]}>{props.confirm[0]}</button>
+                <button className="button btn-dark" onClick={props.dismiss[1]}>{props.dismiss[0]}</button>
             </div>
         </div>
     )

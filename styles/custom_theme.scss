@@ -73,7 +73,7 @@ button {
     position: relative;
     height: 100vh;
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 #basket-buttons {
@@ -141,7 +141,7 @@ div.collapsable {
     left: 50%;
     margin-left: -150px;
     top: 30%;
-    z-index: 2;
+    z-index: 3;
     background: $body-bg;
 }
 
