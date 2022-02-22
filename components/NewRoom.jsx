@@ -25,6 +25,16 @@ function NewRoom(props) {
             label="Room Name"
         />
 
+        <SwitchButtons 
+            error={props.error}
+            property="app"
+            currentRoom={props.currentRoom}
+            setCurrentRoom={props.setCurrentRoom} 
+            label="Vad vill du styra?" 
+            field={["Dali", "Dali TW", "Dali RGB"]} 
+        />
+
+        
         <Quantity 
             property="lights"
             currentRoom={props.currentRoom}
@@ -37,7 +47,16 @@ function NewRoom(props) {
             property="app"
             currentRoom={props.currentRoom}
             setCurrentRoom={props.setCurrentRoom} 
-            label="How do you want to control the lights?" 
+            label="Vill du styra armaturerna ihop eller individuellt?" 
+            field={["ihop", "individuellt"]} 
+        />
+
+        <SwitchButtons 
+            error={props.error}
+            property="app"
+            currentRoom={props.currentRoom}
+            setCurrentRoom={props.setCurrentRoom} 
+            label="Vill du styra med app (t ex tidstyrt) eller knapp?" 
             field={["App", "Switch"]} 
         />
 
