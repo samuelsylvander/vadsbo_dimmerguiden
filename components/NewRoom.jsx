@@ -27,7 +27,7 @@ function NewRoom(props) {
 
         <SwitchButtons 
             error={props.error}
-            property="app"
+            property="dali"
             currentRoom={props.currentRoom}
             setCurrentRoom={props.setCurrentRoom} 
             label="Vad vill du styra?" 
@@ -44,7 +44,7 @@ function NewRoom(props) {
 
         <SwitchButtons 
             error={props.error}
-            property="app"
+            property="group"
             currentRoom={props.currentRoom}
             setCurrentRoom={props.setCurrentRoom} 
             label="Vill du styra armaturerna ihop eller individuellt?" 

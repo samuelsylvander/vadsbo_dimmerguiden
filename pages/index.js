@@ -7,16 +7,32 @@ import { config } from "@fortawesome/fontawesome-svg-core";
 config.autoAddCss = false;
 import Image from 'next/image';
 import phoneAppPic from "../public/phone-app.png"
+import { useRouter } from 'next/router';
 
 
 
 export default function Home(props) {
 	const [projectName, setProjectName] = useState("");
+    const router = useRouter();
 
 	function handleUpdate(event) {
 		let name = event.target.value;
         setProjectName(name);
 	}
+
+    async function newProject() {
+        const url = "http://localhost:3000/api/savetodbAPI"
+        const request = new XMLHttpRequest();
+        request.open("POST", url, true);
+        request.onreadystatechange = ()=> {
+            if (request.readyState == 4 && request.status == 200) {
+                console.log("server response: " + request.response);
+                const url = "./" + JSON.parse(request.response).insertedId;
+                router.push(url)
+              }
+        }
+        request.send(JSON.stringify({projectName: projectName, roomList: []}));
+    }
 
 	return (
 		<>
@@ -53,7 +69,7 @@ export default function Home(props) {
                         <input id="start-project" type="text" value={projectName} onChange={handleUpdate} placeholder="Give your project a name" />
                     </label>
                     <br/>
-                    <button className="button btn-dark" type="button" onClick={props.newProject}>Start Project</button>
+                    <button className="button btn-dark" type="button" onClick={newProject}>Start Project</button>
                 </div>
 
                 <div className="col py-3">

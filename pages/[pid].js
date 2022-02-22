@@ -26,8 +26,6 @@ export async function getServerSideProps(context) {
 		console.log(e)
 	}
 
-
-
 	return {
 		props: {
 			loadedProject: JSON.parse(JSON.stringify(output))
@@ -35,10 +33,10 @@ export async function getServerSideProps(context) {
 	};
 }
 
-export default function Project({ loadedProject}) {
+export default function Project({ loadedProject }) {
     const [appState, setAppState] = useState("summary");
     const router = useRouter();
-    const blankRoom = {"name": "", "lights": 1, "switches": 1, "app": "", "noOfRooms": 1}
+    const blankRoom = {"name": "", "dali": "", "lights": 1, "group": "", "app": "", "switches": 1, "noOfRooms": 1}
     const [projectName, setProjectName] = useState(loadedProject.projectName);
     const [currentRoom, setCurrentRoom] = useState(blankRoom);
     const [roomList, setRoomList] = useState(loadedProject.roomList); //array of all current rooms
@@ -98,6 +96,13 @@ export default function Project({ loadedProject}) {
         }
         request.send(JSON.stringify({id: loadedProject._id, projectName: projectName, roomList: roomList }));
     }
+
+    useEffect( ()=> {
+        console.log(roomList)
+        if (roomList.length == 0) {
+            setAppState("newroom")
+        }
+    }, [])
 
     return (
         <>
