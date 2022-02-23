@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Quantity from "./Quantity";
 import SwitchButtons from "./SwitchButtons";
 import Text from "./Text";
@@ -12,6 +12,18 @@ import Text from "./Text";
 
 
 function NewRoom(props) {
+    const [step, setStep] = useState(0);
+
+    useEffect( ()=> {
+        if (props.currentRoom.app != "") {
+            setStep(3)
+        } else if (props.currentRoom.group != "") {
+            setStep(2)
+        } else if (props.currentRoom.name != "" && props.currentRoom.dali != "") {
+            setStep(1);
+        }
+    }, [props.currentRoom]);
+
     return (
     <div className="container">
         <h1>Add a new room to {props.projectName}</h1>
@@ -25,9 +37,9 @@ function NewRoom(props) {
             infoText="Choose a name for this room"
         />
 
-        <SwitchButtons 
+        <SwitchButtons
+            property="dali" 
             error={props.error}
-            property="dali"
             currentRoom={props.currentRoom}
             setCurrentRoom={props.setCurrentRoom} 
             label="Vad vill du styra?" 
@@ -44,35 +56,35 @@ function NewRoom(props) {
             // infoText="Info text here"
         />
 
-        <SwitchButtons 
-            error={props.error}
+        {step > 0 && <SwitchButtons 
             property="group"
+            error={props.error}
             currentRoom={props.currentRoom}
             setCurrentRoom={props.setCurrentRoom} 
             label="Vill du styra armaturerna ihop eller individuellt?" 
             field={["Ihop", "Individuellt"]} 
             infoText="Info text here"
-        />
+        />}
 
-        <SwitchButtons 
-            error={props.error}
+        {step > 1 && <SwitchButtons 
             property="app"
+            error={props.error}
             currentRoom={props.currentRoom}
             setCurrentRoom={props.setCurrentRoom} 
             label="Vill du styra med app (t ex tidstyrt) eller knapp?" 
             field={["App", "Knapp"]} 
             infoText="Info text here"
-        />
+        />}
 
-        <Quantity 
+        {step > 1 && <Quantity 
             property="switches"
             currentRoom={props.currentRoom}
             setCurrentRoom={props.setCurrentRoom} 
             label="Switches" 
             // infoText="Info text here"
-        />
+        />}
 
-        <button className="button btn-dark" onClick={props.saveRoom}>Save Room</button>
+        {step > 2 && <button className="button btn-dark" onClick={props.saveRoom}>Save Room</button>}
       
         {/* display currentRoom contents for debugging */}
         <p>{JSON.stringify(props.currentRoom)}</p>
