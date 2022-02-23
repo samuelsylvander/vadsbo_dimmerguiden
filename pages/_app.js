@@ -4,8 +4,6 @@ import '../styles/custom_theme.scss';
 export default function App({ Component, pageProps }) {
 
     return (
-      <div id="app">
-        <Component {...pageProps} />
-      </div>
+        <Component {...pageProps} className="overflow-hidden" />
     ) 
   }

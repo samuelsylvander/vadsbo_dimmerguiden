@@ -2,7 +2,7 @@ import React from "react";
 
 export default function BasketItem(props) {
     return (
-        <li>
+        <li className="p-2">
             <h4>{props.item}</h4>
             <div className="d-flex justify-content-between">
                 <div>

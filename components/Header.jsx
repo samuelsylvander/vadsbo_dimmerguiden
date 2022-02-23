@@ -14,7 +14,7 @@ function Header(props) {
     }
 
     return (
-        <nav className="navbar navbar-light bg-primary">
+        <nav className="navbar bg-primary position-fixed w-100">
             <span className="navbar-brand">Vadsbo</span>
             <FontAwesomeIcon icon={faLink} onClick={()=>setShowPopup(true)} />
             {showPopup && <Popup

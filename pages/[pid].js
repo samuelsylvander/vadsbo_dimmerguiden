@@ -4,7 +4,6 @@ import Head from "next/head";
 import NewRoom from "../components/NewRoom";
 import Summary from "../components/Summary";
 import MoreOptions from '../components/MoreOptions';
-import Sidebar from "../components/Sidebar";
 import GetQuote from "../components/GetQuote";
 import React, {useEffect, useState} from "react";
 import "@fortawesome/fontawesome-svg-core/styles.css";
@@ -106,15 +105,12 @@ export default function Project({ loadedProject }) {
 
     return (
         <>
-            <Head>
-                <title>Vadsbo dimmerGuiden</title>
-            </Head>
-            <Header projectId={loadedProject._id}/>
-            <Sidebar 
-                roomList={roomList} 
-                setAppState={setAppState}
-            />
-            {appState == "newroom" && <NewRoom  
+        <Head>
+            <title>Vadsbo dimmerGuiden</title>
+        </Head>
+        <Header projectId={loadedProject._id}/>
+        <div style={{background: "#F7F7F7"}} className="w-50 vh-100 pt-5 mx-auto">
+             {appState == "newroom" && <NewRoom  
                 projectName={projectName} 
                 currentRoom={currentRoom}
                 setCurrentRoom={setCurrentRoom}
@@ -141,6 +137,7 @@ export default function Project({ loadedProject }) {
             {appState == "getquote" && <GetQuote 
                 setAppState={setAppState}
             />}
+        </div>
         </>
     )
 }
