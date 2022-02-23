@@ -6,7 +6,6 @@ import Summary from "../components/Summary";
 import MoreOptions from '../components/MoreOptions';
 import Sidebar from "../components/Sidebar";
 import GetQuote from "../components/GetQuote";
-import { useRouter } from 'next/router';
 import React, {useEffect, useState} from "react";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
@@ -36,13 +35,13 @@ export async function getServerSideProps(context) {
 
 export default function Project({ loadedProject }) {
     const [appState, setAppState] = useState("summary");
-    const router = useRouter();
-    const blankRoom = {"name": "", "dali": "", "lights": 1, "group": "", "app": "", "switches": 1, "noOfRooms": 1}
+    const blankRoom = {"name": "", "dali": "", "lights": 0, "group": "", "app": "", "switches": 0, "noOfRooms": 1}
+    const blankOptions = {ipad: "", ipadnum: 0, battery: "", starter: ""}
     const [projectName, setProjectName] = useState(loadedProject.projectName);
     const [currentRoom, setCurrentRoom] = useState(blankRoom);
     const [roomList, setRoomList] = useState(loadedProject.roomList); //array of all current rooms
     const [roomError, setRoomError] = useState([]); // array with errors from New Room form
-    const [basket, setBasket] = useState([]); //array of all basket items (not yet implemented)
+    const [options, setOptions] = useState(blankOptions);
 
 
     function saveRoom() {
@@ -95,7 +94,7 @@ export default function Project({ loadedProject }) {
                 console.log("server response: " + request.response);
               }
         }
-        request.send(JSON.stringify({id: loadedProject._id, projectName: projectName, roomList: roomList }));
+        request.send(JSON.stringify({id: loadedProject._id, projectName: projectName, roomList: roomList, options: options}));
     }
 
     useEffect( ()=> {
@@ -111,7 +110,10 @@ export default function Project({ loadedProject }) {
                 <title>Vadsbo dimmerGuiden</title>
             </Head>
             <Header projectId={loadedProject._id}/>
-            <Sidebar basket={basket} />
+            <Sidebar 
+                roomList={roomList} 
+                setAppState={setAppState}
+            />
             {appState == "newroom" && <NewRoom  
                 projectName={projectName} 
                 currentRoom={currentRoom}
@@ -128,8 +130,12 @@ export default function Project({ loadedProject }) {
                 addRoom={addRoom}
                 loadRoom={loadRoom}
                 deleteRoom={deleteRoom}
+                options={options}
+                setOptions={setOptions}
             />}
             {appState == "moreoptions" && <MoreOptions
+                options={options}
+                setOptions={setOptions}
                 setAppState={setAppState}
             />}
             {appState == "getquote" && <GetQuote 

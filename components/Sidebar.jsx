@@ -31,7 +31,7 @@ function Sidebar(props) {
 
 
             <div id="basket-buttons">
-                <div id="contact" className="container">
+                <div id="contact" className="container" onClick={()=> props.setAppState("getquote")}>
                     <FontAwesomeIcon icon={faDollarSign} /> Get a Quote
                 </div>
                 <div id="pdf" className="container">
