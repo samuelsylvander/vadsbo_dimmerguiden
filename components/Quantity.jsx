@@ -20,7 +20,7 @@ function Quantity(props) {
         let update = parseFloat(props.currentRoom[props.property]);
         if (event.currentTarget.dataset.type == "plus") {
             update = update + 1;
-        } else if (event.currentTarget.dataset.type == "minus" && update > 1) {
+        } else if (event.currentTarget.dataset.type == "minus" && update > 0) {
             update = update - 1;
         }
         props.setCurrentRoom(prevVal => ({...prevVal, [props.property]: update}));

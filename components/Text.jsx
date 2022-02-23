@@ -3,7 +3,10 @@ import Error from "./Error";
 import Info from "./Info";
 
 function Text(props) {
-    const showError = (props.error.includes(props.property)) 
+    let showError = "";
+    if (props.error) {
+        showError = (props.error.includes(props.property)) 
+    };
 
     function handleChange(event) {
         props.setCurrentRoom(prevVal => ({...prevVal, [props.property]: event.target.value}))
