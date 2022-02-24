@@ -9,29 +9,45 @@ function MoreOptions(props) {
                 property="battery" 
                 currentRoom={props.options}
                 setCurrentRoom={props.setOptions} 
-                label="Batteribackup" 
+                label="Batteri-backup" 
                 field={["Ya", "Nej"]}
                 infoText="Info text here"
             />
             <SwitchButtons 
-                property="ipad" 
+                property="alarm" 
                 currentRoom={props.options}
                 setCurrentRoom={props.setOptions} 
-                label="iPad med förinstallerat Casambi" 
+                label="Larmkoppling" 
                 field={["Ya", "Nej"]}
                 infoText="Info text here"
             />
-            {props.options.ipad == "Ya" && <Quantity 
+            {/* {props.options.ipad == "Ya" && <Quantity 
                 property="ipadnum"
                 currentRoom={props.options}
                 setCurrentRoom={props.setOptions}
                 label="Quantity"
-            />}
+            />} */}
             <SwitchButtons 
-                property="starter" 
+                property="boka" 
                 currentRoom={props.options}
                 setCurrentRoom={props.setOptions} 
-                label="Startklarpaket" 
+                label="Vadsbox Boka" 
+                field={["Ya", "Nej"]}
+                infoText="Info text here"
+            />
+            <SwitchButtons 
+                property="larm" 
+                currentRoom={props.options}
+                setCurrentRoom={props.setOptions} 
+                label="Vadsbox Larm" 
+                field={["Ya", "Nej"]}
+                infoText="Info text here"
+            />
+            <SwitchButtons 
+                property="drift" 
+                currentRoom={props.options}
+                setCurrentRoom={props.setOptions} 
+                label="Driftsättning" 
                 field={["Ya", "Nej"]}
                 infoText="Info text here"
             />

@@ -27,9 +27,11 @@ export default function OptionsList(props) {
         <div id={"optionsdetails"} className="container bg-info collapsable mt-0">
             <div className="row">
                 <div className="col fs-5">
-                    Batteribackup: <strong>{props.options.battery}</strong><br/>
-                    iPad: <strong>{props.options.ipad}</strong> {props.options.ipad=="Ya" && <span>Number: <strong>{props.options.ipadnum}</strong></span>}<br/>
-                    Startklarpaket: <strong>{props.options.starter}</strong><br/>
+                    Batteri-backup: <strong>{props.options.battery}</strong><br/>
+                    Larmkoppling: <strong>{props.options.alarm}</strong><br/>
+                    Vadsbox Boka: <strong>{props.options.boka}</strong><br/>
+                    Vadsbox Larm: <strong>{props.options.larm}</strong><br/>
+                    Driftsättning: <strong>{props.options.drift}</strong><br/>
                 </div>
                 <div className="col">
                     <div className="text-end fs-4" onClick={props.edit}>
