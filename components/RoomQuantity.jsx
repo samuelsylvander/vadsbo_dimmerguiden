@@ -48,7 +48,9 @@ function RoomQuantity(props) {
         <>
         <div className="container bg-primary mb-0">
             <div className="row align-items-center justify-content-between">
-                <div className="col align-self-center"><h3>{props.label}</h3></div>
+                <div className="col align-self-center">
+                    <h3>{props.label}</h3>
+                </div>
                 <div className="col-auto">
                     <div className="input-group align-items-center">
                         <button type="button" className="btn btn-success" data-type="minus" onClick={handleIncrement}>

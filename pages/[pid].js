@@ -22,7 +22,9 @@ export async function getServerSideProps(context) {
 		output = await dbResults.findOne({_id: new ObjectId(pid)})
 		console.log("database access results: " + JSON.stringify(output))
 	} catch (e) {
+        console.log("Oh no!")
 		console.log(e)
+        return {props: {loadedProject: "errored", errorText: JSON.stringify(e)}}
 	}
 
 	return {
@@ -32,7 +34,17 @@ export async function getServerSideProps(context) {
 	};
 }
 
-export default function Project({ loadedProject }) {
+export default function Project({ loadedProject, errorText }) {
+    if (loadedProject == "errored") {
+        return (
+            <>
+                <h1>Sorry, can't access database</h1>
+                <h3>Please try again later</h3>
+                <p>{errorText}</p>
+            </>
+        )
+    }
+
     const [appState, setAppState] = useState("summary");
     const blankRoom = {"name": "", "dali": "", "lights": 0, "group": "", "app": "", "switches": 0, "noOfRooms": 1}
     const blankOptions = {ipad: "", ipadnum: 0, battery: "", starter: ""}

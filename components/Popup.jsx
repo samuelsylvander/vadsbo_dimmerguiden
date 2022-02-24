@@ -1,8 +1,14 @@
 import React from "react";
 
+//props:
+//title
+//body 
+//confirm [label, function]
+//dismiss [label, function]
+
 function Popup(props) {
     return (
-        <div className="popup">
+        <div style={{zIndex: 10070}} className="popup">
             <div className="popup-title">
                 {props.title}
             </div>

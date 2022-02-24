@@ -40,8 +40,8 @@ export default function Home(props) {
 		<Head> 
 			<title>Vadsbo dimmerGuiden</title>
 		</Head>
-        <Header />
-        <div className="container">
+        <Header/>
+        <div style={{background: "#F7F7F7"}} className="w-50 vh-100 pt-5 mx-auto">
 
             <div className="row">
 

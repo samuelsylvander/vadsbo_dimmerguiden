@@ -16,7 +16,7 @@ function Header(props) {
     return (
         <nav className="navbar bg-primary position-fixed w-100">
             <span className="navbar-brand">Vadsbo</span>
-            <FontAwesomeIcon icon={faLink} onClick={()=>setShowPopup(true)} />
+            {props.projectId && <FontAwesomeIcon icon={faLink} onClick={()=>setShowPopup(true)} />}
             {showPopup && <Popup
                 title="Share your project"
                 body={body}
