@@ -1,19 +1,24 @@
 import React from "react";
 import Error from "./Error";
+import Info from "./Info";
 
 function Text(props) {
-    const showError = (props.error.includes(props.property)) 
+    let showError = "";
+    if (props.error) {
+        showError = (props.error.includes(props.property)) 
+    };
 
     function handleChange(event) {
-        props.setRoomDetails(prevVal => ({...prevVal, [props.property]: event.target.value}))
+        props.setCurrentRoom(prevVal => ({...prevVal, [props.property]: event.target.value}))
     }
     
     return (
         <div className="container">
             <div className="row">
                 <label>
-                    <h3>{props.label}</h3>
-                    <input type="text" placeholder="Room name" value={props.roomDetails[props.property]} onChange={handleChange}></input>
+                    <h3 className="d-inline-block">{props.label}</h3>
+                    {props.infoText && <Info text={props.infoText} />}
+                    <input type="text" placeholder="Room name" value={props.currentRoom[props.property]} onChange={handleChange}></input>
                 </label>
             </div>
             {showError && <Error />}

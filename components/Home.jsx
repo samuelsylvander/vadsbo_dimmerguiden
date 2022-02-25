@@ -4,28 +4,11 @@ import phoneAppPic from "../public/phone-app.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
-    // props required:
-    // project - name of current project
-    // setProject - function to set "project"
-    // setAppState - function to change current page in app
-    // setRoomList - function used to import details from local storage or database
-    // dbProjects - project details stored in database (currently unused)
-
 function Home(props) {
+    
     function handleUpdate(event) {
         let name = event.target.value;
         props.setProject(name);
-    }
-
-    function handleSubmit(event) {
-        props.setAppState("newroom");
-        event.preventDefault();
-    };
-
-    function loadProject(index) {
-        props.setProject(props.projectList[index].projectName);
-        props.setRoomList(props.projectList[index].roomList);
-        props.setAppState("summary");
     }
 
     return (
@@ -53,16 +36,13 @@ function Home(props) {
             <div className="row">
 
                 <div className="col-6 bg-primary p-4 m-3">
-                    <form onSubmit={handleSubmit} >
                     <h3>Start Planning</h3>
                     <label>
                         Project Name<br/>
                         <input id="start-project" type="text" value={props.project} onChange={handleUpdate} placeholder="Give your project a name" />
                     </label>
-                    <button className="button btn-dark" type="submit">Start Project</button>
-                    </form>
-                    {props.projectList.length > 0 && <><br /><h4>Or Load a Previous Project</h4></>}
-                    {props.projectList.map((project, index) => <button key={project.projectName} className="button btn-dark" onClick={() => loadProject(index)}>{project.projectName}</button>)}
+                    <br/>
+                    <button className="button btn-dark" type="button" onClick={props.newProject}>Start Project</button>
                 </div>
 
                 <div className="col py-3">

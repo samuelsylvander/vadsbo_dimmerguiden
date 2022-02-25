@@ -1,38 +1,31 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDollarSign, faFilePdf } from "@fortawesome/free-solid-svg-icons";
+import algorithm from "../libs/algorithm";
+import BasketItem from "./BasketItem";
 
 function Sidebar(props) {
-    function openSidebar() {
-        const basket = document.getElementById("basket");
-        if (basket.style.right == "0px") {
-            basket.style.right = "-300px";
-        } else {
-            basket.style.right = "0px";
-        }
-    }
+    const basketItems = algorithm(props.roomList);
 
     return (
-        <div id="basket">
-            <div id="basket-items">
-                <ul>
-                    <li>Item 1</li>
-                    <li>Item 2</li>
-                    <li>Item 3</li>
+        <div className="d-flex flex-column justify-content-between h-100 fs-4">
+            <div id="basket-items" className="text-white flex-grow-1">
+                <ul className="list-unstyled p-3">
+                    {Object.keys(basketItems).map(key => {
+                        if (basketItems[key] > 0) {
+                            return <BasketItem key={key} item={key} quantity={basketItems[key]}/>
+                        }
+                    })}
                 </ul>
             </div>
 
-
-            <div id="basket-buttons">
-                <div id="contact" className="container">
+            <div id="basket-buttons" className="w-100">
+                <div id="contact" className="container m-0 bg-info" onClick={()=> props.setAppState("getquote")}>
                     <FontAwesomeIcon icon={faDollarSign} /> Get a Quote
                 </div>
-                <div id="pdf" className="container">
+                <div id="pdf" className="container m-0 bg-primary">
                     <FontAwesomeIcon icon={faFilePdf} /> Create PDF
                 </div>
-            </div>
-            <div id="sidebar-button" onClick={openSidebar}>
-                <FontAwesomeIcon icon={faDollarSign} />
             </div>
         </div>
     )

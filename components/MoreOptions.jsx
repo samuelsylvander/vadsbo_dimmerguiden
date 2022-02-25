@@ -1,8 +1,59 @@
 import React from "react";
+import Quantity from "./Quantity";
+import SwitchButtons from "./SwitchButtons";
 
 function MoreOptions(props) {
     return (
-        <button className="button btn-dark" onClick={()=>props.setAppState("summary")}>Go Back</button>
+        <>
+            <SwitchButtons 
+                property="battery" 
+                currentRoom={props.options}
+                setCurrentRoom={props.setOptions} 
+                label="Batteri-backup" 
+                field={["Ya", "Nej"]}
+                infoText="Info text here"
+            />
+            <SwitchButtons 
+                property="alarm" 
+                currentRoom={props.options}
+                setCurrentRoom={props.setOptions} 
+                label="Larmkoppling" 
+                field={["Ya", "Nej"]}
+                infoText="Info text here"
+            />
+            {/* {props.options.ipad == "Ya" && <Quantity 
+                property="ipadnum"
+                currentRoom={props.options}
+                setCurrentRoom={props.setOptions}
+                label="Quantity"
+            />} */}
+            <SwitchButtons 
+                property="boka" 
+                currentRoom={props.options}
+                setCurrentRoom={props.setOptions} 
+                label="Vadsbox Boka" 
+                field={["Ya", "Nej"]}
+                infoText="Info text here"
+            />
+            <SwitchButtons 
+                property="larm" 
+                currentRoom={props.options}
+                setCurrentRoom={props.setOptions} 
+                label="Vadsbox Larm" 
+                field={["Ya", "Nej"]}
+                infoText="Info text here"
+            />
+            <SwitchButtons 
+                property="drift" 
+                currentRoom={props.options}
+                setCurrentRoom={props.setOptions} 
+                label="Driftsättning" 
+                field={["Ya", "Nej"]}
+                infoText="Info text here"
+            />
+          
+            <button className="button btn-dark" onClick={()=>props.setAppState("summary")}>Save Options</button>
+        </>
     )
 };
 
