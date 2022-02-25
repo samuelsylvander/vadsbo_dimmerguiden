@@ -17,7 +17,8 @@ export default function Summary(props) {
                 <h1 className="mt-5">Summary</h1>
                 {props.roomList.map((item, index) => {
                     return (
-                        <RoomQuantity 
+                        <RoomQuantity
+                            key={item.name + index}
                             label={item.name} 
                             index={index} 
                             roomList={props.roomList} 

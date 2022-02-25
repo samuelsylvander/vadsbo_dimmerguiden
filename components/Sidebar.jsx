@@ -6,7 +6,6 @@ import BasketItem from "./BasketItem";
 
 function Sidebar(props) {
     const basketItems = algorithm(props.roomList);
-    console.log(basketItems)
 
     return (
         <div className="d-flex flex-column justify-content-between h-100 fs-4">
@@ -14,7 +13,7 @@ function Sidebar(props) {
                 <ul className="list-unstyled p-3">
                     {Object.keys(basketItems).map(key => {
                         if (basketItems[key] > 0) {
-                            return <BasketItem item={key} quantity={basketItems[key]}/>
+                            return <BasketItem key={key} item={key} quantity={basketItems[key]}/>
                         }
                     })}
                 </ul>
