@@ -15,9 +15,13 @@ function NewRoom(props) {
     const [step, setStep] = useState(0);
 
     useEffect( ()=> {
-        if (props.currentRoom.app != "") {
-            setStep(3)
+        if (props.currentRoom.switches > 0) {
+            setStep(5)
+        } else if (props.currentRoom.app != "") {
+            setStep(4)
         } else if (props.currentRoom.group != "") {
+            setStep(3)
+        } else if (props.currentRoom.lights > 0) {
             setStep(2)
         } else if (props.currentRoom.name != "" && props.currentRoom.dali != "") {
             setStep(1);
@@ -48,15 +52,15 @@ function NewRoom(props) {
         />
 
         
-        <Quantity 
+        {step > 0 && <Quantity 
             property="lights"
             currentRoom={props.currentRoom}
             setCurrentRoom={props.setCurrentRoom} 
             label="Lights" 
             // infoText="Info text here"
-        />
+        />}
 
-        {step > 0 && <SwitchButtons 
+        {step > 1 && <SwitchButtons 
             property="group"
             error={props.error}
             currentRoom={props.currentRoom}
@@ -66,7 +70,7 @@ function NewRoom(props) {
             infoText="Info text here"
         />}
 
-        {step > 1 && <SwitchButtons 
+        {step > 2 && <SwitchButtons 
             property="app"
             error={props.error}
             currentRoom={props.currentRoom}
@@ -76,7 +80,7 @@ function NewRoom(props) {
             infoText="Info text here"
         />}
 
-        {step > 1 && <Quantity 
+        {step > 3 && <Quantity 
             property="switches"
             currentRoom={props.currentRoom}
             setCurrentRoom={props.setCurrentRoom} 
@@ -84,7 +88,7 @@ function NewRoom(props) {
             // infoText="Info text here"
         />}
 
-        {step > 2 && <button className="button btn-dark" onClick={props.saveRoom}>Save Room</button>}
+        {step > 4 && <button className="button btn-dark" onClick={props.saveRoom}>Save Room</button>}
       
         {/* display currentRoom contents for debugging */}
         <p>{JSON.stringify(props.currentRoom)}</p>
