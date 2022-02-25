@@ -1,20 +1,30 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import Popup from "./Popup.jsx"
+import Popup from "./Popup.jsx";
+import sendEmail from "../libs/sendemail.js";
 
 function GetQuote(props) {
     const [submitted, setSubmitted] = useState(false);
     const router = useRouter();
 
-    function handleSubmit(event) {
-        setSubmitted(true);
+    async function handleSubmit(event) {
         event.preventDefault();
+        //add loading animation
+        const formdata = new FormData(document.getElementById("get-quote-form"));
+        formdata.append("projectId", props.projectId);
+        formdata.append("link", `localhost:3000/${props.projectId}`);
+        const result = await sendEmail(formdata);
+        if (result == "success") {
+            setSubmitted(true);
+        } else {
+            console.log(result)
+        }
     }
     
     return (
         <div className="container m-auto text-center">
             <h1>Get a Quote</h1>
-            <form onSubmit={handleSubmit}>
+            <form id="get-quote-form" name="get-quote" onSubmit={handleSubmit}>
                 <label>Your Name<br/>
                     <input name="name" type="text" />
                 </label>
@@ -28,7 +38,7 @@ function GetQuote(props) {
                 </label>
                 <br/>
                 <label>Additional Information<br/>
-                    <textarea name="additional" />
+                    <textarea name="message" />
                 </label>
                 <br/>
                 <button className="button btn-dark" type="submit">Submit Request</button>

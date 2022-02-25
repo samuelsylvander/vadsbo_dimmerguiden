@@ -16,22 +16,23 @@ export async function getServerSideProps(context) {
     console.log("url pid = " + pid);
 	let output;
 
-	try {
-		const { db } = await connectToDatabase();
-		const dbResults = await db.collection("projects")
-		output = await dbResults.findOne({_id: new ObjectId(pid)})
-		console.log("database access results: " + JSON.stringify(output))
-	} catch (e) {
-        console.log("Oh no!")
-		console.log(e)
+    try {
+        const { db } = await connectToDatabase();
+        const dbResults = await db.collection("projects")
+        output = await dbResults.findOne({_id: new ObjectId(pid)})
+        // console.log("database access results: " + JSON.stringify(output))
+    } catch (e) {
+        console.log("getServerSideProps error")
+        // console.log(e)
         return {props: {loadedProject: "errored", errorText: JSON.stringify(e)}}
-	}
+    }
 
-	return {
-		props: {
-			loadedProject: JSON.parse(JSON.stringify(output))
-		},
-	};
+    return {
+        props: {
+            loadedProject: JSON.parse(JSON.stringify(output))
+        },
+    };
+
 }
 
 export default function Project({ loadedProject, errorText }) {
@@ -108,7 +109,6 @@ export default function Project({ loadedProject, errorText }) {
     }
 
     useEffect( ()=> {
-        console.log(roomList)
         if (roomList.length == 0) {
             setAppState("newroom")
         }
@@ -147,7 +147,9 @@ export default function Project({ loadedProject, errorText }) {
             />}
             {appState == "getquote" && <GetQuote 
                 setAppState={setAppState}
+                projectId={loadedProject._id}
             />}
+            {loadedProject._id}
         </div>
         </>
     )
