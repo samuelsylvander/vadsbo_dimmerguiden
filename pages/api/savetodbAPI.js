@@ -6,7 +6,7 @@ export default async function updateDB(req, res) {
 
     try {
         const { client, db } = await connectToDatabase();
-        const vadsbo = await db.collection("vadsbo");
+        const vadsbo = await db.collection("projects");
 
         if (!requestObject.id) {
             const result = await vadsbo.insertOne(requestObject);
@@ -16,8 +16,8 @@ export default async function updateDB(req, res) {
 
         } else {
             const filter = {_id: new ObjectId(requestObject.id)};
-            const update = {$set: {roomList: requestObject.roomList}};
-            const result = await vadsbo.updateOne(filter, update);
+            // const update = {$set: {roomList: requestObject.roomList}};
+            const result = await vadsbo.replaceOne(filter, requestObject);
             console.log(result)
             res.status(200).json(result)
             res.send()

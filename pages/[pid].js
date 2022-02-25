@@ -18,7 +18,7 @@ export async function getServerSideProps(context) {
 
 	try {
 		const { db } = await connectToDatabase();
-		const dbResults = await db.collection("vadsbo")
+		const dbResults = await db.collection("projects")
 		output = await dbResults.findOne({_id: new ObjectId(pid)})
 		console.log("database access results: " + JSON.stringify(output))
 	} catch (e) {
@@ -47,12 +47,11 @@ export default function Project({ loadedProject, errorText }) {
 
     const [appState, setAppState] = useState("summary");
     const blankRoom = {"name": "", "dali": "", "lights": 0, "group": "", "app": "", "switches": 0, "noOfRooms": 1}
-    const blankOptions = {ipad: "", ipadnum: 0, battery: "", starter: ""}
     const [projectName, setProjectName] = useState(loadedProject.projectName);
     const [currentRoom, setCurrentRoom] = useState(blankRoom);
     const [roomList, setRoomList] = useState(loadedProject.roomList); //array of all current rooms
     const [roomError, setRoomError] = useState([]); // array with errors from New Room form
-    const [options, setOptions] = useState(blankOptions);
+    const [options, setOptions] = useState({});
 
 
     function saveRoom() {
