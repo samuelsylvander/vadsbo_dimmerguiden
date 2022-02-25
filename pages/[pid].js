@@ -96,18 +96,6 @@ export default function Project({ loadedProject, errorText }) {
         setRoomList(prevVal => prevVal.filter(room => room.name != deletedRoomName));
     }
 
-    async function saveProject() {
-        const url = "http://localhost:3000/api/savetodbAPI"
-        const request = new XMLHttpRequest();
-        request.open("POST", url, true);
-        request.onreadystatechange = ()=> {
-            if (request.readyState == 4 && request.status == 200) {
-                console.log("server response: " + request.response);
-              }
-        }
-        request.send(JSON.stringify({id: loadedProject._id, projectName: projectName, roomList: roomList, options: options}));
-    }
-
     useEffect( ()=> {
         if (roomList.length == 0) {
             setAppState("newroom")
@@ -129,11 +117,11 @@ export default function Project({ loadedProject, errorText }) {
                 error={roomError}
             />}
             {appState == "summary" && <Summary 
+                projectId={loadedProject._id}
                 roomList={roomList} 
                 setRoomList={setRoomList}
                 setAppState={setAppState} 
                 projectName={projectName} 
-                saveProject={saveProject}
                 addRoom={addRoom}
                 loadRoom={loadRoom}
                 deleteRoom={deleteRoom}
