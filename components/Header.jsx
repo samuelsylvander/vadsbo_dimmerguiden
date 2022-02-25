@@ -5,7 +5,6 @@ import Popup from "./Popup";
 
 function Header(props) {
     const url = `localhost:3000/${props.projectId}`;
-    const mail = "mailto:?subject=My Vadsbo Project&body="+url;
     const [showPopup, setShowPopup] = useState(false)
     const body = <>Your project ID is: {props.projectId}<br />Access this project at:<br/>{url}</>
 

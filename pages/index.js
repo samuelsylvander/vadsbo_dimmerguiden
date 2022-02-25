@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import React, {useState} from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 config.autoAddCss = false;
@@ -14,6 +14,7 @@ import Header from '../components/Header';
 
 export default function Home(props) {
 	const [projectName, setProjectName] = useState("");
+    const [buttonText, setButtonText] = useState("Start Project");
     const router = useRouter();
 
 	function handleUpdate(event) {
@@ -21,7 +22,19 @@ export default function Home(props) {
         setProjectName(name);
 	}
 
-    async function newProject() {
+    async function newProject(event) {
+        // set loading animation
+        event.target.disabled = true;
+        const newText = 
+            <span>
+                Creating Project
+                <div class="spinner-border mx-2" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </span>
+        setButtonText(newText)
+
+        //start working
         const url = "http://localhost:3000/api/savetodbAPI"
         const request = new XMLHttpRequest();
         request.open("POST", url, true);
@@ -71,7 +84,7 @@ export default function Home(props) {
                         <input id="start-project" type="text" value={projectName} onChange={handleUpdate} placeholder="Give your project a name" />
                     </label>
                     <br/>
-                    <button className="button btn-dark" type="button" onClick={newProject}>Start Project</button>
+                    <button className="button btn-dark" type="button" onClick={newProject}>{buttonText}</button>
                 </div>
 
                 <div className="col py-3">

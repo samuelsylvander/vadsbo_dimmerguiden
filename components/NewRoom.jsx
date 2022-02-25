@@ -91,7 +91,7 @@ function NewRoom(props) {
         {step > 4 && <button className="button btn-dark" onClick={props.saveRoom}>Save Room</button>}
       
         {/* display currentRoom contents for debugging */}
-        <p>{JSON.stringify(props.currentRoom)}</p>
+        {/* <p>{JSON.stringify(props.currentRoom)}</p> */}
 
     </div>
     )

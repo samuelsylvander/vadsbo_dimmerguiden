@@ -5,11 +5,22 @@ import sendEmail from "../libs/sendemail.js";
 
 function GetQuote(props) {
     const [submitted, setSubmitted] = useState(false);
+    const [buttonText, setButtonText] = useState("Submit Request")
     const router = useRouter();
 
     async function handleSubmit(event) {
-        event.preventDefault();
         //add loading animation
+        const newButtonText = 
+            <span>
+                Submitting...
+                <div class="spinner-border mx-2" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </span>
+        setButtonText(newButtonText)
+
+        //get to work
+        event.preventDefault();
         const formdata = new FormData(document.getElementById("get-quote-form"));
         formdata.append("projectId", props.projectId);
         formdata.append("link", `localhost:3000/${props.projectId}`);
@@ -41,7 +52,7 @@ function GetQuote(props) {
                     <textarea name="message" />
                 </label>
                 <br/>
-                <button className="button btn-dark" type="submit">Submit Request</button>
+                <button className="button btn-dark" type="submit">{buttonText}</button>
             </form>
             <button className="button btn-dark" type="button" onClick={()=> props.setAppState("summary")}>Cancel</button>
             {submitted && <Popup 

@@ -149,7 +149,7 @@ export default function Project({ loadedProject, errorText }) {
                 setAppState={setAppState}
                 projectId={loadedProject._id}
             />}
-            {loadedProject._id}
+            {/* {loadedProject._id} */}
         </div>
         </>
     )
