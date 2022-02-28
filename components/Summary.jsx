@@ -82,6 +82,7 @@ export default function Summary(props) {
                 <Sidebar 
                     roomList={props.roomList} 
                     setAppState={props.setAppState}
+                    options={props.options}
                 />
             </div>
 
