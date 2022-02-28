@@ -1,8 +1,8 @@
-import React from "react";
-import Quantity from "./Quantity";
+import React, { useEffect, useState } from "react";
 import SwitchButtons from "./SwitchButtons";
 
 function MoreOptions(props) {
+
     return (
         <>
             <SwitchButtons 
@@ -52,7 +52,8 @@ function MoreOptions(props) {
                 infoText="Info text here"
             />
           
-            <button className="button btn-dark" onClick={()=>props.setAppState("summary")}>Save Options</button>
+            {Object.keys(props.options).length > 4 && <button className="button btn-dark" onClick={()=>props.setAppState("summary")}>Save Options</button>}
+            {JSON.stringify(props.options)}
         </>
     )
 };
