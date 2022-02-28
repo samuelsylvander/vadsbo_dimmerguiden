@@ -52,7 +52,7 @@ export default function Project({ loadedProject, errorText }) {
     const [currentRoom, setCurrentRoom] = useState(blankRoom);
     const [roomList, setRoomList] = useState(loadedProject.roomList); //array of all current rooms
     const [roomError, setRoomError] = useState([]); // array with errors from New Room form
-    const [options, setOptions] = useState({});
+    const [options, setOptions] = useState(loadedProject.options);
 
 
     function saveRoom() {

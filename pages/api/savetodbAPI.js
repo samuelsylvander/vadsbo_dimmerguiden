@@ -5,7 +5,7 @@ export default async function updateDB(req, res) {
     const requestObject = JSON.parse(req.body);
 
     try {
-        const { client, db } = await connectToDatabase();
+        const { db } = await connectToDatabase();
         const vadsbo = await db.collection("projects");
 
         if (!requestObject.id) {
