@@ -12,6 +12,7 @@ config.autoAddCss = false;
 import Header from "../components/Header";
 
 
+
 export async function getServerSideProps(context) {
 	const pid = context.query.pid;
     console.log("url pid = " + pid);
@@ -50,10 +51,9 @@ export default function Project({ loadedProject, errorText }) {
 
     const [appState, setAppState] = useState("summary");
     const blankRoom = {"name": "", "dali": "", "lights": 0, "group": "", "app": "", "switches": 0, "noOfRooms": 1}
-    const [projectName, setProjectName] = useState(loadedProject.projectName); //using state to allow for later editing of name
+    const projectName = loadedProject.projectName
     const [currentRoom, setCurrentRoom] = useState(blankRoom);
-    const [roomList, setRoomList] = useState(loadedProject.roomList); //array of all current rooms
-    const [roomError, setRoomError] = useState([]); // array with errors from New Room form
+    const [roomList, setRoomList] = useState(loadedProject.roomList); //array of all rooms in current project
     const [options, setOptions] = useState(loadedProject.options);
 
 
@@ -64,24 +64,22 @@ export default function Project({ loadedProject, errorText }) {
 
     function addRoom() {
         setCurrentRoom(blankRoom);
-        setRoomError([]);
         setAppState("newroom");
     }
 
     function loadRoom(loadedRoomName) {
         setCurrentRoom(roomList.filter(room => room.name == loadedRoomName)[0]); //filter returns an array, need the [0]
         setRoomList(prevVal => prevVal.filter(room => room.name != loadedRoomName)); //remove that room from the roomList to prevent duplicates
-        setRoomError([]);
         setAppState("newroom");
     }
 
-    function deleteRoom(deletedRoomName) {
-        setRoomList(prevVal => prevVal.filter(room => room.name != deletedRoomName)); // **bug** if multiple rooms have same name
+    function deleteRoom(deletedIndex) {
+        setRoomList(prevVal => prevVal.filter((room, index) => index != deletedIndex));
     }
 
     useEffect( ()=> {
         if (roomList.length == 0) {
-            setAppState("newroom")
+            setAppState("newroom") // if there are no rooms yet, go straight to New Room
         }
     }, [])
 
@@ -92,12 +90,12 @@ export default function Project({ loadedProject, errorText }) {
         </Head>
         <Header projectId={loadedProject._id}/>
         <div style={{background: "#F7F7F7"}} className="w-50 vh-100 pt-5 mx-auto">
+
              {appState == "newroom" && <NewRoom  
                 projectName={projectName} 
                 currentRoom={currentRoom}
                 setCurrentRoom={setCurrentRoom}
                 saveRoom={saveRoom}
-                error={roomError}
             />}
             {appState == "summary" && <Summary 
                 projectId={loadedProject._id}
