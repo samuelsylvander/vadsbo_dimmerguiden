@@ -39,7 +39,9 @@ export default function Summary(props) {
 
     useEffect( ()=> {
         setButtonText("Save Project")
-    }, [props.roomList])
+    }, [props.roomList]);
+
+    useEffect(saveProject, []); //save project every time we enter summary page
 
     return (
         <div className="container row m-0 p-0 h-100 w-100">
