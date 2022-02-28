@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import SwitchButtons from "./SwitchButtons";
 
 function MoreOptions(props) {
@@ -13,20 +13,6 @@ function MoreOptions(props) {
                 field={["Ya", "Nej"]}
                 infoText="Info text here"
             />
-            <SwitchButtons 
-                property="alarm" 
-                currentRoom={props.options}
-                setCurrentRoom={props.setOptions} 
-                label="Larmkoppling" 
-                field={["Ya", "Nej"]}
-                infoText="Info text here"
-            />
-            {/* {props.options.ipad == "Ya" && <Quantity 
-                property="ipadnum"
-                currentRoom={props.options}
-                setCurrentRoom={props.setOptions}
-                label="Quantity"
-            />} */}
             <SwitchButtons 
                 property="boka" 
                 currentRoom={props.options}
@@ -51,9 +37,8 @@ function MoreOptions(props) {
                 field={["Ya", "Nej"]}
                 infoText="Info text here"
             />
-          
-            {Object.keys(props.options).length > 4 && <button className="button btn-dark" onClick={()=>props.setAppState("summary")}>Save Options</button>}
-            {JSON.stringify(props.options)}
+        
+            {Object.keys(props.options).length > 3 && <button className="button btn-dark" onClick={()=>props.setAppState("summary")}>Save Options</button>}
         </>
     )
 };

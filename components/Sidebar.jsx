@@ -16,7 +16,7 @@ function Sidebar(props) {
 
     return (
         <div className="d-flex flex-column justify-content-between h-100 fs-4">
-            <div id="basket-items" className="text-white flex-grow-1">
+            <div id="basket-items" className="text-white flex-grow-1 mt-5">
                 <ul className="list-unstyled p-3">
                     {Object.keys(basketItems).map(key => {
                         if (basketItems[key] > 0) {

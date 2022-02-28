@@ -1,15 +1,17 @@
 import React from "react";
-import Error from "./Error";
 import Info from "./Info";
 import daliLogo from "../public/dali_r_logo_black.png";
 import Image from "next/image";
 
-function SwitchButtons(props) {
-    let showError = "";
-    if (props.error) {
-        showError = (props.error.includes(props.property)) 
-    };
+//props required
+// label
+// infoText (currently unused)
+// property - what value will actually be set
+// field - array containing button labels, also values to be set to property
+// currentRoom - object with current room details
+// setCurrentRoom - function to set room details
 
+function SwitchButtons(props) {
     function handleSwitch(event) {
         const buttonField = event.currentTarget.dataset.field;
         props.setCurrentRoom(prevVal => ({...prevVal, [props.property]: buttonField}))
@@ -18,10 +20,10 @@ function SwitchButtons(props) {
     function formatField(field) {
         if (field.includes("DALI")) {
             return (
-            <span>
-                <Image src={daliLogo} height={23} width={72}/>
+            <div className="d-flex align-items-center fw-bold">
+                <Image src={daliLogo} height={35} width={110}/>
                 {field.slice(4)}
-            </span>
+            </div>
             )
         } else {
             return field
@@ -39,7 +41,7 @@ function SwitchButtons(props) {
                             key={field}
                             height="2rem"
                             data-field={field}
-                            className={props.currentRoom[props.property] == field ? "button btn-primary" : "button"} 
+                            className={props.currentRoom[props.property] == field ? "button btn-primary py-2 px-3" : "button p-2 px-3"} 
                             onClick={handleSwitch}
                         >
                             {formatField(field)}
@@ -47,7 +49,6 @@ function SwitchButtons(props) {
                     )
                 })}
             </div>
-            {showError && <Error />}
         </div>
     )
 }

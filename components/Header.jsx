@@ -18,10 +18,10 @@ function Header(props) {
 
     return (
         <nav className="navbar bg-primary position-fixed w-100">
-                <div className="col-auto px-3 me-auto">
+                <div className="col-auto px-5 me-auto">
                     <Image src={vadsboLogo} height={60} width={292} alt="Vadsbo Logo" />
                 </div>
-                <div className="col-auto">
+                <div className="col-auto px-5">
                     <h1>dimmerGuiden&#8482;</h1>
                 </div>
                 {props.projectId && <div className="col-1 text-center h4" onClick={copyURL}>

@@ -1,14 +1,27 @@
 $primary: #FFE442;
 $danger: #FFDFCA;
-$success: #FFF6C6;
+$secondary: #FFF6C6;
 $warning: #CDD9EE;
 $info: #FFAF7D;
 $body-bg: #e4e4e4;
 
 @import "bootstrap";
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;600&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+h1, h2, h3, h4 {
+    font-weight: 600;
+}
+
 .button {
-    border-radius: 20px;
+    border-radius: 7px;
+    font-size: 1.8rem;
+    margin: 0.5rem;
+
 }
 
 .container {
@@ -16,32 +29,9 @@ $body-bg: #e4e4e4;
     padding: 0.7rem;
 }
 
-button {
-    font-size: 1.5rem;
-}
-
-.roomtype-passive {
-    background: #343A40;
-    color: $primary;
-    font-size: 1.5rem;
-    padding: 1rem;
-    margin: 1rem;
-    display: inline;
-    text-align: center;
-}
-
-.roomtype-active {
-    background: $primary;
-    color: #343A40;
-    font-size: 1.5rem;
-    padding: 1rem;
-    margin: 1rem;
-    display: inline;
-    text-align: center;
-}
-
 div.custom-warning {
     position: relative;
+    clip-path: polygon(0 25px,calc(15% - 25.00px) 25px,15% 0,calc(15% + 25.00px) 25px,100% 25px,100% 100%,0 100%);
 }
 
 div.custom-warning-pointer {
@@ -51,12 +41,8 @@ div.custom-warning-pointer {
     transform: rotate(-45deg) translate(40px, 4px);
 }
 
-path.select {
-    fill: $primary;
-}
-
 div.collapsable {
-    max-height: 300px;
+    max-height: 0;
     box-sizing: border-box;
     transition: max-height 0.5s;
     overflow: hidden;
@@ -65,15 +51,17 @@ div.collapsable {
 
 .popup {
     position: fixed;
-    left: 50%;
-    margin-left: -150px;
+    width: auto;
+    margin: auto;
     top: 30%;
-    z-index: 3;
+    z-index: 10080;
     background: $body-bg;
+    padding: 0;
 }
 
 .popup-title {
     background: $warning;
+    width: 100%;
     padding: 1rem;
     text-align: center;
     font-weight: bold;
@@ -88,4 +76,8 @@ div.collapsable {
 .popup-buttons {
     text-align: center;
     padding: 0.5rem;
+}
+
+li {
+    font-weight: 200;
 }

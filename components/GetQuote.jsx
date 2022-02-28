@@ -33,7 +33,7 @@ function GetQuote(props) {
     }
     
     return (
-        <div className="container m-auto text-center">
+        <div className="container mt-5 mx-auto text-center fs-4">
             <h1>Get a Quote</h1>
             <form id="get-quote-form" name="get-quote" onSubmit={handleSubmit}>
                 <label>Your Name<br/>

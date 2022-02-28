@@ -15,7 +15,7 @@ export default function OptionsList(props) {
 
     return(
     <>
-        <div className="container bg-primary mb-0" onClick={handleDetails}>
+        <div className="container bg-secondary mb-0" onClick={handleDetails}>
             <div className="row align-items-center justify-content-between">
                 <div className="col align-self-center">
                     <h3>
@@ -27,11 +27,10 @@ export default function OptionsList(props) {
                 </div>
             </div>
         </div>
-        <div id={"optionsdetails"} className="bg-info collapsable mt-0">
+        <div id={"optionsdetails"} className="bg-white collapsable mt-0">
             <div className="row p-2">
                 <div className="col fs-5">
                     Batteri-backup: <strong>{props.options.battery}</strong><br/>
-                    Larmkoppling: <strong>{props.options.alarm}</strong><br/>
                     Vadsbox Boka: <strong>{props.options.boka}</strong><br/>
                     Vadsbox Larm: <strong>{props.options.larm}</strong><br/>
                     Driftsättning: <strong>{props.options.drift}</strong><br/>

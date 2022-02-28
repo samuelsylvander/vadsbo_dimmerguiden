@@ -78,7 +78,7 @@ export default function Summary(props) {
                     <button className="button mx-3" onClick={()=>setShowPopup(true)}>Share</button>
                     <br/>
                     <br/>
-                    <button className="button btn-dark mx-3" onClick={saveProject}>{buttonText}</button>
+                    <button className="button mx-3" onClick={saveProject}>{buttonText}</button>
                 </div>
                 
             </div>

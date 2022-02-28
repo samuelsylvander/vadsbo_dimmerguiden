@@ -29,21 +29,19 @@ function NewRoom(props) {
     }, [props.currentRoom]);
 
     return (
-    <div className="container">
+    <div className="container text-center">
         <h1>Add a new room to {props.projectName}</h1>
         
         <Text 
             property="name" 
-            error={props.error}
             currentRoom={props.currentRoom}
             setCurrentRoom={props.setCurrentRoom} 
-            label="Room Name"
+            label="Lägg till nytt rum"
             infoText="Choose a name for this room"
         />
 
         <SwitchButtons
             property="dali" 
-            error={props.error}
             currentRoom={props.currentRoom}
             setCurrentRoom={props.setCurrentRoom} 
             label="Vad vill du styra?"
@@ -62,7 +60,6 @@ function NewRoom(props) {
 
         {step > 1 && <SwitchButtons 
             property="group"
-            error={props.error}
             currentRoom={props.currentRoom}
             setCurrentRoom={props.setCurrentRoom} 
             label="Vill du styra armaturerna ihop eller individuellt?" 
@@ -72,7 +69,6 @@ function NewRoom(props) {
 
         {step > 2 && <SwitchButtons 
             property="app"
-            error={props.error}
             currentRoom={props.currentRoom}
             setCurrentRoom={props.setCurrentRoom} 
             label="Vill du styra med app (t ex tidstyrt) eller knapp?" 
@@ -91,7 +87,7 @@ function NewRoom(props) {
         {step > 4 && <button className="button btn-dark" onClick={props.saveRoom}>Save Room</button>}
       
         {/* display currentRoom contents for debugging */}
-        <p>{JSON.stringify(props.currentRoom)}</p>
+        {/* <p>{JSON.stringify(props.currentRoom)}</p> */}
 
     </div>
     )

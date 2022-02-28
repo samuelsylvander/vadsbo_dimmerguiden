@@ -46,18 +46,18 @@ function RoomQuantity(props) {
 
     return (
         <>
-        <div className="container bg-primary mb-0" onClick={handleDetails}>
+        <div className="container bg-secondary mb-0" onClick={handleDetails}>
             <div className="row align-items-center justify-content-between">
                 <div className="col-8 align-self-center">
                     <h3>{props.label}</h3>
                 </div>
                 <div className="col-3">
                     <div className="input-group ms-auto">
-                        <button type="button" className="btn btn-success" data-type="minus" onClick={handleIncrement}>
+                        <button type="button" className="btn btn-primary" data-type="minus" onClick={handleIncrement}>
                             <FontAwesomeIcon icon={faMinus} data-type="minus" />
                         </button>
                         <input type="text" className="form-control input-number" value={props.roomList[props.index].noOfRooms} onChange={handleQuantity} onClick={event=>event.stopPropagation()}/>
-                        <button type="button" className="btn btn-success" data-type="plus" onClick={handleIncrement} >
+                        <button type="button" className="btn btn-primary" data-type="plus" onClick={handleIncrement} >
                             <FontAwesomeIcon icon={faPlus} data-type="plus" />
                         </button>
                     </div>
@@ -67,7 +67,7 @@ function RoomQuantity(props) {
                 </div>
             </div>
         </div>
-        <div id={"summarydetails" + props.index} className="bg-info collapsable mt-0">
+        <div id={"summarydetails" + props.index} className="bg-white collapsable mt-0">
             <div className="row p-2">
                 <div className="col fs-5">
                     Room Name: <strong>{props.roomList[props.index].name}</strong><br/>
@@ -79,7 +79,7 @@ function RoomQuantity(props) {
                     <div className="text-end fs-4" onClick={()=>props.loadRoom(props.label)}>
                     Edit <FontAwesomeIcon icon={faPenToSquare} />
                     </div>
-                    <div className="text-end fs-4" onClick={()=>props.deleteRoom(props.label)}>
+                    <div className="text-end fs-4" onClick={()=>props.deleteRoom(props.index)}>
                     Delete <FontAwesomeIcon icon={faTrashCan} />
                     </div>
                 </div>

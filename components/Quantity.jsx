@@ -27,7 +27,7 @@ function Quantity(props) {
     }
 
     return (
-        <div className="container bg-primary">
+        <div className="container bg-secondary text-start">
             <div className="row align-items-center justify-content-between">
                 <div className="col align-self-center">
                     <h3 className="d-inline-block">{props.label}</h3>
@@ -35,11 +35,11 @@ function Quantity(props) {
                 </div>
                 <div className="col-auto">
                     <div className="input-group align-items-center">
-                        <button type="button" className="btn btn-success" data-type="minus" onClick={handleIncrement}>
+                        <button type="button" className="btn btn-primary" data-type="minus" onClick={handleIncrement}>
                             <FontAwesomeIcon icon={faMinus} data-type="minus" />
                         </button>
                         <input type="text" className="form-control input-number" value={props.currentRoom[props.property]} onChange={handleQuantity} />
-                        <button type="button" className="btn btn-success" data-type="plus" onClick={handleIncrement} >
+                        <button type="button" className="btn btn-primary" data-type="plus" onClick={handleIncrement} >
                             <FontAwesomeIcon icon={faPlus} data-type="plus" />
                         </button>
                     </div>

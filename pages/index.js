@@ -50,53 +50,53 @@ export default function Home(props) {
 
 	return (
 		<>
-		<Head> 
-			<title>Vadsbo dimmerGuiden</title>
-		</Head>
-        <Header/>
-        <div style={{background: "#F7F7F7"}} className="w-50 vh-100 pt-5 mx-auto">
+            <Head> 
+                <title>Vadsbo dimmerGuiden</title>
+            </Head>
+            <Header/>
+            <div style={{background: "#F7F7F7"}} className="w-50 vh-100 pt-5 mx-auto">
+                <div id="spacer" className="my-5"></div>
+                <div className="row">
 
-            <div className="row">
+                    <div className="col-6 p-5">
+                        <h4>Välkommen till dimmerGuiden™</h4>
+                        <p>Produkterna vi utvecklar är riktade till dig som 
+                        vill lösa din installation på ett enkelt och praktiskt 
+                        sätt. I dimmerGuiden™ har vi samlat våra produkter 
+                        (som fanns 2015 alltså), mätningar och tekniska 
+                        framsteg i form av förklaringar kring dimring och 
+                        installationsförfarande. dimmerGuiden™ innehåller 
+                        enkla tips på hur du lyckas med din installation.</p>
+                    </div>
 
-                <div className="col-6 p-5">
-                    <h4>Välkommen till dimmerGuiden™</h4>
-                    <p>Produkterna vi utvecklar är riktade till dig som 
-                    vill lösa din installation på ett enkelt och praktiskt 
-                    sätt. I dimmerGuiden™ har vi samlat våra produkter 
-                    (som fanns 2015 alltså), mätningar och tekniska 
-                    framsteg i form av förklaringar kring dimring och 
-                    installationsförfarande. dimmerGuiden™ innehåller 
-                    enkla tips på hur du lyckas med din installation.</p>
+                    <div className="col-6 mb-4">
+                        <Image src={phoneAppPic} alt="A Phone using the Vadsbo App" />
+                    </div>
+
                 </div>
 
-                <div className="col-6">
-                    <Image src={phoneAppPic} alt="A Phone using the Vadsbo App" />
+                <div className="row">
+
+                    <div className="col-6 bg-primary p-4 m-3 ">
+                        <h3 className='text-center'>Start Planning</h3>
+                        <label className='w-75'>
+                            Project Name<br/>
+                            <input id="start-project" className="w-100" type="text" value={projectName} onChange={handleUpdate} placeholder="Ge ditt projekt ett namn" />
+                        </label>
+                        <br/>
+                        <button className="button btn-dark mt-3" type="button" onClick={newProject}>{buttonText}</button>
+                    </div>
+
+                    <div className="col py-3">
+                        <br />
+                        <p><FontAwesomeIcon icon={faCheck} /> Du får en klar överblick</p>
+                        <p><FontAwesomeIcon icon={faCheck} /> En tydlig plocklista att ge till din grossist</p>
+                        <p><FontAwesomeIcon icon={faCheck} /> Ytterligare en motiverande USP</p>
+                    </div>
+
                 </div>
 
             </div>
-
-            <div className="row">
-
-                <div className="col-6 bg-primary p-4 m-3">
-                    <h3>Start Planning</h3>
-                    <label>
-                        Project Name<br/>
-                        <input id="start-project" type="text" value={projectName} onChange={handleUpdate} placeholder="Give your project a name" />
-                    </label>
-                    <br/>
-                    <button className="button btn-dark" type="button" onClick={newProject}>{buttonText}</button>
-                </div>
-
-                <div className="col py-3">
-                    <br />
-                    <p><FontAwesomeIcon icon={faCheck} /> Du får en klar överblick</p>
-                    <p><FontAwesomeIcon icon={faCheck} /> En tydlig plocklista att ge till din grossist</p>
-                    <p><FontAwesomeIcon icon={faCheck} /> Ytterligare en motiverande USP</p>
-                </div>
-
-            </div>
-
-        </div>
 		</>
     )
 };
