@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLink } from '@fortawesome/free-solid-svg-icons';
+import vadsboLogo from '../public/logo_Vadsbo_2018_RGB.png';
+import Image from "next/image";
 
 function Header(props) {
     const url = `localhost:3000/${props.projectId}`;
@@ -17,9 +19,12 @@ function Header(props) {
     return (
         <nav className="navbar bg-primary position-fixed w-100">
                 <div className="col-auto px-3 me-auto">
-                    <span className="navbar-brand">Vadsbo</span>
+                    <Image src={vadsboLogo} height={60} width={292} alt="Vadsbo Logo" />
                 </div>
-                {props.projectId && <div className="col-1 text-center" onClick={copyURL}>
+                <div className="col-auto">
+                    <h1>dimmerGuiden&#8482;</h1>
+                </div>
+                {props.projectId && <div className="col-1 text-center h4" onClick={copyURL}>
                     <FontAwesomeIcon className="mx-3" icon={faLink} />
                     <div id="project-url" style={{display: "none"}} className="bg-info position-absolute">URL Copied to Clipboard</div>  
                 </div>}

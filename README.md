@@ -2,11 +2,20 @@ Vadsbo dimmerGuiden Web App
 Built with next.js
 
 To do:
-    Add confirmation when saved
-    Animations on page change/reflow
+    Animations on page change/reflow?
     Styling
+    Link in navbar automatically copies to clipboard
+    Room Details in Summary defaults to closed
+    app - only app, no switches
+    hash of the project id
+    button to share at the bottom of summary, with copy link
+    Flow in More Options
 
 Done:
+    Add images and logos
+    Add options in basket
+    dynamically save
+    Add confirmation when saved
     Add loading notice on new project creation
     Share by Email
     Add "Get Quote" page

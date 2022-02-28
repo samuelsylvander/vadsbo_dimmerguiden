@@ -15,7 +15,7 @@ function NewRoom(props) {
     const [step, setStep] = useState(0);
 
     useEffect( ()=> {
-        if (props.currentRoom.switches > 0) {
+        if (props.currentRoom.switches > 0 || props.currentRoom.app == "App") {
             setStep(5)
         } else if (props.currentRoom.app != "") {
             setStep(4)
@@ -46,7 +46,7 @@ function NewRoom(props) {
             error={props.error}
             currentRoom={props.currentRoom}
             setCurrentRoom={props.setCurrentRoom} 
-            label="Vad vill du styra?" 
+            label="Vad vill du styra?"
             field={["DALI", "DALI TW", "DALI RGB"]}
             infoText="Info text here"
         />
@@ -80,7 +80,7 @@ function NewRoom(props) {
             infoText="Info text here"
         />}
 
-        {step > 3 && <Quantity 
+        {props.currentRoom.app == "Knapp" && <Quantity 
             property="switches"
             currentRoom={props.currentRoom}
             setCurrentRoom={props.setCurrentRoom} 
@@ -91,7 +91,7 @@ function NewRoom(props) {
         {step > 4 && <button className="button btn-dark" onClick={props.saveRoom}>Save Room</button>}
       
         {/* display currentRoom contents for debugging */}
-        {/* <p>{JSON.stringify(props.currentRoom)}</p> */}
+        <p>{JSON.stringify(props.currentRoom)}</p>
 
     </div>
     )

@@ -1,6 +1,8 @@
 import React from "react";
 import Error from "./Error";
 import Info from "./Info";
+import daliLogo from "../public/dali_r_logo_black.png";
+import Image from "next/image";
 
 function SwitchButtons(props) {
     let showError = "";
@@ -9,7 +11,21 @@ function SwitchButtons(props) {
     };
 
     function handleSwitch(event) {
-        props.setCurrentRoom(prevVal => ({...prevVal, [props.property]: event.target.innerHTML}))
+        const buttonField = event.currentTarget.dataset.field;
+        props.setCurrentRoom(prevVal => ({...prevVal, [props.property]: buttonField}))
+    }
+
+    function formatField(field) {
+        if (field.includes("DALI")) {
+            return (
+            <span>
+                <Image src={daliLogo} height={23} width={72}/>
+                {field.slice(4)}
+            </span>
+            )
+        } else {
+            return field
+        }
     }
 
     return (
@@ -20,11 +36,13 @@ function SwitchButtons(props) {
                 {props.field.map((field) => {
                     return (
                         <button 
-                            key={field} 
-                            className={props.currentRoom[props.property] == field ? "button btn-primary" : "button btn-dark"} 
+                            key={field}
+                            height="2rem"
+                            data-field={field}
+                            className={props.currentRoom[props.property] == field ? "button btn-primary" : "button"} 
                             onClick={handleSwitch}
                         >
-                            {field}
+                            {formatField(field)}
                         </button>
                     )
                 })}
