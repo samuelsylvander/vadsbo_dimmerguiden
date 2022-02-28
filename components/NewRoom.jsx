@@ -29,7 +29,7 @@ function NewRoom(props) {
     }, [props.currentRoom]);
 
     return (
-    <div className="container text-center">
+    <div className="container text-center bg-light">
         <h1>Add a new room to {props.projectName}</h1>
         
         <Text 

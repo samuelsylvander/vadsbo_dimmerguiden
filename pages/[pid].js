@@ -89,7 +89,7 @@ export default function Project({ loadedProject, errorText }) {
             <title>Vadsbo dimmerGuiden</title>
         </Head>
         <Header projectId={loadedProject._id}/>
-        <div style={{background: "#F7F7F7"}} className="w-50 vh-100 pt-5 mx-auto">
+        <div className="bg-light w-50 vh-100 pt-5 mx-auto">
 
              {appState == "newroom" && <NewRoom  
                 projectName={projectName} 

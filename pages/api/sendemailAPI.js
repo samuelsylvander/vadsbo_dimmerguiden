@@ -16,9 +16,9 @@ export default async function (req, res) {
         let mail = {
             from: 'samuelreed01@gmail.com',
             to: draft.email,
-            subject: `Message From ${draft.name}`,
-            text: `I created a project using Vadsbo's dimmerGuiden, take a look here: ${draft.link}.\n${draft.message}`,
-            html: `<div><p>I created a project using Vadsbo's dimmerGuiden, take a look here: <a href="${draft.link}">${draft.link}</a>.</p><p>${draft.message}</p><p>HTML Message</p></div>`
+            subject: `Vadsbo Project Link`,
+            text: `I created a project using Vadsbo's dimmerGuiden, take a look here: ${draft.link}.`,
+            html: `<div>I created a project using Vadsbo's dimmerGuiden, take a look here: <a href="${draft.link}">${draft.link}</a>.</div>`
         };
 
         const info = await transporter.sendMail(mail);

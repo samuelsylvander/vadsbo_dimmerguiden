@@ -1,6 +1,13 @@
 Vadsbo dimmerGuiden Web App
 Built with next.js
 
+To start app:
+    From project folder, run 'npm run dev' for development build, or 'npm run build' 'npm run start' to build and run an optimised version.
+    Access running app at localhost:3000
+
+Things to know:
+    I've mostly tried to use utility classes for setting the CSS layout, but there are a few things still set in the "custom_theme.scss" file. Please look there to change the colours for almost all elements. Most margins, paddings, spacings etc have been set with Bootstrap utility classes like m-1, pt-5, etc. So to change those you will have to find the specific elements.
+
 To do:
     Animations on page change/reflow?
     hash of the project id

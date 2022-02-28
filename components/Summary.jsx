@@ -48,7 +48,7 @@ export default function Summary(props) {
     useEffect(saveProject, []); //save project every time we enter summary page
 
     return (
-        <div className="container row m-0 p-0 h-100 w-100">
+        <div className="container row m-0 p-0 h-100 w-100 bg-light">
             <div className="col-8 h-100 px-6 overflow-auto">
                 <h1 className="mt-5">Summary</h1>
                 {props.roomList.map((item, index) => {
