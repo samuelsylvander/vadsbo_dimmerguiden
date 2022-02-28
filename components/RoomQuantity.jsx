@@ -20,6 +20,7 @@ function RoomQuantity(props) {
     }
 
     function handleIncrement(event) {
+        event.stopPropagation()
         let update = parseFloat(props.roomList[props.index].noOfRooms);
         if (event.currentTarget.dataset.type == "plus") {
             update = update + 1;
@@ -35,9 +36,8 @@ function RoomQuantity(props) {
 
     function handleDetails() {
         let info = document.getElementById("summarydetails" + props.index);
-        if (info.style.maxHeight === "0px") {
+        if (info.style.maxHeight == "0px" || info.style.maxHeight == "") {
             info.style.maxHeight = "300px";
-            info.style.padding = null;
         } else {
             info.style.maxHeight = "0px";
             setTimeout( ()=> info.style.padding = "0px", 300);            
@@ -46,29 +46,29 @@ function RoomQuantity(props) {
 
     return (
         <>
-        <div className="container bg-primary mb-0">
+        <div className="container bg-primary mb-0" onClick={handleDetails}>
             <div className="row align-items-center justify-content-between">
-                <div className="col align-self-center">
+                <div className="col-8 align-self-center">
                     <h3>{props.label}</h3>
                 </div>
-                <div className="col-auto">
-                    <div className="input-group align-items-center">
+                <div className="col-3">
+                    <div className="input-group ms-auto">
                         <button type="button" className="btn btn-success" data-type="minus" onClick={handleIncrement}>
                             <FontAwesomeIcon icon={faMinus} data-type="minus" />
                         </button>
-                        <input type="text" className="form-control input-number" value={props.roomList[props.index].noOfRooms} onChange={handleQuantity} />
+                        <input type="text" className="form-control input-number" value={props.roomList[props.index].noOfRooms} onChange={handleQuantity} onClick={event=>event.stopPropagation()}/>
                         <button type="button" className="btn btn-success" data-type="plus" onClick={handleIncrement} >
                             <FontAwesomeIcon icon={faPlus} data-type="plus" />
                         </button>
                     </div>
                 </div>
-                <div className="col-auto" onClick={handleDetails}>
+                <div className="col-1">
                     <FontAwesomeIcon icon={faChevronDown} />
                 </div>
             </div>
         </div>
-        <div id={"summarydetails" + props.index} className="container bg-info collapsable mt-0">
-            <div className="row">
+        <div id={"summarydetails" + props.index} className="bg-info collapsable mt-0">
+            <div className="row p-2">
                 <div className="col fs-5">
                     Room Name: <strong>{props.roomList[props.index].name}</strong><br/>
                     Controlled by: <strong>{props.roomList[props.index].app}</strong><br/>
@@ -84,13 +84,10 @@ function RoomQuantity(props) {
                     </div>
                 </div>
             </div>
-            
         </div>
-        
         </>
     )
+    
 };
 
 export default RoomQuantity;
-
-//

@@ -6,8 +6,7 @@ export default function OptionsList(props) {
     function handleDetails() {
         let info = document.getElementById("optionsdetails");
         if (info.style.maxHeight === "0px") {
-            info.style.maxHeight = "300px";
-            info.style.padding = null;
+            info.style.maxHeight = "10.5rem";
         } else {
             info.style.maxHeight = "0px";
             setTimeout( ()=> info.style.padding = "0px", 300);            
@@ -16,16 +15,20 @@ export default function OptionsList(props) {
 
     return(
     <>
-        <div className="container bg-primary mb-0">
+        <div className="container bg-primary mb-0" onClick={handleDetails}>
             <div className="row align-items-center justify-content-between">
-                <div className="col align-self-center"><h3>{props.label}</h3></div>
-                <div className="col-auto" onClick={handleDetails}>
+                <div className="col align-self-center">
+                    <h3>
+                        Options
+                    </h3>
+                </div>
+                <div className="col-auto" >
                     <FontAwesomeIcon icon={faChevronDown} />
                 </div>
             </div>
         </div>
-        <div id={"optionsdetails"} className="container bg-info collapsable mt-0">
-            <div className="row">
+        <div id={"optionsdetails"} className="bg-info collapsable mt-0">
+            <div className="row p-2">
                 <div className="col fs-5">
                     Batteri-backup: <strong>{props.options.battery}</strong><br/>
                     Larmkoppling: <strong>{props.options.alarm}</strong><br/>
