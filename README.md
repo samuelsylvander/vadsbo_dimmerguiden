@@ -6,7 +6,11 @@ To start app:
     Access running app at localhost:3000
 
 Things to know:
-    I've mostly tried to use utility classes for setting the CSS layout, but there are a few things still set in the "custom_theme.scss" file. Please look there to change the colours for almost all elements. Most margins, paddings, spacings etc have been set with Bootstrap utility classes like m-1, pt-5, etc. So to change those you will have to find the specific elements.
+    I've mostly tried to use utility classes for setting the CSS layout, but there are a few things still set in the "custom_theme.scss" file. Please look there to change the colour variables which are used for almost all elements.
+    Most margins, paddings, spacings etc have been set with Bootstrap utility classes like m-1, pt-5, etc. So to change those you will have to find the specific elements.
+
+
+________________________________
 
 To do:
     Animations on page change/reflow?
