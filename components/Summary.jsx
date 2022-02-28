@@ -2,12 +2,16 @@ import React, { useEffect, useState } from "react";
 import RoomQuantity from "./RoomQuantity";
 import OptionsList from "./OptionsList";
 import Sidebar from "./Sidebar";
+import Share from "./SharePopup";
 
 export default function Summary(props) {
     const [buttonText, setButtonText] = useState("Save Project");
+    const [showPopup, setShowPopup] = useState(false)
+    const shareURL = `localhost:3000/${props.projectId}`;
 
+   
     function checkOptions() {
-        if (props.options.ipad == "Ya" || props.options.battery == "Ya" || props.options.starter == "Ya") {
+        if (Object.keys(props.options).some(key=>props.options[key] == "Ya")) {
             return true
         } else {
             return false
@@ -38,7 +42,7 @@ export default function Summary(props) {
     }
 
     useEffect( ()=> {
-        setButtonText("Save Project")
+        setButtonText("Save Project") //reset save button text every time roomList changes
     }, [props.roomList]);
 
     useEffect(saveProject, []); //save project every time we enter summary page
@@ -71,13 +75,14 @@ export default function Summary(props) {
                 <div className="py-5">
                     <button className="button btn-dark mx-3" onClick={props.addRoom}>Add Room</button>
                     <button className="button btn-dark mx-3" onClick={() => props.setAppState("moreoptions")}>More Options</button>
+                    <button className="button mx-3" onClick={()=>setShowPopup(true)}>Share</button>
                     <br/>
                     <br/>
                     <button className="button btn-dark mx-3" onClick={saveProject}>{buttonText}</button>
                 </div>
                 
             </div>
-            
+
             <div id="basket" style={{background: "rgba(0,0,0,0.7)"}} className="col-4 m-0 p-0">
                 <Sidebar 
                     roomList={props.roomList} 
@@ -86,8 +91,14 @@ export default function Summary(props) {
                 />
             </div>
 
+            {showPopup && <Share
+                shareURL={shareURL}
+                setShowPopup={setShowPopup}
+            />}
 
             {/* display roomList for debugging {"Currently in Project: " + JSON.stringify(props.roomList)} */}
+
+            
         </div>
     )
 };

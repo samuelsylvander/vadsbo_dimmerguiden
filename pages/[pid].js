@@ -11,6 +11,7 @@ import { config } from "@fortawesome/fontawesome-svg-core";
 config.autoAddCss = false;
 import Header from "../components/Header";
 
+
 export async function getServerSideProps(context) {
 	const pid = context.query.pid;
     console.log("url pid = " + pid);
@@ -35,6 +36,7 @@ export async function getServerSideProps(context) {
 
 }
 
+
 export default function Project({ loadedProject, errorText }) {
     if (loadedProject == "errored") {
         return (
@@ -48,7 +50,7 @@ export default function Project({ loadedProject, errorText }) {
 
     const [appState, setAppState] = useState("summary");
     const blankRoom = {"name": "", "dali": "", "lights": 0, "group": "", "app": "", "switches": 0, "noOfRooms": 1}
-    const [projectName, setProjectName] = useState(loadedProject.projectName);
+    const [projectName, setProjectName] = useState(loadedProject.projectName); //using state to allow for later editing of name
     const [currentRoom, setCurrentRoom] = useState(blankRoom);
     const [roomList, setRoomList] = useState(loadedProject.roomList); //array of all current rooms
     const [roomError, setRoomError] = useState([]); // array with errors from New Room form
@@ -56,27 +58,8 @@ export default function Project({ loadedProject, errorText }) {
 
 
     function saveRoom() {
-        if (checkDetails()) {
-            setRoomList(prevVal => [...prevVal, currentRoom])
-            setAppState("summary")
-        }
-    };
-
-    function checkDetails() {
-        let currentErrors = [];
-        for (let prop in currentRoom) {
-            if (currentRoom[prop] === "") {
-                currentErrors.push(prop);
-            };
-        };
-        console.log(currentErrors)
-        if (currentErrors.length == 0) {
-            setRoomError([]);
-            return true
-        } else {
-            setRoomError(currentErrors);
-            return false
-        };
+        setRoomList(prevVal => [...prevVal, currentRoom])
+        setAppState("summary")
     };
 
     function addRoom() {
@@ -93,7 +76,7 @@ export default function Project({ loadedProject, errorText }) {
     }
 
     function deleteRoom(deletedRoomName) {
-        setRoomList(prevVal => prevVal.filter(room => room.name != deletedRoomName));
+        setRoomList(prevVal => prevVal.filter(room => room.name != deletedRoomName)); // **bug** if multiple rooms have same name
     }
 
     useEffect( ()=> {

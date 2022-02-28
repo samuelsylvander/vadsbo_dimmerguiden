@@ -45,7 +45,7 @@ export default function Home(props) {
                 router.push(url)
               }
         }
-        request.send(JSON.stringify({projectName: projectName, roomList: []}));
+        request.send(JSON.stringify({projectName: projectName, roomList: [], options: {}}));
     }
 
 	return (
