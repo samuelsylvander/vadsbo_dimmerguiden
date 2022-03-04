@@ -2,11 +2,11 @@ import React from "react";
 
 export default function BasketItem(props) {
     return (
-        <li className="p-2">
+        <li className="mb-4">
             <h4>{props.item}</h4>
             <div className="d-flex justify-content-between">
                 <div>
-                    Amount
+                    Antal
                 </div>
                 <div>
                     {props.quantity}

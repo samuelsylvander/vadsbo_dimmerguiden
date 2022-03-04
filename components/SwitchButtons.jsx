@@ -32,7 +32,7 @@ function SwitchButtons(props) {
 
     return (
         <div className="container">
-            <h3 className="d-inline-block">{props.label}</h3>
+            <h3 className="d-inline-block mt-4">{props.label}</h3>
             {props.infoText && <Info text={props.infoText} />}
             <div>
                 {props.field.map((field) => {
@@ -41,7 +41,7 @@ function SwitchButtons(props) {
                             key={field}
                             height="2rem"
                             data-field={field}
-                            className={props.currentRoom[props.property] == field ? "button btn-primary py-2 px-3" : "button p-2 px-3"} 
+                            className={props.currentRoom[props.property] == field ? "btn btn-primary mx-2 p-2 px-3" : "btn btn-outline-dark mx-2 p-2 px-3"} 
                             onClick={handleSwitch}
                         >
                             {formatField(field)}

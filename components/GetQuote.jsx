@@ -12,9 +12,9 @@ function GetQuote(props) {
         //add loading animation
         const newButtonText = 
             <span>
-                Submitting...
+                Skickar...
                 <div class="spinner-border mx-2" role="status">
-                    <span class="sr-only">Loading...</span>
+                    <span class="sr-only">Laddar...</span>
                 </div>
             </span>
         setButtonText(newButtonText)
@@ -33,33 +33,35 @@ function GetQuote(props) {
     }
     
     return (
-        <div className="container mt-5 mx-auto text-center fs-4">
-            <h1>Get a Quote</h1>
+        <div className="container-fluid">
+            <h1>Be om offert</h1>
             <form id="get-quote-form" name="get-quote" onSubmit={handleSubmit}>
-                <label>Your Name<br/>
-                    <input name="name" type="text" />
-                </label>
-                <br/>
-                <label>Phone Number<br/>
-                    <input name="phone" type="phone" />
-                </label>
-                <br/>
-                <label>Email Address<br/>
-                    <input name="email" type="email" />
-                </label>
-                <br/>
-                <label>Additional Information<br/>
-                    <textarea name="message" />
-                </label>
-                <br/>
-                <button className="button btn-dark" type="submit">{buttonText}</button>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Namn</label>
+                    <input type="text" class="form-control bg-white" id="name" required />
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Telefon</label>
+                    <input type="text" class="form-control bg-white" id="phone" required />
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">E-post</label>
+                    <input type="email" class="form-control bg-white" id="email" required />
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Övrig information</label>
+                    <textarea class="form-control bg-white" id="message" name="message"></textarea>
+                </div>
+
+                <button className="btn btn-outline-dark me-2" type="button" onClick={()=> props.setAppState("summary")}>Avbryt</button>
+                <button className="btn btn-dark" type="submit">Skicka</button>
             </form>
-            <button className="button btn-dark" type="button" onClick={()=> props.setAppState("summary")}>Cancel</button>
+
             {submitted && <Popup 
-                title="Thank you for your request"
-                body="The details of your project have been submitted, and one of our representatives will be in touch with you very soon"
-                confirm={["Return to Project", ()=>props.setAppState("summary")]}
-                dismiss={["Go to vadsbo.net", ()=>router.push("https://www.vadsbo.net")]}
+                title="Tack för din förfrågan!"
+                body="Ditt projekt har skickats till oss och en av våra representanter kommer att kontakta dig inom kort."
+                confirm={["Tillbaka till projektet", ()=>props.setAppState("summary")]}
+                dismiss={["Vidare till vadsbo.net", ()=>router.push("https://www.vadsbo.net")]}
             />}
         </div>
     )

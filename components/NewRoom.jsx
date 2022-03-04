@@ -29,15 +29,15 @@ function NewRoom(props) {
     }, [props.currentRoom]);
 
     return (
-    <div className="container text-center bg-light">
-        <h1>Add a new room to {props.projectName}</h1>
+    <div className="container-fluid text-center">
+        <h1 className="pt-4">Lägg till ett rum</h1>
         
         <Text 
             property="name" 
             currentRoom={props.currentRoom}
             setCurrentRoom={props.setCurrentRoom} 
             label="Lägg till nytt rum"
-            infoText="Choose a name for this room"
+            infoText="Välj ett passande namn till rummet."
         />
 
         <SwitchButtons
@@ -84,7 +84,7 @@ function NewRoom(props) {
             // infoText="Info text here"
         />}
 
-        {step > 4 && <button className="button btn-dark" onClick={props.saveRoom}>Save Room</button>}
+        {step > 4 && <button className="button btn-dark" onClick={props.saveRoom}>Spara rum</button>}
       
         {/* display currentRoom contents for debugging */}
         {/* <p>{JSON.stringify(props.currentRoom)}</p> */}

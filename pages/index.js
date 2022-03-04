@@ -27,9 +27,10 @@ export default function Home(props) {
         event.target.disabled = true;
         const newText = 
             <span>
-                Creating Project
-                <div class="spinner-border mx-2" role="status">
-                    <span class="sr-only">Loading...</span>
+                Skapar projekt
+                <div class="d-flex align-items-center">
+                    Laddar...
+                    <div class="spinner-border spinner-border-sm ms-auto" role="status" aria-hidden="true"></div>
                 </div>
             </span>
         setButtonText(newText)
@@ -51,47 +52,39 @@ export default function Home(props) {
 	return (
 		<>
             <Head> 
-                <title>Vadsbo dimmerGuiden</title>
+                <title>Vadsbo dimmerGuiden&trade;</title>
             </Head>
             <Header/>
-            <div style={{background: "#F7F7F7"}} className="w-50 vh-100 pt-5 mx-auto">
+            <div className="w-50 vh-100 pt-5 mx-auto">
                 <div id="spacer" className="my-5"></div>
                 <div className="row">
 
                     <div className="col-6 p-5">
-                        <h4>Välkommen till dimmerGuiden™</h4>
-                        <p>Produkterna vi utvecklar är riktade till dig som 
-                        vill lösa din installation på ett enkelt och praktiskt 
-                        sätt. I dimmerGuiden™ har vi samlat våra produkter 
-                        (som fanns 2015 alltså), mätningar och tekniska 
-                        framsteg i form av förklaringar kring dimring och 
-                        installationsförfarande. dimmerGuiden™ innehåller 
-                        enkla tips på hur du lyckas med din installation.</p>
+                        <h2>Välkommen till dimmerGuiden™</h2>
+                        <p>Produkterna vi utvecklar är riktade till dig som vill lösa din installation på ett enkelt och praktiskt sätt. I dimmerGuiden™ har vi samlat våra produkter (som fanns 2015 alltså), mätningar och tekniska framsteg i form av förklaringar kring dimring och installationsförfarande. dimmerGuiden™ innehåller enkla tips på hur du lyckas med din installation.</p>
                     </div>
 
                     <div className="col-6 mb-4">
-                        <Image src={phoneAppPic} alt="A Phone using the Vadsbo App" />
+                        <Image src={phoneAppPic} alt="En telefon som använder dimmerguiden&trade;" />
                     </div>
 
                 </div>
 
-                <div className="row">
+                <div className="row align-items-center">
 
-                    <div className="col-6 bg-primary p-4 m-3 ">
-                        <h3 className='text-center'>Start Planning</h3>
-                        <label className='w-75'>
-                            Project Name<br/>
-                            <input id="start-project" className="w-100" type="text" value={projectName} onChange={handleUpdate} placeholder="Ge ditt projekt ett namn" />
+                    <div className="col-6 bg-primary p-4">
+                        <h2 className="text-center mb-4">Starta guiden här</h2>
+                        <label for="start-project">
+                            Ge ditt projekt ett passande namn<br/>
+                            <input id="start-project" className="form-control mt-2 bg-white" type="text" value={projectName} onChange={handleUpdate} placeholder="Ex. Storgatan 8" />
                         </label>
-                        <br/>
-                        <button className="button btn-dark mt-3" type="button" onClick={newProject}>{buttonText}</button>
+                        <button className="btn btn-dark mt-3" type="button" onClick={newProject}>{buttonText}</button>
                     </div>
 
-                    <div className="col py-3">
-                        <br />
-                        <p><FontAwesomeIcon icon={faCheck} /> Du får en klar överblick</p>
-                        <p><FontAwesomeIcon icon={faCheck} /> En tydlig plocklista att ge till din grossist</p>
-                        <p><FontAwesomeIcon icon={faCheck} /> Ytterligare en motiverande USP</p>
+                    <div className="col-6">
+                        <p><FontAwesomeIcon icon={faCheck} className="text-info me-2"/> Du får en klar överblick</p>
+                        <p><FontAwesomeIcon icon={faCheck} className="text-info me-2" /> En tydlig plocklista att ge till din grossist</p>
+                        <p><FontAwesomeIcon icon={faCheck} className="text-info me-2" /> Ytterligare en motiverande USP</p>
                     </div>
 
                 </div>

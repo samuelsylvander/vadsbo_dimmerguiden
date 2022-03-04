@@ -13,22 +13,6 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
-h1, h2, h3, h4 {
-    font-weight: 600;
-}
-
-.button {
-    border-radius: 7px;
-    font-size: 1.8rem;
-    margin: 0.5rem;
-
-}
-
-.container {
-    margin: 1.5rem 0;
-    padding: 0.7rem;
-}
-
 div.custom-warning {
     position: relative;
     clip-path: polygon(0 25px,calc(15% - 25.00px) 25px,15% 0,calc(15% + 25.00px) 25px,100% 25px,100% 100%,0 100%);
@@ -39,14 +23,6 @@ div.custom-warning-pointer {
     height: 30px;
     position: absolute;
     transform: rotate(-45deg) translate(40px, 4px);
-}
-
-div.collapsable {
-    max-height: 0;
-    box-sizing: border-box;
-    transition: max-height 0.5s;
-    overflow: hidden;
-    margin: 0;
 }
 
 .popup {
@@ -76,8 +52,4 @@ div.collapsable {
 .popup-buttons {
     text-align: center;
     padding: 0.5rem;
-}
-
-li {
-    font-weight: 200;
 }

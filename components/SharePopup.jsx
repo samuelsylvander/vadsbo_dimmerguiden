@@ -40,20 +40,25 @@ function Share({shareURL, setShowPopup}) {
     }
 
     return (
-        <div id="share-popup" className="popup">
-            <div className="popup-title">
-                Share Your Project
-            </div>
-            <div className="popup-body">
-                Access this project at:<br/><a className="text-dark" href={shareURL}>{shareURL}</a><br/>
-                <form id="email-share-form" onSubmit={handleSubmit}>
-                    <input type="email" name="email"></input>
-                    <button type="submit" className="button">{emailText}</button>
-                </form>
-            </div>
-            <div className="popup-buttons">
-                <button className="button btn-dark" onClick={copyURL}>{buttonText}</button>
-                <button className="button btn-dark" onClick={()=>setShowPopup(false)}>Close</button>
+        <div id="share-popup" >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Dela ditt projekt</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={()=>setShowPopup(false)}></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Länk till ditt projekt:</p>
+                        <p><a className="text-dark" href={shareURL}>{shareURL}</a></p>
+                        <form id="email-share-form" onSubmit={handleSubmit}>
+                            <label for="email" className="mt-4">Maila ditt projekt till någon</label>
+                            <div class="input-group">
+                                <input id="email" type="email" class="form-control" name="email"></input>
+                                <button type="submit" className="btn btn-dark">{emailText}</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     )

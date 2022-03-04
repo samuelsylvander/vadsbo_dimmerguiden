@@ -8,9 +8,10 @@ export default function Info(props) {
 
     return (
         <>
+        
             <FontAwesomeIcon className="text-info m-1 fs-5" icon={faCircleInfo} onClick={()=> setShowInfo(prevVal => !prevVal)}/>
             <br/>
-            {showInfo && <div className="bg-info">
+            {showInfo && <div className="alert alert-info d-flex align-items-center">
                 {props.text}
             </div> }
         </>

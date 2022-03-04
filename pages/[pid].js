@@ -86,10 +86,10 @@ export default function Project({ loadedProject, errorText }) {
     return (
         <>
         <Head>
-            <title>Vadsbo dimmerGuiden</title>
+            <title>Vadsbo dimmerGuiden&trade;</title>
         </Head>
         <Header projectId={loadedProject._id}/>
-        <div className="bg-light w-50 vh-100 pt-5 mx-auto">
+        <div className="container-lg mt-0">
 
              {appState == "newroom" && <NewRoom  
                 projectName={projectName} 

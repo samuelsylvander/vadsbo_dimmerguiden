@@ -6,7 +6,7 @@ import Image from "next/image";
 
 function Header(props) {
     const url = `localhost:3000/${props.projectId}`;
-    const body = <>Your project ID is: {props.projectId}<br />Access this project at:<br/>{url}</>
+    const body = <>Dit projekts ID: {props.projectId}<br />Spara adressen till ditt projekt:<br/>{url}</>
 
     function copyURL() {
         navigator.clipboard.writeText(url);
@@ -17,18 +17,18 @@ function Header(props) {
 
 
     return (
-        <nav className="navbar bg-primary position-fixed w-100">
-                <div className="col-auto px-5 me-auto">
+        <nav className="navbar bg-primary">
+            <div class="container-md">
+                <div className="navbar-brand">
                     <Image src={vadsboLogo} height={60} width={292} alt="Vadsbo Logo" />
                 </div>
-                <div className="col-auto px-5">
-                    <h1>dimmerGuiden&#8482;</h1>
-                </div>
-                {props.projectId && <div className="col-1 text-center h4" onClick={copyURL}>
+                <h2>dimmerGuiden&#8482;</h2>
+                {props.projectId && <div className="d-flex" onClick={copyURL}>
                     <FontAwesomeIcon className="mx-3" icon={faLink} />
-                    <div id="project-url" style={{display: "none"}} className="bg-info position-absolute">URL Copied to Clipboard</div>  
+                    <div id="project-url" style={{display: "none"}} className="bg-info position-absolute p-2">Adressen till projektet har kopierats</div>  
                 </div>}
-         </nav>
+            </div>
+        </nav>
     )
 }
 

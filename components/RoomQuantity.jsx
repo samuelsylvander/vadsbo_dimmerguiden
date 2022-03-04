@@ -34,55 +34,35 @@ function RoomQuantity(props) {
         });
     }
 
-    function handleDetails() {
-        let info = document.getElementById("summarydetails" + props.index);
-        if (info.style.maxHeight == "0px" || info.style.maxHeight == "") {
-            info.style.maxHeight = "300px";
-        } else {
-            info.style.maxHeight = "0px";
-            setTimeout( ()=> info.style.padding = "0px", 300);            
-        }
-    }
-
     return (
         <>
-        <div className="container bg-secondary mb-0" onClick={handleDetails}>
-            <div className="row align-items-center justify-content-between">
-                <div className="col-8 align-self-center">
-                    <h3>{props.label}</h3>
+        <div className="card bg-secondary mb-4 p-3">
+            <div className="row align-items-center">
+                <div className="col align-self-center">
+                    <h3 className="mb-0">{props.label}</h3>
                 </div>
                 <div className="col-3">
                     <div className="input-group ms-auto">
                         <button type="button" className="btn btn-primary" data-type="minus" onClick={handleIncrement}>
                             <FontAwesomeIcon icon={faMinus} data-type="minus" />
                         </button>
-                        <input type="text" className="form-control input-number" value={props.roomList[props.index].noOfRooms} onChange={handleQuantity} onClick={event=>event.stopPropagation()}/>
+                        <input type="text" className="form-control input-number bg-white text-center" value={props.roomList[props.index].noOfRooms} onChange={handleQuantity} onClick={event=>event.stopPropagation()}/>
                         <button type="button" className="btn btn-primary" data-type="plus" onClick={handleIncrement} >
                             <FontAwesomeIcon icon={faPlus} data-type="plus" />
                         </button>
                     </div>
                 </div>
-                <div className="col-1">
-                    <FontAwesomeIcon icon={faChevronDown} />
+                <div className="col-auto">
+                    <a className="text-dark me-2" onClick={()=>props.loadRoom(props.label)}><FontAwesomeIcon icon={faPenToSquare} /></a>
+                    <a className="text-dark me-2" onClick={()=>props.deleteRoom(props.index)}><FontAwesomeIcon icon={faTrashCan} /></a>
+                    
+                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target={"summarydetails" + props.index} aria-expanded="false" aria-controls={"summarydetails" + props.index}><FontAwesomeIcon icon={faChevronDown} /></button>
                 </div>
             </div>
-        </div>
-        <div id={"summarydetails" + props.index} className="bg-white collapsable mt-0">
-            <div className="row p-2">
-                <div className="col fs-5">
-                    Room Name: <strong>{props.roomList[props.index].name}</strong><br/>
-                    Controlled by: <strong>{props.roomList[props.index].app}</strong><br/>
-                    Number of Lights: <strong>{props.roomList[props.index].lights}</strong><br/>
-                    Number of Switches: <strong>{props.roomList[props.index].switches}</strong>
-                </div>
-                <div className="col">
-                    <div className="text-end fs-4" onClick={()=>props.loadRoom(props.label)}>
-                    Edit <FontAwesomeIcon icon={faPenToSquare} />
-                    </div>
-                    <div className="text-end fs-4" onClick={()=>props.deleteRoom(props.index)}>
-                    Delete <FontAwesomeIcon icon={faTrashCan} />
-                    </div>
-                </div>
+            <div className="card-body " id={"summarydetails" + props.index}>
+                Hur armaturerna kontrolleras: <strong>{props.roomList[props.index].app}</strong><br/>
+                Antal armaturer: <strong>{props.roomList[props.index].lights}</strong><br/>
+                Antal knappar: <strong>{props.roomList[props.index].switches}</strong>
             </div>
         </div>
         </>

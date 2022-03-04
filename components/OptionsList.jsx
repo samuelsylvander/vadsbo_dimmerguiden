@@ -15,36 +15,27 @@ export default function OptionsList(props) {
 
     return(
     <>
-        <div className="container bg-secondary mb-0" onClick={handleDetails}>
-            <div className="row align-items-center justify-content-between">
-                <div className="col align-self-center">
-                    <h3>
-                        Options
-                    </h3>
+        <div className="container bg-secondary p-3" onClick={handleDetails}>
+            <div className="row align-items-center">
+                <div className="col">
+                    <h3 className="mb-0">Tillval</h3>
                 </div>
                 <div className="col-auto" >
+                    <a className="text-dark me-2" onClick={props.edit}><FontAwesomeIcon icon={faPenToSquare} /></a>
+                    <a className="text-dark me-2" onClick={props.delete}><FontAwesomeIcon icon={faTrashCan} /></a>
                     <FontAwesomeIcon icon={faChevronDown} />
                 </div>
             </div>
         </div>
-        <div id={"optionsdetails"} className="bg-white collapsable mt-0">
+        <div id={"optionsdetails"} className="bg-white collapse">
             <div className="row p-2">
-                <div className="col fs-5">
+                <div className="col">
                     Batteri-backup: <strong>{props.options.battery}</strong><br/>
                     Vadsbox Boka: <strong>{props.options.boka}</strong><br/>
                     Vadsbox Larm: <strong>{props.options.larm}</strong><br/>
                     Driftsättning: <strong>{props.options.drift}</strong><br/>
                 </div>
-                <div className="col">
-                    <div className="text-end fs-4" onClick={props.edit}>
-                    Edit <FontAwesomeIcon icon={faPenToSquare} />
-                    </div>
-                    <div className="text-end fs-4" onClick={props.delete}>
-                    Delete <FontAwesomeIcon icon={faTrashCan} />
-                    </div>
-                </div>
             </div>
-            
         </div>
         
         </>

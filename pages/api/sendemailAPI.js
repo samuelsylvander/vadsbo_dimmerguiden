@@ -5,16 +5,16 @@ export default async function (req, res) {
 
     try {
         const transporter = nodemailer.createTransport({port: 465,
-            host: "smtp.gmail.com",
+            host: process.env.EMAIL_HOST,
             auth: {
-                user: 'samuelreed01@gmail.com',
-                pass: process.env.GMAIL,
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS,
             },
             secure: true,
         });
 
         let mail = {
-            from: 'samuelreed01@gmail.com',
+            from: 'dimmerguiden@vadsbo.net',
             to: draft.email,
             subject: `Vadsbo Project Link`,
             text: `I created a project using Vadsbo's dimmerGuiden, take a look here: ${draft.link}.`,

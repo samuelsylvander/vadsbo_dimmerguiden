@@ -10,7 +10,7 @@ function MoreOptions(props) {
                 currentRoom={props.options}
                 setCurrentRoom={props.setOptions} 
                 label="Batteri-backup" 
-                field={["Ya", "Nej"]}
+                field={["Ja", "Nej"]}
                 infoText="Info text here"
             />
             <SwitchButtons 
@@ -18,7 +18,7 @@ function MoreOptions(props) {
                 currentRoom={props.options}
                 setCurrentRoom={props.setOptions} 
                 label="Vadsbox Boka" 
-                field={["Ya", "Nej"]}
+                field={["Ja", "Nej"]}
                 infoText="Info text here"
             />
             <SwitchButtons 
@@ -26,7 +26,7 @@ function MoreOptions(props) {
                 currentRoom={props.options}
                 setCurrentRoom={props.setOptions} 
                 label="Vadsbox Larm" 
-                field={["Ya", "Nej"]}
+                field={["Ja", "Nej"]}
                 infoText="Info text here"
             />
             <SwitchButtons 
@@ -34,11 +34,11 @@ function MoreOptions(props) {
                 currentRoom={props.options}
                 setCurrentRoom={props.setOptions} 
                 label="Driftsättning" 
-                field={["Ya", "Nej"]}
+                field={["Ja", "Nej"]}
                 infoText="Info text here"
             />
         
-            {Object.keys(props.options).length > 3 && <button className="button btn-dark" onClick={()=>props.setAppState("summary")}>Save Options</button>}
+            {Object.keys(props.options).length > 3 && <button className="btn btn-dark" onClick={()=>props.setAppState("summary")}>Spara tillval</button>}
         </>
     )
 };
