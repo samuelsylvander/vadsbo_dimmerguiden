@@ -54,7 +54,7 @@ function NewRoom(props) {
             property="lights"
             currentRoom={props.currentRoom}
             setCurrentRoom={props.setCurrentRoom} 
-            label="Lights" 
+            label="Antal armaturer" 
             // infoText="Info text here"
         />}
 
