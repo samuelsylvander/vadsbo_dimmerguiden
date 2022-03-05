@@ -6,21 +6,18 @@ To initialize this project and to run for the first time:
     Create a file called .env.local
     Set the following environment variables
     - MONGODB_URI
-    - We also need to define what EMAIL variables we need and replace hard coded email info like address etc.
+    - EMAIL_HOST
+    - EMAIL_USER
+    - EMAIL_PASS
 
 To start app:
     From project folder, run 'npm run dev' for development build, or 'npm run build' 'npm run start' to build and run an optimised version.
     Access running app at localhost:3000
 
-Things to know:
-    I've mostly tried to use utility classes for setting the CSS layout, but there are a few things still set in the "custom_theme.scss" file. Please look there to change the colour variables which are used for almost all elements.
-    Most margins, paddings, spacings etc have been set with Bootstrap utility classes like m-1, pt-5, etc. So to change those you will have to find the specific elements.
-
-
 ________________________________
 Things to do and comments from Samuel:
     Project name required
-    I can see that we are not using bootstrap as we should. We include code in _app.js that are not supposed to be there. Please read this guide on how to use bootstrap in a next project: https://medium.com/nextjs/how-to-add-bootstrap-in-next-js-de997371fd9c
+    Bootstrap in a next project: https://medium.com/nextjs/how-to-add-bootstrap-in-next-js-de997371fd9c
     - This will require us to spend some time to rebuild the app so we use bootstrap as it should be used.
     We should use bootstrap toasts for certain info displayed to the user after an action, like copying the project link etc. Please read this documentation: https://getbootstrap.com/docs/5.0/components/toasts/
     We should have a more centralized way of adding new requirements from Vadsbo like "options" for a project, or evan in the future "room types". This is just a note for you to think about.
