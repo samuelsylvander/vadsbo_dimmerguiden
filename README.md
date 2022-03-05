@@ -1,57 +1,41 @@
-Vadsbo dimmerGuiden Web App
-Built with next.js
+# Vadsbo dimmerGuiden Web App
+Dimmerguiden is an app built for Vadsbo to make it easier for their clients and partners to prospect the needs of dimmers and related components for controlling lights on a project.
 
-To initialize this project and to run for the first time:
-    Install next to the project: # npm i next
-    Create a file called .env.local
-    Set the following environment variables
-    - MONGODB_URI
-    - EMAIL_HOST
-    - EMAIL_USER
-    - EMAIL_PASS
+## Installation
+1. Make sure you have npm installed.
+2. Clone this repository to a local folder.
+3. Navigate to the folder and install next:
+```bash
+npm i next
+```
 
-To start app:
-    From project folder, run 'npm run dev' for development build, or 'npm run build' 'npm run start' to build and run an optimised version.
-    Access running app at localhost:3000
+### Environment variables
 
-________________________________
-Things to do and comments from Samuel:
-    Project name required
-    Bootstrap in a next project: https://medium.com/nextjs/how-to-add-bootstrap-in-next-js-de997371fd9c
-    - This will require us to spend some time to rebuild the app so we use bootstrap as it should be used.
-    We should use bootstrap toasts for certain info displayed to the user after an action, like copying the project link etc. Please read this documentation: https://getbootstrap.com/docs/5.0/components/toasts/
-    We should have a more centralized way of adding new requirements from Vadsbo like "options" for a project, or evan in the future "room types". This is just a note for you to think about.
-    Consistancy. It is important to use the same technique thoughout the project. In some places you use form elements like in GetQuoute.jsx and in some you use "Text" as in NewRoom.jsx
-    Change the "saved/saveing/loading" button on the summary page to a toast, that shows "Saved" when saved.
-    In "Plocklista", the heading "Tillval" should only be visible if any options has been chosen.
-    Toggle of options and room details to use bootstrap built in handler instead.
+Create a file called .env.local
+Set the following environment variables
+```bash
+MONGODB_URI
+EMAIL_HOST
+EMAIL_USER
+EMAIL_PASS
+```
 
-To do:
-    Animations on page change/reflow?
-    hash of the project id
-        --necessary?
-    Make all layouts responsive
+### Run the app
+Start your terminal and navigate to the project folder then run the following commands (depending on your needs) to start the server:
+```bash
+npm run dev                         //for development build
+npm run build && npm run start      //to build and run an optimised version.
+```
 
-Done:
-    Button to share at the bottom of summary, with copy link
-    Room Details in Summary defaults to closed
-    Link in navbar automatically copies to clipboard
-    Update New Room logic - if app, no switches
-    Add images and logos
-    Add options in basket
-    dynamically save
-    Add confirmation when saved
-    Add loading notice on new project creation
-    Share by Email
-    Add "Get Quote" page
-    Add "More Options" page
-    Component quantity calculation on Summary page
-    Access project by url
-    Add clickable information icons
-    Dynamic flow in "New Room" page
-    Flow in More Options
-    
-Need:
-    Email address to send emails from
-    Email template
-    Assets - Vadsbo, Dali and dimmerGuiden logo
+You acces the app by visiting localhost:3000 in your browser.
+
+## To do
+- Make Project Name required
+- Display project name on summary page as <h1>
+- Make sure bootstrap is used properly: https://medium.com/nextjs/how-to-add-bootstrap-in-next-js-de997371fd9c
+- We should use bootstrap toasts for certain info displayed to the user after an action, not the popup we are using now. For example when copying the project link, when the project is saved (remove the save button). Please read this documentation: https://getbootstrap.com/docs/5.0/components/toasts/
+- Code Consistancy. It is important to use the same technique thoughout the project. In some places you use form elements like in GetQuote.jsx and in some you use "Text" as in NewRoom.jsx. We should stick to how we do it in GetQuote.jsx
+- Remove the "saved/saveing/loading" button on the summary page and instead show a toast when the project is saved.
+- In the sidebar "Plocklista", the heading "Tillval" should only be visible if any options has been chosen.
+- Room details on the summery page. We should use bootstrap built in toggle collapsed for handling, show/not show, room details.
+- Summary page: Decrease and increase of rooms, should be saved instantly onChange.
