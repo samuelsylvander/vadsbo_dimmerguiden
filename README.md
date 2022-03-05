@@ -30,8 +30,10 @@ npm run build && npm run start      //to build and run an optimised version.
 You acces the app by visiting localhost:3000 in your browser.
 
 ## To do
+- Implement ENV variables
+- Rebuild page structure to properly use bootstrap grid
 - Make Project Name required
-- Display project name on summary page as <h1>
+- Display project name on summary page as h1 tag
 - Make sure bootstrap is used properly: https://medium.com/nextjs/how-to-add-bootstrap-in-next-js-de997371fd9c
 - We should use bootstrap toasts for certain info displayed to the user after an action, not the popup we are using now. For example when copying the project link, when the project is saved (remove the save button). Please read this documentation: https://getbootstrap.com/docs/5.0/components/toasts/
 - Code Consistancy. It is important to use the same technique thoughout the project. In some places you use form elements like in GetQuote.jsx and in some you use "Text" as in NewRoom.jsx. We should stick to how we do it in GetQuote.jsx
@@ -39,3 +41,4 @@ You acces the app by visiting localhost:3000 in your browser.
 - In the sidebar "Plocklista", the heading "Tillval" should only be visible if any options has been chosen.
 - Room details on the summery page. We should use bootstrap built in toggle collapsed for handling, show/not show, room details.
 - Summary page: Decrease and increase of rooms, should be saved instantly onChange.
+- Setup production ENV variables
