@@ -35,7 +35,7 @@ function Sidebar(props) {
             </div>
 
             <div id="basket-buttons" className="w-100">
-                <div id="contact" className="container m-0 py-4 bg-info" onClick={()=> props.setAppState("getquote")}>
+                <div id="contact" className="container m-0 py-4 bg-info" data-bs-toggle="modal" data-bs-target="#getQuote">
                     <FontAwesomeIcon icon={faDollarSign} /> Be om offert
                 </div>
                 <div id="pdf" className="container m-0 py-4 bg-primary">

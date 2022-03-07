@@ -107,7 +107,7 @@ export default function Summary(props) {
                 </div>
             </div>
 
-
+                {/* Confirm Delete Modal */}
             <div className="modal fade" id="confirmDelete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
@@ -122,6 +122,48 @@ export default function Summary(props) {
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                             <button type="button" className="btn btn-primary"onClick={props.deleteRoom}>Delete</button>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+                {/* Send Email Modal */}
+            <div className="modal fade" id="getQuote" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h1>Be om offert</h1>
+                        </div>
+                    
+                        <form id="get-quote-form" name="get-quote">
+                            <div className="modal-body">
+                                <div className="mb-3">
+                                    <label htmlFor="name" className="form-label">Namn</label>
+                                    <input type="text" className="form-control bg-white" id="name" required />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="phone" className="form-label">Telefon</label>
+                                    <input type="text" className="form-control bg-white" id="phone" required />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="email" className="form-label">E-post</label>
+                                    <input type="email" className="form-control bg-white" id="email" required />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="message" className="form-label">Övrig information</label>
+                                    <textarea className="form-control bg-white" id="message" name="message"></textarea>
+                                </div>
+                                <div className="mb-3">
+                                    <input type="checkbox" className="form-check-input me-2" id="acceptpolicy" name="acceptpolicy" required />
+                                    <label htmlFor="acceptpolicy" className="form-label">
+                                        Accept our <a href="https://www.vadsbo.net/integritetspolicy/" target="_blank" className="text-black">privacy policy</a>
+                                    </label>
+                                </div>
+                            </div>
+                            <div className="modal-footer">
+                                <button className="btn btn-outline-dark me-2" type="button" data-bs-dismiss="modal">Avbryt</button>
+                                <button className="btn btn-dark" type="submit">Skicka</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
