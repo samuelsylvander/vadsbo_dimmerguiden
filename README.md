@@ -42,13 +42,17 @@ The ToDo's below are not in priority order.
 - We should use bootstrap toasts for certain info displayed to the user after an action, not the popup we are using now. For example when copying the project link, when the project is saved (remove the save button). Please read this documentation: https://getbootstrap.com/docs/5.0/components/toasts/
 - Code Consistancy. It is important to use the same technique thoughout the project. In some places you use form elements like in GetQuote.jsx and in some you use "Text" as in NewRoom.jsx. We should stick to how we do it in GetQuote.jsx
 
-#### NewRoom.jsx
-- Make sure to use bootstrap toggle instead of switch as we do now.
-
-#### Home.jsx
+#### 1. Home.jsx
 - Make Project Name required
 
-#### Summary.jsx
+#### 2. Sidebar.jsx
+- The heading "Tillval" should only be visible if any options has been chosen.
+- Each "product" should have an info icon. When clicked it should show a bootstrap modal with info. 
+
+#### 3. NewRoom.jsx
+- Make sure to use bootstrap toggle instead of switch as we do now.
+
+#### 4. Summary.jsx
 - Display project name on summary page as h1 tag
 - Remove the "saved/saveing/loading" button and instead show a toast when the project is saved, in general, saves should be done automatically when something changes
 - Room details should use bootstrap built in toggle collapsed for handling, show/not show, room details.
@@ -56,18 +60,14 @@ The ToDo's below are not in priority order.
 - Rooms shold show details as default (remove collapse class) if the number of rooms are 5 or less. If else, they shold be set to collapse
 - If you click the delete room icon, a bootstrap modal should show and and "Are you sure" to confirm before deletaion.
 
-#### Sidebar.jsx
-- The heading "Tillval" should only be visible if any options has been chosen.
-- Each "product" should have an info icon. When clicked it should show a bootstrap modal with info. 
-
-#### SharePopup.jsx
+#### 5. SharePopup.jsx
 - This should be a bootstrap modal and be handled as such.
 - The form to share should include the following fields: name, email, message, box for privacy policy. All fields are "required".
 - A link to the following privacy policy should open in a new window if clicked: https://www.vadsbo.net/integritetspolicy/
 - A copy of the email should be sent to dimmerguiden@vadsbo.net
 - When sent, a toast should appear telling that the message was sent.
 
-#### GetQuote.jsx
+#### 6. GetQuote.jsx
 - This should be a bootstrap modal and be handle as such.
 - A link to the following privacy policy should open in a new window if clicked: https://www.vadsbo.net/integritetspolicy/
 - When sent, a toast should appear telling that the message was sent.
