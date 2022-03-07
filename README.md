@@ -46,7 +46,7 @@ The ToDo's below are not in priority order.
 - Make Project Name required
 
 #### 2. Sidebar.jsx
-- The heading "Tillval" should only be visible if any options has been chosen.
+- X The heading "Tillval" should only be visible if any options has been chosen.
 - Each "product" should have an info icon. When clicked it should show a bootstrap modal with info. 
 
 #### 3. NewRoom.jsx
@@ -57,7 +57,8 @@ The ToDo's below are not in priority order.
 - X Remove the "saved/saveing/loading" button and instead show a toast when the project is saved, in general, saves should be done automatically when something changes
 - X Room details should use bootstrap built in toggle collapsed for handling, show/not show, room details.
 - X Decrease and increase of rooms, should be saved instantly onChange.
-- Rooms shold show details as default (remove collapse class) if the number of rooms are 5 or less. If else, they shold be set to collapse
+- X Rooms shold show details as default (remove collapse class) if the number of rooms are 5 or less. If else, they shold be set to collapse
+--  (I'm including the options as one of the five "rooms")
 - If you click the delete room icon, a bootstrap modal should show and and "Are you sure" to confirm before deletaion.
 
 #### 5. SharePopup.jsx

@@ -13,6 +13,7 @@ function Sidebar(props) {
         larm: "Vadsbox Larm",
         drift: "Driftsättning"
     };
+    const filteredOptions = Object.keys(props.options).filter(option => props.options[option]==="Ja")
 
     return (
         <div className="d-flex flex-column h-100">
@@ -25,11 +26,10 @@ function Sidebar(props) {
                         }
                     })}
                     <li>
-                        <h4 className="mt-5">Tillval</h4>
-                        {Object.keys(props.options)
-                            .filter(option => props.options[option]==="Ja")
-                            .map(option => <p className="my-1">{optionLookup[option]}</p>)
-                        }
+                        {filteredOptions.length > 0 && <>
+                            <h4 className="mt-5">Tillval</h4>
+                            {filteredOptions.map(option => <p className="my-1">{optionLookup[option]}</p>)}
+                        </>}
                     </li> 
                 </ul>
             </div>
