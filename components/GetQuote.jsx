@@ -13,8 +13,8 @@ function GetQuote(props) {
         const newButtonText = 
             <span>
                 Skickar...
-                <div class="spinner-border mx-2" role="status">
-                    <span class="sr-only">Laddar...</span>
+                <div className="spinner-border mx-2" role="status">
+                    <span className="sr-only">Laddar...</span>
                 </div>
             </span>
         setButtonText(newButtonText)
@@ -36,21 +36,21 @@ function GetQuote(props) {
         <div className="container-fluid">
             <h1>Be om offert</h1>
             <form id="get-quote-form" name="get-quote" onSubmit={handleSubmit}>
-                <div class="mb-3">
-                    <label for="name" class="form-label">Namn</label>
-                    <input type="text" class="form-control bg-white" id="name" required />
+                <div className="mb-3">
+                    <label for="name" className="form-label">Namn</label>
+                    <input type="text" className="form-control bg-white" id="name" required />
                 </div>
-                <div class="mb-3">
-                    <label for="phone" class="form-label">Telefon</label>
-                    <input type="text" class="form-control bg-white" id="phone" required />
+                <div className="mb-3">
+                    <label for="phone" className="form-label">Telefon</label>
+                    <input type="text" className="form-control bg-white" id="phone" required />
                 </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">E-post</label>
-                    <input type="email" class="form-control bg-white" id="email" required />
+                <div className="mb-3">
+                    <label for="email" className="form-label">E-post</label>
+                    <input type="email" className="form-control bg-white" id="email" required />
                 </div>
-                <div class="mb-3">
-                    <label for="message" class="form-label">Övrig information</label>
-                    <textarea class="form-control bg-white" id="message" name="message"></textarea>
+                <div className="mb-3">
+                    <label for="message" className="form-label">Övrig information</label>
+                    <textarea className="form-control bg-white" id="message" name="message"></textarea>
                 </div>
 
                 <button className="btn btn-outline-dark me-2" type="button" onClick={()=> props.setAppState("summary")}>Avbryt</button>

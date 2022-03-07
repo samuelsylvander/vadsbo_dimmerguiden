@@ -28,9 +28,9 @@ export default function Home(props) {
         const newText = 
             <span>
                 Skapar projekt
-                <div class="d-flex align-items-center">
+                <div className="d-flex align-items-center">
                     Laddar...
-                    <div class="spinner-border spinner-border-sm ms-auto" role="status" aria-hidden="true"></div>
+                    <div className="spinner-border spinner-border-sm ms-auto" role="status" aria-hidden="true"></div>
                 </div>
             </span>
         setButtonText(newText)

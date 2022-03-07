@@ -21,9 +21,9 @@ export default function Summary(props) {
     async function saveProject() {
         //display animation
         const newButtonText =
-        <div class="d-flex align-items-center">
+        <div className="d-flex align-items-center">
             Laddar...
-            <div class="spinner-border spinner-border-sm ms-auto" role="status" aria-hidden="true"></div>
+            <div className="spinner-border spinner-border-sm ms-auto" role="status" aria-hidden="true"></div>
         </div>
         setButtonText(newButtonText)
 

@@ -56,7 +56,7 @@ function RoomQuantity(props) {
                     <a className="text-dark me-2" onClick={()=>props.loadRoom(props.label)}><FontAwesomeIcon icon={faPenToSquare} /></a>
                     <a className="text-dark me-2" onClick={()=>props.deleteRoom(props.index)}><FontAwesomeIcon icon={faTrashCan} /></a>
                     
-                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target={"summarydetails" + props.index} aria-expanded="false" aria-controls={"summarydetails" + props.index}><FontAwesomeIcon icon={faChevronDown} /></button>
+                    <button className="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target={"summarydetails" + props.index} aria-expanded="false" aria-controls={"summarydetails" + props.index}><FontAwesomeIcon icon={faChevronDown} /></button>
                 </div>
             </div>
             <div className="card-body " id={"summarydetails" + props.index}>

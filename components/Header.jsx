@@ -18,7 +18,7 @@ function Header(props) {
 
     return (
         <nav className="navbar bg-primary">
-            <div class="container-md">
+            <div className="container-md">
                 <div className="navbar-brand">
                     <Image src={vadsboLogo} height={60} width={292} alt="Vadsbo Logo" />
                 </div>
