@@ -37,19 +37,19 @@ function GetQuote(props) {
             <h1>Be om offert</h1>
             <form id="get-quote-form" name="get-quote" onSubmit={handleSubmit}>
                 <div className="mb-3">
-                    <label for="name" className="form-label">Namn</label>
+                    <label htmlFor="name" className="form-label">Namn</label>
                     <input type="text" className="form-control bg-white" id="name" required />
                 </div>
                 <div className="mb-3">
-                    <label for="phone" className="form-label">Telefon</label>
+                    <label htmlFor="phone" className="form-label">Telefon</label>
                     <input type="text" className="form-control bg-white" id="phone" required />
                 </div>
                 <div className="mb-3">
-                    <label for="email" className="form-label">E-post</label>
+                    <label htmlFor="email" className="form-label">E-post</label>
                     <input type="email" className="form-control bg-white" id="email" required />
                 </div>
                 <div className="mb-3">
-                    <label for="message" className="form-label">Övrig information</label>
+                    <label htmlFor="message" className="form-label">Övrig information</label>
                     <textarea className="form-control bg-white" id="message" name="message"></textarea>
                 </div>
 

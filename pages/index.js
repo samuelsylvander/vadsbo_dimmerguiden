@@ -74,7 +74,7 @@ export default function Home(props) {
 
                     <div className="col-6 bg-primary p-4">
                         <h2 className="text-center mb-4">Starta guiden här</h2>
-                        <label for="start-project">
+                        <label htmlFor="start-project">
                             Ge ditt projekt ett passande namn<br/>
                             <input id="start-project" className="form-control mt-2 bg-white" type="text" value={projectName} onChange={handleUpdate} placeholder="Ex. Storgatan 8" />
                         </label>

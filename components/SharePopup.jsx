@@ -51,7 +51,7 @@ function Share({shareURL, setShowPopup}) {
                         <p>Länk till ditt projekt:</p>
                         <p><a className="text-dark" href={shareURL}>{shareURL}</a></p>
                         <form id="email-share-form" onSubmit={handleSubmit}>
-                            <label for="email" className="mt-4">Maila ditt projekt till någon</label>
+                            <label htmlFor="email" className="mt-4">Maila ditt projekt till någon</label>
                             <div className="input-group">
                                 <input id="email" type="email" className="form-control" name="email"></input>
                                 <button type="submit" className="btn btn-dark">{emailText}</button>
