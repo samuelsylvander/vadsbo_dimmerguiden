@@ -5,9 +5,9 @@ import Sidebar from "./Sidebar";
 import Share from "./SharePopup";
 
 export default function Summary(props) {
-    const [buttonText, setButtonText] = useState("Spara projekt");
     const [showPopup, setShowPopup] = useState(false)
-    const shareURL = `localhost:3000/${props.projectId}`;
+    const shareURL = `localhost:3000/${props.projectId}`
+    let toast;
 
    
     function checkOptions() {
@@ -19,36 +19,31 @@ export default function Summary(props) {
     };
 
     async function saveProject() {
-        //display animation
-        const newButtonText =
-        <div className="d-flex align-items-center">
-            Laddar...
-            <div className="spinner-border spinner-border-sm ms-auto" role="status" aria-hidden="true"></div>
-        </div>
-        setButtonText(newButtonText)
-
+        console.log(typeof bootstrap)
+        toast.show();
         const url = "http://localhost:3000/api/savetodbAPI"
         const request = new XMLHttpRequest();
         request.open("POST", url, true);
         request.onreadystatechange = ()=> {
             if (request.readyState == 4 && request.status == 200) {
                 console.log("server response: " + request.response);
-                setButtonText("Spara")
             }
         }
         request.send(JSON.stringify({id: props.projectId, projectName: props.projectName, roomList: props.roomList, options: props.options}));
     }
 
-    useEffect( ()=> {
-        setButtonText("Spara projekt") //reset save button text every time roomList changes
-    }, [props.roomList]);
+    useEffect(()=> {
+        var bootstrap = require('bootstrap')
+        const saveToast = document.getElementById('saveToast')
+        toast = new bootstrap.Toast(saveToast)
+    }, [])
 
     useEffect(saveProject, []); //save project every time we enter summary page
 
     return (
         <div className="container row h-100">
             <div className="col-8 overflow-auto">
-                <h1 className="mt-5">Projektnamn</h1>
+                <h1 className="mt-5">{props.projectName}</h1>
                 {props.roomList.map((item, index) => {
                     return (
                         <RoomQuantity
@@ -74,7 +69,6 @@ export default function Summary(props) {
                     <button className="btn btn-dark mx-3" onClick={props.addRoom}>Lägg till rum</button>
                     <button className="btn btn-dark mx-3" onClick={() => props.setAppState("moreoptions")}>Tillval</button>
                     <button className="btn btn-dark mx-3" onClick={()=>setShowPopup(true)}>Dela</button>
-                    <button className="btn btn-outline-dark mx-3" onClick={saveProject}>{buttonText}</button>
                 </div>
                 
             </div>
@@ -86,6 +80,18 @@ export default function Summary(props) {
                     options={props.options}
                 />
             </div>
+
+            <div className="position-fixed bottom-0 end-0 p-3" style={{"z-index": 11}}>
+                <div id="saveToast" className="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="600">
+                    <div className="d-flex">
+                        <div className="toast-body">
+                            Project Saved!
+                        </div>
+                        <button type="button" className="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+
 
             {showPopup && <Share
                 shareURL={shareURL}
