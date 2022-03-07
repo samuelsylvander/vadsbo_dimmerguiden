@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import RoomQuantity from "./RoomQuantity";
 import OptionsList from "./OptionsList";
 import Sidebar from "./Sidebar";
@@ -7,8 +7,7 @@ import Share from "./SharePopup";
 export default function Summary(props) {
     const [showPopup, setShowPopup] = useState(false)
     const shareURL = `localhost:3000/${props.projectId}`
-    let toast;
-
+    const toast = useRef();
    
     function checkOptions() {
         if (Object.keys(props.options).some(key=>props.options[key] == "Ja")) {
@@ -19,8 +18,7 @@ export default function Summary(props) {
     };
 
     async function saveProject() {
-        console.log(typeof bootstrap)
-        toast.show();
+        toast.current.show();
         const url = "http://localhost:3000/api/savetodbAPI"
         const request = new XMLHttpRequest();
         request.open("POST", url, true);
@@ -35,10 +33,10 @@ export default function Summary(props) {
     useEffect(()=> {
         var bootstrap = require('bootstrap')
         const saveToast = document.getElementById('saveToast')
-        toast = new bootstrap.Toast(saveToast)
+        toast.current = new bootstrap.Toast(saveToast)
     }, [])
 
-    useEffect(saveProject, []); //save project every time we enter summary page
+    useEffect(saveProject, [props.roomList]) //save project every time we change the roomList
 
     return (
         <div className="container row h-100">
@@ -81,8 +79,8 @@ export default function Summary(props) {
                 />
             </div>
 
-            <div className="position-fixed bottom-0 end-0 p-3" style={{"z-index": 11}}>
-                <div id="saveToast" className="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="600">
+            <div className="position-fixed bottom-0 end-0 p-3" style={{"zIndex": 11}}>
+                <div id="saveToast" className="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="1500">
                     <div className="d-flex">
                         <div className="toast-body">
                             Project Saved!

@@ -53,8 +53,8 @@ The ToDo's below are not in priority order.
 - Make sure to use bootstrap toggle instead of switch as we do now.
 
 #### 4. Summary.jsx
-- Display project name on summary page as h1 tag
-- Remove the "saved/saveing/loading" button and instead show a toast when the project is saved, in general, saves should be done automatically when something changes
+- X Display project name on summary page as h1 tag
+- X Remove the "saved/saveing/loading" button and instead show a toast when the project is saved, in general, saves should be done automatically when something changes
 - Room details should use bootstrap built in toggle collapsed for handling, show/not show, room details.
 - Decrease and increase of rooms, should be saved instantly onChange.
 - Rooms shold show details as default (remove collapse class) if the number of rooms are 5 or less. If else, they shold be set to collapse
