@@ -35,7 +35,6 @@ function RoomQuantity(props) {
     }
 
     return (
-        <>
         <div className="card bg-secondary mb-4 p-3">
             <div className="row align-items-center">
                 <div className="col align-self-center">
@@ -67,7 +66,6 @@ function RoomQuantity(props) {
                 </div>
             </div>
         </div>
-        </>
     )
 
     

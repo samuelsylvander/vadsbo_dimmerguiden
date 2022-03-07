@@ -42,6 +42,17 @@ export default function Summary(props) {
 
     useEffect(()=> saveProject(), [props.roomList]) //save project every time we change the roomList
 
+    useEffect(()=>{
+        if (props.roomList.length <= 5) {
+            console.log("starting to uncollapse")
+            let collapsable = document.getElementsByClassName("collapse");
+            for (let i=0; i<collapsable.length; i++) {
+                collapsable[i].className = "collapse show p-0"
+            }
+        }
+    },[])
+
+
     return (
         <div className="container row h-100">
             <div className="col-8 overflow-auto">
