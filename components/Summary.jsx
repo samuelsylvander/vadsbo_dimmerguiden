@@ -36,7 +36,7 @@ export default function Summary(props) {
         toast.current = new bootstrap.Toast(saveToast)
     }, [])
 
-    useEffect(saveProject, [props.roomList]) //save project every time we change the roomList
+    useEffect(()=> saveProject(), [props.roomList]) //save project every time we change the roomList
 
     return (
         <div className="container row h-100">

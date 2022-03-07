@@ -42,7 +42,7 @@ export default function Project({ loadedProject, errorText }) {
     if (loadedProject == "errored") {
         return (
             <>
-                <h1>Sorry, can't access database</h1>
+                <h1>Sorry, can&apos;t access database</h1>
                 <h3>Please try again later</h3>
                 <p>{errorText}</p>
             </>

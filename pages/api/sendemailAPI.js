@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer')
 
-export default async function (req, res) {
+export default async function sendEmail(req, res) {
     const draft = JSON.parse(req.body)
 
     try {
