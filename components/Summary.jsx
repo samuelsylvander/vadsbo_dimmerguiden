@@ -59,6 +59,7 @@ export default function Summary(props) {
                         />
                     )
                 })}
+                
                 {checkOptions() && <OptionsList
                     label="Tillval" 
                     options={props.options} 

@@ -56,17 +56,21 @@ function RoomQuantity(props) {
                     <a className="text-dark me-2" onClick={()=>props.loadRoom(props.label)}><FontAwesomeIcon icon={faPenToSquare} /></a>
                     <a className="text-dark me-2" onClick={()=>props.deleteRoom(props.index)}><FontAwesomeIcon icon={faTrashCan} /></a>
                     
-                    <button className="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target={"summarydetails" + props.index} aria-expanded="false" aria-controls={"summarydetails" + props.index}><FontAwesomeIcon icon={faChevronDown} /></button>
+                    <button className="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target={"#summarydetails" + props.index} aria-expanded="false" aria-controls={"summarydetails" + props.index}><FontAwesomeIcon icon={faChevronDown} /></button>
                 </div>
             </div>
-            <div className="card-body " id={"summarydetails" + props.index}>
-                Hur armaturerna kontrolleras: <strong>{props.roomList[props.index].app}</strong><br/>
-                Antal armaturer: <strong>{props.roomList[props.index].lights}</strong><br/>
-                Antal knappar: <strong>{props.roomList[props.index].switches}</strong>
+            <div className="collapse p-0" id={"summarydetails" + props.index}>
+                <div className="card-body">
+                    Hur armaturerna kontrolleras: <strong>{props.roomList[props.index].app}</strong><br/>
+                    Antal armaturer: <strong>{props.roomList[props.index].lights}</strong><br/>
+                    Antal knappar: <strong>{props.roomList[props.index].switches}</strong>
+                </div>
             </div>
         </div>
         </>
     )
+
+    
     
 };
 
