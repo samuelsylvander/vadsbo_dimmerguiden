@@ -4,7 +4,6 @@ import Head from "next/head";
 import NewRoom from "../components/NewRoom";
 import Summary from "../components/Summary";
 import MoreOptions from '../components/MoreOptions';
-import GetQuote from "../components/GetQuote";
 import React, {useEffect, useState} from "react";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
@@ -87,6 +86,10 @@ export default function Project({ loadedProject, errorText }) {
         <>
         <Head>
             <title>Vadsbo dimmerGuiden&trade;</title>
+            <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
+            <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
+            <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
+            <link rel="manifest" href="/site.webmanifest"></link>
         </Head>
         <Header projectId={loadedProject._id}/>
         <div className="container-lg mt-0">
@@ -113,10 +116,6 @@ export default function Project({ loadedProject, errorText }) {
                 options={options}
                 setOptions={setOptions}
                 setAppState={setAppState}
-            />}
-            {appState == "getquote" && <GetQuote 
-                setAppState={setAppState}
-                projectId={loadedProject._id}
             />}
             {/* {loadedProject._id} */}
         </div>
