@@ -43,7 +43,7 @@ The ToDo's below are not in priority order.
 - Code Consistancy. It is important to use the same technique thoughout the project. In some places you use form elements like in GetQuote.jsx and in some you use "Text" as in NewRoom.jsx. We should stick to how we do it in GetQuote.jsx
 
 #### 1. Home.jsx
-- Make Project Name required
+- X Make Project Name required
 
 #### 2. Sidebar.jsx
 - X The heading "Tillval" should only be visible if any options has been chosen.
@@ -64,11 +64,11 @@ The ToDo's below are not in priority order.
 #### 5. SharePopup.jsx
 - This should be a bootstrap modal and be handled as such.
 - The form to share should include the following fields: name, email, message, box for privacy policy. All fields are "required".
-- A link to the following privacy policy should open in a new window if clicked: https://www.vadsbo.net/integritetspolicy/
+- X A link to the following privacy policy should open in a new window if clicked: https://www.vadsbo.net/integritetspolicy/
 - A copy of the email should be sent to dimmerguiden@vadsbo.net
 - When sent, a toast should appear telling that the message was sent.
 
 #### 6. GetQuote.jsx
-- This should be a bootstrap modal and be handle as such.
-- A link to the following privacy policy should open in a new window if clicked: https://www.vadsbo.net/integritetspolicy/
-- When sent, a toast should appear telling that the message was sent.
+- X This should be a bootstrap modal and be handle as such.
+- X A link to the following privacy policy should open in a new window if clicked: https://www.vadsbo.net/integritetspolicy/
+- X When sent, a toast should appear telling that the message was sent.

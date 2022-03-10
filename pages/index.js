@@ -78,12 +78,21 @@ export default function Home() {
                 <div className="row align-items-center">
 
                     <div className="col-6 bg-primary p-4">
+                        <form onSubmit={newProject}>
                         <h2 className="text-center mb-4">Starta guiden här</h2>
                         <label htmlFor="start-project">
                             Ge ditt projekt ett passande namn<br/>
-                            <input id="start-project" className="form-control mt-2 bg-white" type="text" value={projectName} onChange={handleUpdate} placeholder="Ex. Storgatan 8" />
+                            <input 
+                                id="start-project" 
+                                className="form-control mt-2 bg-white" 
+                                type="text" value={projectName} 
+                                onChange={handleUpdate} 
+                                placeholder="Ex. Storgatan 8" 
+                                required
+                            />
                         </label>
-                        <button className="btn btn-dark mt-3" type="button" onClick={newProject}>{buttonText}</button>
+                        <button className="btn btn-dark mt-3" type="submit">{buttonText}</button>
+                        </form>
                     </div>
 
                     <div className="col-6">
