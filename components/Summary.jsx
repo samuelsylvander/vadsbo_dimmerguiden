@@ -11,6 +11,7 @@ export default function Summary(props) {
     const quoteModal = useRef();
     const deleteModal = useRef();
     const shareModal = useRef();
+    const detailsModal = useRef();
    
 
     function checkOptions() {
@@ -73,6 +74,12 @@ export default function Summary(props) {
         }
     }
 
+    function showDetails(item) {
+        document.getElementById("productDetailsHeader").innerText = item
+        document.getElementById("productDetailsBody").innerText = item
+        detailsModal.current.show()
+    }
+
     function showToast(message) {
         document.getElementById("toastMessage").innerHTML = message;
         toast.current.show();
@@ -88,6 +95,8 @@ export default function Summary(props) {
         deleteModal.current = bootstrap.Modal.getOrCreateInstance(confirmDelete)
         const shareProject = document.getElementById('shareProject')
         shareModal.current = bootstrap.Modal.getOrCreateInstance(shareProject)
+        const productDetails = document.getElementById('productDetails')
+        detailsModal.current = bootstrap.Modal.getOrCreateInstance(productDetails)
     }, [])
 
     useEffect(()=> saveProject(), [props.roomList]) //save project every time we change the roomList
@@ -141,6 +150,7 @@ export default function Summary(props) {
                     roomList={props.roomList} 
                     setAppState={props.setAppState}
                     options={props.options}
+                    showDetails={showDetails}
                 />
             </div>
 
@@ -251,6 +261,24 @@ export default function Summary(props) {
                                 <button className="btn btn-dark" type="submit">Skicka</button>
                             </div>
                         </form>
+                    </div>
+                </div>
+            </div>
+
+                {/* Sidebar Product Info Modal */}
+            <div className="modal fade" id="productDetails" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="productDetailsHeader">Product</h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div id="productDetailsBody" className="modal-body">
+                            Product details here.
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Dismiss</button>
+                        </div>
                     </div>
                 </div>
             </div>

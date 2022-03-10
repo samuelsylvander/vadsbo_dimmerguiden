@@ -1,8 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDollarSign, faFilePdf } from "@fortawesome/free-solid-svg-icons";
+import { faDollarSign, faFilePdf, faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import algorithm from "../libs/algorithm";
-import BasketItem from "./BasketItem";
 
 function Sidebar(props) {
     const basketItems = algorithm(props.roomList);
@@ -20,9 +19,23 @@ function Sidebar(props) {
             <div id="basket-items" className="text-white flex-grow-1 p-2">
                 <h2 className="text-center pt-2 pb-4">Plocklista</h2>
                 <ul className="list-unstyled p-2">
-                    {Object.keys(basketItems).map(key => {
-                        if (basketItems[key] > 0) {
-                            return <BasketItem key={key} item={key} quantity={basketItems[key]}/>
+                    {Object.keys(basketItems).map(item => {
+                        if (basketItems[item] > 0) {
+                            return (
+                                <li className="mb-4" key={item}>
+                                    <h4>
+                                        {item} <FontAwesomeIcon icon={faCircleInfo} onClick={()=> props.showDetails(item)} />
+                                    </h4>
+                                    <div className="d-flex justify-content-between">
+                                        <div>
+                                            Antal
+                                        </div>
+                                        <div>
+                                            {basketItems[item]}
+                                        </div>
+                                    </div>
+                                </li>
+                            )
                         }
                     })}
                     <li>
