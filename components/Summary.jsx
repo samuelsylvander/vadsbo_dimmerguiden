@@ -9,9 +9,11 @@ export default function Summary(props) {
     const [showPopup, setShowPopup] = useState(false)
     const shareURL = `localhost:3000/${props.projectId}`
     const toast = useRef();
-    const toastMessage =useRef();
+    const toastMessage = useRef();
     const quoteModal = useRef();
+    const deleteModal = useRef();
    
+
     function checkOptions() {
         if (Object.keys(props.options).some(key=>props.options[key] == "Ja")) {
             return true
@@ -20,8 +22,13 @@ export default function Summary(props) {
         }
     };
 
-    function handleDelete() {
-
+    function handleDelete(deleteIndex) {
+        deleteModal.current.show();
+        let deleteButton = document.getElementById("confirmDeleteButton")
+        deleteButton.onclick = () => {
+            props.deleteRoom(deleteIndex);
+            deleteModal.current.hide()
+        }
     }
 
     async function saveProject() {
@@ -56,19 +63,21 @@ export default function Summary(props) {
         }
     }
 
-    useEffect(()=> {
+    useEffect(()=> { //set up the references to the bootstrap toasts and modals
         var bootstrap = require('bootstrap')
         const toastAlert = document.getElementById('toastAlert')
         toast.current = new bootstrap.Toast(toastAlert)
-        var myModalEl = document.getElementById('getQuote')
-        quoteModal.current = bootstrap.Modal.getOrCreateInstance(myModalEl)
+        const quote = document.getElementById('getQuote')
+        quoteModal.current = bootstrap.Modal.getOrCreateInstance(quote)
+        const confirmDelete = document.getElementById('confirmDelete')
+        deleteModal.current = bootstrap.Modal.getOrCreateInstance(confirmDelete)
+
     }, [])
 
     useEffect(()=> saveProject(), [props.roomList]) //save project every time we change the roomList
 
-    useEffect(()=>{
+    useEffect(()=>{ //uncollapse the details if less than six items
         if (props.roomList.length <= 5) {
-            console.log("starting to uncollapse")
             let collapsable = document.getElementsByClassName("collapse");
             for (let i=0; i<collapsable.length; i++) {
                 collapsable[i].className = "collapse show p-0"
@@ -145,7 +154,7 @@ export default function Summary(props) {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button" className="btn btn-primary"onClick={props.deleteRoom}>Delete</button>
+                            <button id="confirmDeleteButton" type="button" className="btn btn-primary">Delete</button>
                         </div>
                     </div>
                 </div>
