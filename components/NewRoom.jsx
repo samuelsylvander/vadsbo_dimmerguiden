@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Quantity from "./Quantity";
 import SwitchButtons from "./SwitchButtons";
-import Text from "./Text";
+import Info from "./Info";
 
 // props required:
 // currentRoom - values to display/set
@@ -32,13 +32,20 @@ function NewRoom(props) {
     <div className="container-fluid text-center">
         <h1 className="pt-4">Lägg till ett rum</h1>
         
-        <Text 
-            property="name" 
-            currentRoom={props.currentRoom}
-            setCurrentRoom={props.setCurrentRoom} 
-            label="Lägg till nytt rum"
-            infoText="Välj ett passande namn till rummet."
-        />
+        <div className="container">
+            <label>
+                <h3 className="d-inline-block">Lägg till nytt rum</h3>
+                <Info text={"Välj ett passande namn till rummet."} />
+                <input 
+                    className="fs-4" 
+                    type="text" 
+                    placeholder="Room name" 
+                    value={props.currentRoom["name"]} 
+                    onChange={(event)=>props.setCurrentRoom(prevVal => ({...prevVal, name: event.target.value}))}
+                    required 
+                />
+            </label>
+        </div>
 
         <SwitchButtons
             property="dali" 

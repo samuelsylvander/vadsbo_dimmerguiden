@@ -36,13 +36,15 @@ function Home(props) {
             <div className="row">
 
                 <div className="col-6 bg-primary p-4 m-3">
+                    <form onSubmit={props.newProject}>
                     <h3>Start Planning</h3>
                     <label>
                         Project Name<br/>
-                        <input id="start-project" type="text" value={props.project} onChange={handleUpdate} placeholder="Give your project a name" />
+                        <input id="start-project" type="text" value={props.project} onChange={handleUpdate} placeholder="Give your project a name" required />
                     </label>
                     <br/>
-                    <button className="button btn-dark" type="button" onClick={props.newProject}>Start Project</button>
+                    <button className="button btn-dark" type="submit">Start Project</button>
+                    </form>
                 </div>
 
                 <div className="col py-3">
