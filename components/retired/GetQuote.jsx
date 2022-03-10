@@ -1,25 +1,11 @@
 import { useRouter } from "next/router";
-import React, { useState } from "react";
-import Popup from "./Popup.jsx";
+import React from "react";
 import sendEmail from "../libs/sendemail.js";
 
 function GetQuote(props) {
-    const [submitted, setSubmitted] = useState(false);
-    const [buttonText, setButtonText] = useState("Submit Request")
     const router = useRouter();
 
     async function handleSubmit(event) {
-        //add loading animation
-        const newButtonText = 
-            <span>
-                Skickar...
-                <div className="spinner-border mx-2" role="status">
-                    <span className="sr-only">Laddar...</span>
-                </div>
-            </span>
-        setButtonText(newButtonText)
-
-        //get to work
         event.preventDefault();
         const formdata = new FormData(document.getElementById("get-quote-form"));
         formdata.append("projectId", props.projectId);
@@ -52,17 +38,16 @@ function GetQuote(props) {
                     <label htmlFor="message" className="form-label">Övrig information</label>
                     <textarea className="form-control bg-white" id="message" name="message"></textarea>
                 </div>
+                <div className="mb-3">
+                    <input type="checkbox" className="form-check-input me-2" id="acceptpolicy" name="acceptpolicy" />
+                    <label htmlFor="acceptpolicy" className="form-label">
+                        Accept our <a href="https://www.vadsbo.net/integritetspolicy/" target="_blank" className="text-black">privacy policy</a>
+                    </label>
+                </div>
 
                 <button className="btn btn-outline-dark me-2" type="button" onClick={()=> props.setAppState("summary")}>Avbryt</button>
                 <button className="btn btn-dark" type="submit">Skicka</button>
             </form>
-
-            {submitted && <Popup 
-                title="Tack för din förfrågan!"
-                body="Ditt projekt har skickats till oss och en av våra representanter kommer att kontakta dig inom kort."
-                confirm={["Tillbaka till projektet", ()=>props.setAppState("summary")]}
-                dismiss={["Vidare till vadsbo.net", ()=>router.push("https://www.vadsbo.net")]}
-            />}
         </div>
     )
 };

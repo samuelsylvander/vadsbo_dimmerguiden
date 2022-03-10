@@ -3,11 +3,14 @@ import RoomQuantity from "./RoomQuantity";
 import OptionsList from "./OptionsList";
 import Sidebar from "./Sidebar";
 import Share from "./SharePopup";
+import sendEmail from "../libs/sendemail";
 
 export default function Summary(props) {
     const [showPopup, setShowPopup] = useState(false)
     const shareURL = `localhost:3000/${props.projectId}`
     const toast = useRef();
+    const toastMessage =useRef();
+    const quoteModal = useRef();
    
     function checkOptions() {
         if (Object.keys(props.options).some(key=>props.options[key] == "Ja")) {
@@ -22,22 +25,43 @@ export default function Summary(props) {
     }
 
     async function saveProject() {
-        toast.current.show();
         const url = "http://localhost:3000/api/savetodbAPI"
-        const request = new XMLHttpRequest();
-        request.open("POST", url, true);
-        request.onreadystatechange = ()=> {
-            if (request.readyState == 4 && request.status == 200) {
-                console.log("server response: " + request.response);
-            }
+        await fetch(url, {
+            method: "POST",
+            body: JSON.stringify({id: props.projectId, projectName: props.projectName, roomList: props.roomList, options: props.options})
+        })
+            .then(response => response.json())
+            .then(response=> {
+                console.log("database response: " + JSON.stringify(response))
+                toastMessage.current = "Project Saved!"
+                toast.current.show();
+            })
+            .catch(error => console.log("database error: " + error));
+        
+    }
+
+    async function handleGetQuote(event) {
+        event.preventDefault();
+        quoteModal.current.hide()
+        const formdata = new FormData(document.getElementById("get-quote-form"));
+        formdata.append("projectId", props.projectId);
+        formdata.append("link", `localhost:3000/${props.projectId}`);
+        const result = await sendEmail(formdata);
+        if (result === "success") {
+            toastMessage.current = "Email Sent!"
+            toast.current.show();
+        } else {
+            toastMessage.current = "An error occurred, please try again"
+            toast.current.show();
         }
-        request.send(JSON.stringify({id: props.projectId, projectName: props.projectName, roomList: props.roomList, options: props.options}));
     }
 
     useEffect(()=> {
         var bootstrap = require('bootstrap')
-        const saveToast = document.getElementById('saveToast')
-        toast.current = new bootstrap.Toast(saveToast)
+        const toastAlert = document.getElementById('toastAlert')
+        toast.current = new bootstrap.Toast(toastAlert)
+        var myModalEl = document.getElementById('getQuote')
+        quoteModal.current = bootstrap.Modal.getOrCreateInstance(myModalEl)
     }, [])
 
     useEffect(()=> saveProject(), [props.roomList]) //save project every time we change the roomList
@@ -96,11 +120,12 @@ export default function Summary(props) {
                 />
             </div>
 
+                    {/* Toast Alert */}
             <div className="position-fixed bottom-0 end-0 p-3" style={{"zIndex": 11}}>
-                <div id="saveToast" className="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="1500">
+                <div id="toastAlert" className="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="1500">
                     <div className="d-flex">
                         <div className="toast-body">
-                            Project Saved!
+                            {toastMessage.current}
                         </div>
                         <button type="button" className="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                     </div>
@@ -134,19 +159,19 @@ export default function Summary(props) {
                             <h1>Be om offert</h1>
                         </div>
                     
-                        <form id="get-quote-form" name="get-quote">
+                        <form id="get-quote-form" name="get-quote" onSubmit={handleGetQuote}>
                             <div className="modal-body">
                                 <div className="mb-3">
                                     <label htmlFor="name" className="form-label">Namn</label>
-                                    <input type="text" className="form-control bg-white" id="name" required />
+                                    <input type="text" className="form-control bg-white" id="name" name="name" required />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="phone" className="form-label">Telefon</label>
-                                    <input type="text" className="form-control bg-white" id="phone" required />
+                                    <input type="text" className="form-control bg-white" id="phone" name="phone" required />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="email" className="form-label">E-post</label>
-                                    <input type="email" className="form-control bg-white" id="email" required />
+                                    <input type="email" className="form-control bg-white" id="email" name="email" required />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="message" className="form-label">Övrig information</label>
@@ -160,7 +185,7 @@ export default function Summary(props) {
                                 </div>
                             </div>
                             <div className="modal-footer">
-                                <button className="btn btn-outline-dark me-2" type="button" data-bs-dismiss="modal">Avbryt</button>
+                                <button id="dismissmodal" className="btn btn-outline-dark me-2" type="button" data-bs-dismiss="modal">Avbryt</button>
                                 <button className="btn btn-dark" type="submit">Skicka</button>
                             </div>
                         </form>
