@@ -6,12 +6,11 @@ import Share from "./SharePopup";
 import sendEmail from "../libs/sendemail";
 
 export default function Summary(props) {
-    const [showPopup, setShowPopup] = useState(false)
     const shareURL = `localhost:3000/${props.projectId}`
     const toast = useRef();
-    const toastMessage = useRef();
     const quoteModal = useRef();
     const deleteModal = useRef();
+    const shareModal = useRef();
    
 
     function checkOptions() {
@@ -40,8 +39,7 @@ export default function Summary(props) {
             .then(response => response.json())
             .then(response=> {
                 console.log("database response: " + JSON.stringify(response))
-                toastMessage.current = "Project Saved!"
-                toast.current.show();
+                showToast("Project Saved!")
             })
             .catch(error => console.log("database error: " + error));
         
@@ -55,12 +53,29 @@ export default function Summary(props) {
         formdata.append("link", `localhost:3000/${props.projectId}`);
         const result = await sendEmail(formdata);
         if (result === "success") {
-            toastMessage.current = "Email Sent!"
-            toast.current.show();
+            showToast("Email Sent!")
         } else {
-            toastMessage.current = "An error occurred, please try again"
-            toast.current.show();
+            showToast("An error occurred, please try again")
         }
+    }
+
+    async function handleShare(event) {
+        event.preventDefault();
+        shareModal.current.hide()
+        const formdata = new FormData(document.getElementById("share-project-form"));
+        formdata.append("projectId", props.projectId);
+        formdata.append("link", `localhost:3000/${props.projectId}`);
+        const result = await sendEmail(formdata);
+        if (result === "success") {
+            showToast("Email Sent!")
+        } else {
+            showToast("An error occurred, please try again")
+        }
+    }
+
+    function showToast(message) {
+        document.getElementById("toastMessage").innerHTML = message;
+        toast.current.show();
     }
 
     useEffect(()=> { //set up the references to the bootstrap toasts and modals
@@ -71,7 +86,8 @@ export default function Summary(props) {
         quoteModal.current = bootstrap.Modal.getOrCreateInstance(quote)
         const confirmDelete = document.getElementById('confirmDelete')
         deleteModal.current = bootstrap.Modal.getOrCreateInstance(confirmDelete)
-
+        const shareProject = document.getElementById('shareProject')
+        shareModal.current = bootstrap.Modal.getOrCreateInstance(shareProject)
     }, [])
 
     useEffect(()=> saveProject(), [props.roomList]) //save project every time we change the roomList
@@ -115,8 +131,7 @@ export default function Summary(props) {
                 <div className="py-5">
                     <button className="btn btn-dark mx-3" onClick={props.addRoom}>Lägg till rum</button>
                     <button className="btn btn-dark mx-3" onClick={() => props.setAppState("moreoptions")}>Tillval</button>
-                    <button className="btn btn-dark mx-3" onClick={()=>setShowPopup(true)}>Dela</button>
-                    <button className="btn btn-dark mx-3" data-bs-toggle="modal" data-bs-target="#confirmDelete">Modal</button>
+                    <button className="btn btn-dark mx-3" onClick={() => shareModal.current.show()}>Dela</button>
                 </div>
                 
             </div>
@@ -133,8 +148,8 @@ export default function Summary(props) {
             <div className="position-fixed bottom-0 end-0 p-3" style={{"zIndex": 11}}>
                 <div id="toastAlert" className="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="1500">
                     <div className="d-flex">
-                        <div className="toast-body">
-                            {toastMessage.current}
+                        <div id="toastMessage" className="toast-body">
+                            Project Saved!
                         </div>
                         <button type="button" className="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                     </div>
@@ -160,7 +175,7 @@ export default function Summary(props) {
                 </div>
             </div>
 
-                {/* Send Email Modal */}
+                {/* Get Quote Modal */}
             <div className="modal fade" id="getQuote" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
@@ -202,12 +217,46 @@ export default function Summary(props) {
                 </div>
             </div>
 
+                {/* Share Project Modal */}
+            <div className="modal fade" id="shareProject" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h1>Be om offert</h1>
+                        </div>
+                    
+                        <form id="share-project-form" name="share-project" onSubmit={handleShare}>
+                            <div className="modal-body">
+                                <div className="mb-3">
+                                    <label htmlFor="name" className="form-label">Namn</label>
+                                    <input type="text" className="form-control bg-white" id="name" name="name" required />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="email" className="form-label">E-post</label>
+                                    <input type="email" className="form-control bg-white" id="email" name="email" required />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="message" className="form-label">Övrig information</label>
+                                    <textarea className="form-control bg-white" id="message" name="message" required ></textarea>
+                                </div>
+                                <div className="mb-3">
+                                    <input type="checkbox" className="form-check-input me-2" id="acceptpolicy" name="acceptpolicy" required />
+                                    <label htmlFor="acceptpolicy" className="form-label">
+                                        Accept our <a href="https://www.vadsbo.net/integritetspolicy/" target="_blank" className="text-black">privacy policy</a>
+                                    </label>
+                                </div>
+                            </div>
+                            <div className="modal-footer">
+                                <button id="dismissmodal" className="btn btn-outline-dark me-2" type="button" data-bs-dismiss="modal">Avbryt</button>
+                                <button className="btn btn-dark" type="submit">Skicka</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
-            {showPopup && <Share
-                shareURL={shareURL}
-                setShowPopup={setShowPopup}
-            />}
 
+            
             {/* display roomList for debugging {"Currently in Project: " + JSON.stringify(props.roomList)} */}
 
             

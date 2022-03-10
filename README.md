@@ -58,15 +58,14 @@ The ToDo's below are not in priority order.
 - X Room details should use bootstrap built in toggle collapsed for handling, show/not show, room details.
 - X Decrease and increase of rooms, should be saved instantly onChange.
 - X Rooms shold show details as default (remove collapse class) if the number of rooms are 5 or less. If else, they shold be set to collapse
---  (I'm including the options as one of the five "rooms")
-- If you click the delete room icon, a bootstrap modal should show and and "Are you sure" to confirm before deletaion.
+- X If you click the delete room icon, a bootstrap modal should show and and "Are you sure" to confirm before deletaion.
 
 #### 5. SharePopup.jsx
-- This should be a bootstrap modal and be handled as such.
-- The form to share should include the following fields: name, email, message, box for privacy policy. All fields are "required".
+- X This should be a bootstrap modal and be handled as such.
+- X The form to share should include the following fields: name, email, message, box for privacy policy. All fields are "required".
 - X A link to the following privacy policy should open in a new window if clicked: https://www.vadsbo.net/integritetspolicy/
 - A copy of the email should be sent to dimmerguiden@vadsbo.net
-- When sent, a toast should appear telling that the message was sent.
+- X When sent, a toast should appear telling that the message was sent.
 
 #### 6. GetQuote.jsx
 - X This should be a bootstrap modal and be handle as such.
