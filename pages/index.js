@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import React, {useState} from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 config.autoAddCss = false;
@@ -12,7 +12,7 @@ import Header from '../components/Header';
 
 
 
-export default function Home(props) {
+export default function Home() {
 	const [projectName, setProjectName] = useState("");
     const [buttonText, setButtonText] = useState("Start Project");
     const router = useRouter();
@@ -24,6 +24,7 @@ export default function Home(props) {
 
     async function newProject(event) {
         // set loading animation
+        event.preventDefault();
         event.target.disabled = true;
         const newText = 
             <span>
@@ -37,22 +38,26 @@ export default function Home(props) {
 
         //start working
         const url = "http://localhost:3000/api/savetodbAPI"
-        const request = new XMLHttpRequest();
-        request.open("POST", url, true);
-        request.onreadystatechange = ()=> {
-            if (request.readyState == 4 && request.status == 200) {
-                console.log("server response: " + request.response);
-                const url = "./" + JSON.parse(request.response).insertedId;
-                router.push(url)
-              }
-        }
-        request.send(JSON.stringify({projectName: projectName, roomList: [], options: {}}));
+        await fetch(url, {
+            method: "POST",
+            body: JSON.stringify({projectName: projectName, roomList: [], options: {}})
+        })
+            .then(response => response.json())
+            .then(response => {
+                console.log("database response: " + JSON.stringify(response))
+                router.push("./" + response.insertedId);
+            })
+            .catch(error => console.log("database error: " + error));
     }
 
 	return (
 		<>
             <Head> 
                 <title>Vadsbo dimmerGuiden&trade;</title>
+                <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
+                <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
+                <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
+                <link rel="manifest" href="/site.webmanifest"></link>
             </Head>
             <Header/>
             <div className="w-50 vh-100 pt-5 mx-auto">
