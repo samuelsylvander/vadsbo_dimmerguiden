@@ -50,7 +50,7 @@ export default function Summary(props) {
         quoteModal.current.hide()
         const formdata = new FormData(document.getElementById("get-quote-form"));
         formdata.append("projectId", props.projectId);
-        formdata.append("link", shareURL);
+        formdata.append("url", shareURL);
         const result = await sendEmail(formdata);
         if (result === "success") {
             showToast("Email Sent!")

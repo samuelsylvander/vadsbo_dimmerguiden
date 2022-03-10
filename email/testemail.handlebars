@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Vadsbo dimmerGuiden</title>
+</head>
+<body>
+
+  <h2>Hello {{name}}</h2>
+
+  {{#if message}}
+    <p>{{message}}</p>
+  {{else}}
+    <p>I made a project using Vadsbo's dimmerGuiden app</p>
+  {{/if}}
+
+  <p>Check it out <a href="{{url}}" target="_blank">here!</a></p>
+
+  {{#if phone}}
+    <p>My number is {{phone}}</p>
+  {{/if}}
+
+</body>
+</html>
