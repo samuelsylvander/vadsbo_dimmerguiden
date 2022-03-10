@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from "react";
 import RoomQuantity from "./RoomQuantity";
 import OptionsList from "./OptionsList";
 import Sidebar from "./Sidebar";
-import Share from "./SharePopup";
 import sendEmail from "../libs/sendemail";
 
 export default function Summary(props) {
@@ -51,7 +50,7 @@ export default function Summary(props) {
         quoteModal.current.hide()
         const formdata = new FormData(document.getElementById("get-quote-form"));
         formdata.append("projectId", props.projectId);
-        formdata.append("link", `localhost:3000/${props.projectId}`);
+        formdata.append("link", shareURL);
         const result = await sendEmail(formdata);
         if (result === "success") {
             showToast("Email Sent!")
@@ -76,7 +75,7 @@ export default function Summary(props) {
 
     function showDetails(item) {
         document.getElementById("productDetailsHeader").innerText = item
-        document.getElementById("productDetailsBody").innerText = item
+        document.getElementById("productDetailsBody").innerText = "Details about " + item // add an object lookup for the details
         detailsModal.current.show()
     }
 
@@ -87,8 +86,10 @@ export default function Summary(props) {
 
     useEffect(()=> { //set up the references to the bootstrap toasts and modals
         var bootstrap = require('bootstrap')
+
         const toastAlert = document.getElementById('toastAlert')
         toast.current = new bootstrap.Toast(toastAlert)
+
         const quote = document.getElementById('getQuote')
         quoteModal.current = bootstrap.Modal.getOrCreateInstance(quote)
         const confirmDelete = document.getElementById('confirmDelete')
@@ -97,6 +98,9 @@ export default function Summary(props) {
         shareModal.current = bootstrap.Modal.getOrCreateInstance(shareProject)
         const productDetails = document.getElementById('productDetails')
         detailsModal.current = bootstrap.Modal.getOrCreateInstance(productDetails)
+
+        // set event listener to show toast on clicking share icon in navbar
+        document.getElementById("copy-url").addEventListener("click", ()=> showToast("Link copied to clipboard"))
     }, [])
 
     useEffect(()=> saveProject(), [props.roomList]) //save project every time we change the roomList
@@ -160,6 +164,17 @@ export default function Summary(props) {
                     <div className="d-flex">
                         <div id="toastMessage" className="toast-body">
                             Project Saved!
+                        </div>
+                        <button type="button" className="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+
+            <div className="position-fixed bottom-0 end-0 p-3" style={{"zIndex": 11}}>
+                <div id="copyLinkToast" className="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="1500">
+                    <div className="d-flex">
+                        <div className="toast-body">
+                            Project Link Copied to Clipboard
                         </div>
                         <button type="button" className="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                     </div>
