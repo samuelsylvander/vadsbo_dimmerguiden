@@ -60,24 +60,21 @@ export default function Home() {
                 <link rel="manifest" href="/site.webmanifest"></link>
             </Head>
             <Header/>
-            <div className="w-50 vh-100 pt-5 mx-auto">
-                <div id="spacer" className="my-5"></div>
-                <div className="row">
+            <div className="mx-5 m-lg-auto col-lg-8 vh-100 pt-5 text-center">
+                <div className="row align-items-center">
 
-                    <div className="col-6 p-5">
+                    <div className="col-md-6 p-5">
                         <h2>Välkommen till dimmerGuiden™</h2>
                         <p>Produkterna vi utvecklar är riktade till dig som vill lösa din installation på ett enkelt och praktiskt sätt. I dimmerGuiden™ har vi samlat våra produkter (som fanns 2015 alltså), mätningar och tekniska framsteg i form av förklaringar kring dimring och installationsförfarande. dimmerGuiden™ innehåller enkla tips på hur du lyckas med din installation.</p>
                     </div>
 
-                    <div className="col-6 mb-4">
+                    <div className="col-md-6 mb-4">
                         <Image src={phoneAppPic} alt="En telefon som använder dimmerguiden&trade;" />
                     </div>
 
-                </div>
+                
 
-                <div className="row align-items-center">
-
-                    <div className="col-6 bg-primary p-4">
+                    <div className="col-md-6 bg-primary p-4">
                         <form onSubmit={newProject}>
                         <h2 className="text-center mb-4">Starta guiden här</h2>
                         <label htmlFor="start-project">
@@ -95,7 +92,7 @@ export default function Home() {
                         </form>
                     </div>
 
-                    <div className="col-6">
+                    <div className="col-md-6">
                         <p><FontAwesomeIcon icon={faCheck} className="text-info me-2"/> Du får en klar överblick</p>
                         <p><FontAwesomeIcon icon={faCheck} className="text-info me-2" /> En tydlig plocklista att ge till din grossist</p>
                         <p><FontAwesomeIcon icon={faCheck} className="text-info me-2" /> Ytterligare en motiverande USP</p>
