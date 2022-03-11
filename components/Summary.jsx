@@ -5,7 +5,7 @@ import Sidebar from "./Sidebar";
 import sendEmail from "../libs/sendemail";
 
 export default function Summary(props) {
-    const shareURL = `localhost:3000/${props.projectId}`
+    const shareURL = `localhost:3000/${props.projectId}` //!!change at production
     const toast = useRef();
     const quoteModal = useRef();
     const deleteModal = useRef();
@@ -186,7 +186,7 @@ export default function Summary(props) {
             </div>
 
                 {/* Confirm Delete Modal */}
-            <div className="modal fade" id="confirmDelete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div className="modal fade" id="confirmDelete" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -205,7 +205,7 @@ export default function Summary(props) {
             </div>
 
                 {/* Get Quote Modal */}
-            <div className="modal fade" id="getQuote" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+            <div className="modal fade" id="getQuote" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -233,7 +233,7 @@ export default function Summary(props) {
                                 <div className="mb-3">
                                     <input type="checkbox" className="form-check-input me-2" id="acceptpolicy" name="acceptpolicy" required />
                                     <label htmlFor="acceptpolicy" className="form-label">
-                                        Accept our <a href="https://www.vadsbo.net/integritetspolicy/" target="_blank" className="text-black">privacy policy</a>
+                                        Accept our <a href="https://www.vadsbo.net/integritetspolicy/" target="_blank" rel="noreferrer" className="text-black">privacy policy</a>
                                     </label>
                                 </div>
                             </div>
@@ -247,7 +247,7 @@ export default function Summary(props) {
             </div>
 
                 {/* Share Project Modal */}
-            <div className="modal fade" id="shareProject" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+            <div className="modal fade" id="shareProject" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -271,7 +271,7 @@ export default function Summary(props) {
                                 <div className="mb-3">
                                     <label htmlFor="acceptpolicy" className="form-label">
                                         <input type="checkbox" className="form-check-input me-2" id="acceptpolicy" name="acceptpolicy" required />
-                                        Accept our <a href="https://www.vadsbo.net/integritetspolicy/" target="_blank" className="text-black">privacy policy</a>
+                                        Accept our <a href="https://www.vadsbo.net/integritetspolicy/" target="_blank" rel="noreferrer" className="text-black">privacy policy</a>
                                     </label>
                                 </div>
                             </div>
@@ -285,7 +285,7 @@ export default function Summary(props) {
             </div>
 
                 {/* Sidebar Product Info Modal */}
-            <div className="modal fade" id="productDetails" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div className="modal fade" id="productDetails" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">

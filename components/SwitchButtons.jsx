@@ -21,7 +21,7 @@ function SwitchButtons(props) {
         if (field.includes("DALI")) {
             return (
             <div className="d-flex align-items-center fw-bold">
-                <Image src={daliLogo} height={35} width={110}/>
+                <Image src={daliLogo} height={35} width={110} alt="DALI"/>
                 {field.slice(4)}
             </div>
             )
