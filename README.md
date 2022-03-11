@@ -36,9 +36,9 @@ The ToDo's below are not in priority order.
 - Design: Samuel will do the design of margins etc. so don't spend time on that
 - Implement ENV variables
 - Setup production ENV variables
-- Rebuild page structure to properly use bootstrap grid
+- X Rebuild page structure to properly use bootstrap grid
 - Pages should be in the pages folder rather than the components folder
-- Make sure bootstrap is used properly: https://medium.com/nextjs/how-to-add-bootstrap-in-next-js-de997371fd9c
+- X Make sure bootstrap is used properly: https://medium.com/nextjs/how-to-add-bootstrap-in-next-js-de997371fd9c
 - X We should use bootstrap toasts for certain info displayed to the user after an action, not the popup we are using now. For example when copying the project link, when the project is saved (remove the save button). Please read this documentation: https://getbootstrap.com/docs/5.0/components/toasts/
 - Code Consistancy. It is important to use the same technique thoughout the project. In some places you use form elements like in GetQuote.jsx and in some you use "Text" as in NewRoom.jsx. We should stick to how we do it in GetQuote.jsx
 

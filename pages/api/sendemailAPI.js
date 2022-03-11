@@ -14,13 +14,8 @@ export default async function sendEmail(req, res) {
             secure: false,
         });
 
-        let mail = {
-            from: 'dimmerguiden@vadsbo.net',
-            to: draft.email,
-            subject: `Vadsbo Project Link`,
-            text: `I created a project using Vadsbo's dimmerGuiden, take a look here: ${draft.link}.`,
-            html: await createEmail(draft),
-        };
+        let mail = await createEmail(draft)
+
         const info = await transporter.sendMail(mail);
            res.status(200).json(info)
 
@@ -33,8 +28,30 @@ export default async function sendEmail(req, res) {
 
 async function createEmail(inputs) {
     const Handlebars = require('handlebars')
-    const fsPromises = require("fs/promises");
-    const email = await fsPromises.readFile("./email/testemail.handlebars", 'utf8');
-    const template = Handlebars.compile(email);
-    return template(inputs)
+    const fsPromises = require('fs/promises');
+
+    // TODO change type of email depending on source
+    if (inputs.source === "getQuote") {
+        const email = await fsPromises.readFile("./email/quoteemail.handlebars", 'utf8');
+        const template = Handlebars.compile(email);
+        return ({
+            from: 'dimmerguiden@vadsbo.net',
+            to: 'dimmerguiden@vadsbo.net',
+            subject: `dimmerGuiden Quote Request`,
+            text: `Customer has requested a quote for project ${inputs.url}.`,
+            html: template(inputs),
+        })
+    } else if (inputs.source === "shareProject") {
+        const email = await fsPromises.readFile("./email/shareemail.handlebars", 'utf8');
+        const template = Handlebars.compile(email);
+        return ({
+            from: 'dimmerguiden@vadsbo.net',
+            to: inputs.email,
+            cc: 'dimmerguiden@vadsbo.net',
+            subject: `Vadsbo Project Link`,
+            text: `I created a project using Vadsbo's dimmerGuiden, take a look here: ${inputs.url}.`,
+            html: template(inputs),
+        })
+    }
+    
 }

@@ -51,6 +51,7 @@ export default function Summary(props) {
         const formdata = new FormData(document.getElementById("get-quote-form"));
         formdata.append("projectId", props.projectId);
         formdata.append("url", shareURL);
+        formdata.append("source", "getQuote");
         const result = await sendEmail(formdata);
         if (result === "success") {
             showToast("Email Sent!")
@@ -64,7 +65,8 @@ export default function Summary(props) {
         shareModal.current.hide()
         const formdata = new FormData(document.getElementById("share-project-form"));
         formdata.append("projectId", props.projectId);
-        formdata.append("link", `localhost:3000/${props.projectId}`);
+        formdata.append("url", shareURL);
+        formdata.append("source", "shareProject");
         const result = await sendEmail(formdata);
         if (result === "success") {
             showToast("Email Sent!")
@@ -267,8 +269,8 @@ export default function Summary(props) {
                                     <textarea className="form-control bg-white" id="message" name="message" required ></textarea>
                                 </div>
                                 <div className="mb-3">
-                                    <input type="checkbox" className="form-check-input me-2" id="acceptpolicy" name="acceptpolicy" required />
                                     <label htmlFor="acceptpolicy" className="form-label">
+                                        <input type="checkbox" className="form-check-input me-2" id="acceptpolicy" name="acceptpolicy" required />
                                         Accept our <a href="https://www.vadsbo.net/integritetspolicy/" target="_blank" className="text-black">privacy policy</a>
                                     </label>
                                 </div>
