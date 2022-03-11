@@ -50,7 +50,7 @@ The ToDo's below are not in priority order.
 - X Each "product" should have an info icon. When clicked it should show a bootstrap modal with info. 
 
 #### 3. NewRoom.jsx
-- Make sure to use bootstrap toggle instead of switch as we do now.
+- X Make sure to use bootstrap toggle instead of switch as we do now.
 
 #### 4. Summary.jsx
 - X Display project name on summary page as h1 tag

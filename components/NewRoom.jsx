@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Quantity from "./Quantity";
 import SwitchButtons from "./SwitchButtons";
 import Info from "./Info";
@@ -12,19 +12,16 @@ import Info from "./Info";
 
 
 function NewRoom(props) {
-    const [step, setStep] = useState(0);
 
     useEffect( ()=> {
         if (props.currentRoom.switches > 0 || props.currentRoom.app == "App") {
-            setStep(5)
-        } else if (props.currentRoom.app != "") {
-            setStep(4)
+            document.getElementById("step4").classList.remove("visually-hidden-focusable")
         } else if (props.currentRoom.group != "") {
-            setStep(3)
+            document.getElementById("step3").classList.remove("visually-hidden-focusable")
         } else if (props.currentRoom.lights > 0) {
-            setStep(2)
+            document.getElementById("step2").classList.remove("visually-hidden-focusable")
         } else if (props.currentRoom.name != "" && props.currentRoom.dali != "") {
-            setStep(1);
+            document.getElementById("step1").classList.remove("visually-hidden-focusable")
         }
     }, [props.currentRoom]);
 
@@ -56,42 +53,49 @@ function NewRoom(props) {
             infoText="Info text here"
         />
 
-        
-        {step > 0 && <Quantity 
-            property="lights"
-            currentRoom={props.currentRoom}
-            setCurrentRoom={props.setCurrentRoom} 
-            label="Antal armaturer" 
-            // infoText="Info text here"
-        />}
+        <div id="step1" className="visually-hidden-focusable">
+            <Quantity 
+                property="lights"
+                currentRoom={props.currentRoom}
+                setCurrentRoom={props.setCurrentRoom} 
+                label="Antal armaturer" 
+                // infoText="Info text here"
+            />
+        </div>
 
-        {step > 1 && <SwitchButtons 
-            property="group"
-            currentRoom={props.currentRoom}
-            setCurrentRoom={props.setCurrentRoom} 
-            label="Vill du styra armaturerna ihop eller individuellt?" 
-            field={["Ihop", "Individuellt"]} 
-            infoText="Info text here"
-        />}
+        <div id="step2" className="visually-hidden-focusable">
+            <SwitchButtons 
+                property="group"
+                currentRoom={props.currentRoom}
+                setCurrentRoom={props.setCurrentRoom} 
+                label="Vill du styra armaturerna ihop eller individuellt?" 
+                field={["Ihop", "Individuellt"]} 
+                infoText="Info text here"
+            />
+        </div>
 
-        {step > 2 && <SwitchButtons 
-            property="app"
-            currentRoom={props.currentRoom}
-            setCurrentRoom={props.setCurrentRoom} 
-            label="Vill du styra med app (t ex tidstyrt) eller knapp?" 
-            field={["App", "Knapp"]} 
-            infoText="Info text here"
-        />}
+        <div id="step3" className="visually-hidden-focusable">
+            <SwitchButtons 
+                property="app"
+                currentRoom={props.currentRoom}
+                setCurrentRoom={props.setCurrentRoom} 
+                label="Vill du styra med app (t ex tidstyrt) eller knapp?" 
+                field={["App", "Knapp"]} 
+                infoText="Info text here"
+            />
 
-        {props.currentRoom.app == "Knapp" && <Quantity 
-            property="switches"
-            currentRoom={props.currentRoom}
-            setCurrentRoom={props.setCurrentRoom} 
-            label="Switches" 
-            // infoText="Info text here"
-        />}
+            {props.currentRoom.app == "Knapp" && <Quantity 
+                property="switches"
+                currentRoom={props.currentRoom}
+                setCurrentRoom={props.setCurrentRoom} 
+                label="Switches" 
+                // infoText="Info text here"
+            />}
+        </div>
 
-        {step > 4 && <button className="button btn-dark" onClick={props.saveRoom}>Spara rum</button>}
+        <div id="step4" className="visually-hidden-focusable">
+            <button className="button btn-dark" onClick={props.saveRoom}>Spara rum</button>
+        </div>
       
         {/* display currentRoom contents for debugging */}
         {/* <p>{JSON.stringify(props.currentRoom)}</p> */}
