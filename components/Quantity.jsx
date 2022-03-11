@@ -13,6 +13,9 @@ function Quantity(props) {
 
     function handleQuantity(event) {
         let update = event.target.value.replace(/\D/, "");
+        if (update == "") {
+            update = 0
+        }
         props.setCurrentRoom(prevVal => ({...prevVal, [props.property]: update}));
     }
 

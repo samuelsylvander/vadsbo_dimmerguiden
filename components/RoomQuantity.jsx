@@ -12,6 +12,9 @@ function RoomQuantity(props) {
 
     function handleQuantity(event) {
         let update = event.target.value.replace(/\D/, "");
+        if (update == "") {
+            update = 0
+        }
         props.setRoomList(prevVal => {
             let temp = [...prevVal];
             temp[props.index].noOfRooms = update;
