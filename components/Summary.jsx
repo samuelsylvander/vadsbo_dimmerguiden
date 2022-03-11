@@ -116,9 +116,10 @@ export default function Summary(props) {
 
 
     return (
-        <div className="container row h-100">
-            <div className="col-8 overflow-auto">
-                <h1 className="mt-5">{props.projectName}</h1>
+        <>
+        <div className="container-lg m-0 mx-lg-auto row vw-100">
+            <div className="col-sm-8 col-xl-9 overflow-auto">
+                <h1 className="my-2">{props.projectName}</h1>
                 {props.roomList.map((item, index) => {
                     return (
                         <RoomQuantity
@@ -149,7 +150,7 @@ export default function Summary(props) {
                 
             </div>
 
-            <div id="basket" style={{background: "rgba(0,0,0,0.7)"}} className="col-4 m-0 p-0">
+            <div id="basket" style={{background: "rgba(0,0,0,0.7)"}} className="col-sm-4 col-xl-3 m-0 p-0">
                 <Sidebar 
                     roomList={props.roomList} 
                     setAppState={props.setAppState}
@@ -157,6 +158,7 @@ export default function Summary(props) {
                     showDetails={showDetails}
                 />
             </div>
+        </div>
 
                     {/* Toast Alert */}
             <div className="position-fixed bottom-0 end-0 p-3" style={{"zIndex": 11}}>
@@ -303,6 +305,6 @@ export default function Summary(props) {
             {/* display roomList for debugging {"Currently in Project: " + JSON.stringify(props.roomList)} */}
 
             
-        </div>
+        </>
     )
 };

@@ -15,7 +15,7 @@ function Sidebar(props) {
     const filteredOptions = Object.keys(props.options).filter(option => props.options[option]==="Ja")
 
     return (
-        <div className="d-flex flex-column h-100">
+        <div className="d-flex flex-column h-100 m-0">
             <div id="basket-items" className="text-white flex-grow-1 p-2">
                 <h2 className="text-center pt-2 pb-4">Plocklista</h2>
                 <ul className="list-unstyled p-2">

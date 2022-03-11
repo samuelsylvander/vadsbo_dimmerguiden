@@ -37,25 +37,34 @@ function RoomQuantity(props) {
     return (
         <div className="card bg-secondary mb-4 p-3">
             <div className="row align-items-center">
-                <div className="col align-self-center">
+                <div className="col-lg-6 me-auto align-self-center">
                     <h3 className="mb-0">{props.label}</h3>
                 </div>
-                <div className="col-3">
-                    <div className="input-group ms-auto">
-                        <button type="button" className="btn btn-primary" data-type="minus" onClick={handleIncrement}>
-                            <FontAwesomeIcon icon={faMinus} data-type="minus" />
-                        </button>
-                        <input type="text" className="form-control input-number bg-white text-center" value={props.roomList[props.index].noOfRooms} onChange={handleQuantity} onClick={event=>event.stopPropagation()}/>
-                        <button type="button" className="btn btn-primary" data-type="plus" onClick={handleIncrement} >
-                            <FontAwesomeIcon icon={faPlus} data-type="plus" />
-                        </button>
+                <div className="col-lg-auto row justify-content-end">
+                    <div className="col-auto">
+                        <div className="input-group">
+                            <button type="button" className="btn btn-primary" data-type="minus" onClick={handleIncrement}>
+                                <FontAwesomeIcon icon={faMinus} data-type="minus" />
+                            </button>
+                            <input 
+                                type="text" 
+                                className="form-control input-number bg-white text-center"
+                                style={{"max-width": "4rem"}}
+                                value={props.roomList[props.index].noOfRooms} 
+                                onChange={handleQuantity} 
+                                onClick={event=>event.stopPropagation()}
+                            />
+                            <button type="button" className="btn btn-primary" data-type="plus" onClick={handleIncrement} >
+                                <FontAwesomeIcon icon={faPlus} data-type="plus" />
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div className="col-auto">
-                    <a className="text-dark me-2" onClick={()=>props.loadRoom(props.label)}><FontAwesomeIcon icon={faPenToSquare} /></a>
-                    <a className="text-dark me-2" onClick={()=>props.deleteRoom(props.index)}><FontAwesomeIcon icon={faTrashCan} /></a>
-                    
-                    <button className="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target={"#summarydetails" + props.index} aria-expanded="false" aria-controls={"summarydetails" + props.index}><FontAwesomeIcon icon={faChevronDown} /></button>
+                    <div className="col-auto">
+                        <a className="text-dark me-2" onClick={()=>props.loadRoom(props.label)}><FontAwesomeIcon icon={faPenToSquare} /></a>
+                        <a className="text-dark me-2" onClick={()=>props.deleteRoom(props.index)}><FontAwesomeIcon icon={faTrashCan} /></a>
+                        
+                        <button className="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target={"#summarydetails" + props.index} aria-expanded="false" aria-controls={"summarydetails" + props.index}><FontAwesomeIcon icon={faChevronDown} /></button>
+                    </div>
                 </div>
             </div>
             <div className="collapse p-0" id={"summarydetails" + props.index}>

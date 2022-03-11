@@ -92,7 +92,7 @@ export default function Project({ loadedProject, errorText }) {
             <link rel="manifest" href="/site.webmanifest"></link>
         </Head>
         <Header projectId={loadedProject._id}/>
-        <div className="container-lg mt-0">
+        <div className="vw-100 m-0 p-0">
 
              {appState == "newroom" && <NewRoom  
                 projectName={projectName} 
