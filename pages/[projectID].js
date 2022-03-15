@@ -43,8 +43,8 @@ export async function getServerSideProps(context) {
 
 export default function Project({ loadedProject, errorText }) {
     const blankRoom = {"name": "", "dali": "", "lights": 0, "group": "", "app": "", "switches": 0, "noOfRooms": 1}
-    const projectName = loadedProject.projectName
 
+    const [projectName, setProjectName] = useState(loadedProject.projectName)
     const [appState, setAppState] = useState("summary"); // state to control which 'page' is displayed
     const [currentRoom, setCurrentRoom] = useState(blankRoom); // separate state for current room to simplify logic
     const [currentRoomIndex, setCurrentRoomIndex] = useState(-1); // index of room currently being edited. ** -1 for new room **
@@ -151,7 +151,8 @@ export default function Project({ loadedProject, errorText }) {
                 roomList={roomList} 
                 setRoomList={setRoomList}
                 setAppState={setAppState} 
-                projectName={projectName} 
+                projectName={projectName}
+                setProjectName={setProjectName}
                 addRoom={addRoom}
                 loadRoom={loadRoom}
                 deleteRoom={deleteRoom}

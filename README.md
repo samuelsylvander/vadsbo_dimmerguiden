@@ -37,10 +37,10 @@ The ToDo's below are not in priority order.
 - Implement ENV variables
 - Setup production ENV variables
 - X Rebuild page structure to properly use bootstrap grid
-- Pages should be in the pages folder rather than the components folder
+- X Pages should be in the pages folder rather than the components folder
 - X Make sure bootstrap is used properly: https://medium.com/nextjs/how-to-add-bootstrap-in-next-js-de997371fd9c
 - X We should use bootstrap toasts for certain info displayed to the user after an action, not the popup we are using now. For example when copying the project link, when the project is saved (remove the save button). Please read this documentation: https://getbootstrap.com/docs/5.0/components/toasts/
-- Code Consistancy. It is important to use the same technique thoughout the project. In some places you use form elements like in GetQuote.jsx and in some you use "Text" as in NewRoom.jsx. We should stick to how we do it in GetQuote.jsx
+- X Code Consistancy. It is important to use the same technique thoughout the project. In some places you use form elements like in GetQuote.jsx and in some you use "Text" as in NewRoom.jsx. We should stick to how we do it in GetQuote.jsx
 
 #### 1. Home.jsx
 - X Make Project Name required
@@ -71,3 +71,8 @@ The ToDo's below are not in priority order.
 - X This should be a bootstrap modal and be handle as such.
 - X A link to the following privacy policy should open in a new window if clicked: https://www.vadsbo.net/integritetspolicy/
 - X When sent, a toast should appear telling that the message was sent.
+
+#### Bugs
+- X Share link in navbar doesn't work outside summary - move div
+- X Edit room not displaying options correctly
+- X Edited room should go back to same position in room list

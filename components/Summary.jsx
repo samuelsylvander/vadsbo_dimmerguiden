@@ -3,6 +3,8 @@ import RoomQuantity from "./RoomQuantity";
 import OptionsList from "./OptionsList";
 import Sidebar from "./Sidebar";
 import sendEmail from "../libs/sendemail";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
 export default function Summary(props) {
     const shareURL = `localhost:3000/${props.projectId}` //!!change at production
@@ -11,6 +13,7 @@ export default function Summary(props) {
     const shareModal = useRef();
     const detailsModal = useRef();
     const confirmModal = useRef();
+    const nameModal = useRef();
    
 
     function checkOptions() {
@@ -20,6 +23,13 @@ export default function Summary(props) {
             return false
         }
     };
+
+    function handleNameChange(event) {
+        event.preventDefault()
+        const newName = document.getElementById("newProjectName").value;
+        props.setProjectName(newName);
+        nameModal.current.hide();
+    }
 
     function handleDelete(deleteIndex) {
         deleteModal.current.show();
@@ -82,7 +92,7 @@ export default function Summary(props) {
         detailsModal.current.show()
     }
 
-    useEffect(()=> { //set up the references to the bootstrap toasts and modals
+    useEffect(()=> { //set up the references to the bootstrap modals
         const { Modal } = require('bootstrap')
 
         const quote = document.getElementById('getQuote');
@@ -95,10 +105,12 @@ export default function Summary(props) {
         detailsModal.current = Modal.getOrCreateInstance(productDetails);
         const confirm = document.getElementById('quoteSubmitted');
         confirmModal.current = Modal.getOrCreateInstance(confirm);
+        const nameChange = document.getElementById('changeName');
+        nameModal.current = Modal.getOrCreateInstance(nameChange);
 
     }, [])
 
-    useEffect(()=> saveProject(), [props.roomList]) //save project every time we change the roomList
+    useEffect(()=> saveProject(), [props.roomList, props.projectName, props.options]) //save project every time we change any details
 
     useEffect(()=>{ //uncollapse the details if less than six items
         if (props.roomList.length <= 5) {
@@ -114,7 +126,10 @@ export default function Summary(props) {
         <>
         <div className="container-lg m-0 mx-lg-auto row vw-100">
             <div className="col-sm-8 col-xl-9 overflow-auto">
-                <h1 className="my-2">{props.projectName}</h1>
+                <h1 className="my-2">
+                    {props.projectName}
+                    <span className="fs-5" onClick={()=>nameModal.current.show()}><FontAwesomeIcon className="fs-6 ms-2" icon={faPenToSquare}/></span>
+                </h1>
                 {props.roomList.map((item, index) => {
                     return (
                         <RoomQuantity
@@ -287,6 +302,30 @@ export default function Summary(props) {
                             <button type="button" className="btn btn-outline-dark me-2" data-bs-dismiss="modal">Go Back to Project</button>
                             <a href="https://www.vadsbo.net" id="goToVadsbo" type="button" className="btn btn-dark">Go to vadsbo.net</a>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+                {/* Change Project Name Modal */}
+            <div className="modal fade" id="changeName" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="confirmDeleteLabel">Edit Project Name</h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form id="change-name-form" name="share-project" onSubmit={handleNameChange}>
+                            <div className="modal-body">
+                                <div className="mb-3">
+                                    <label htmlFor="name" className="form-label">New Project Name</label>
+                                    <input type="text" placeholder={props.projectName} className="form-control bg-white" id="newProjectName" required />
+                                </div>
+                            </div>
+                            <div className="modal-footer">
+                                <button id="dismissmodal" className="btn btn-outline-dark me-2" type="button" data-bs-dismiss="modal">Avbryt</button>
+                                <button className="btn btn-dark" type="submit">Skicka</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
