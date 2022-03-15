@@ -18,7 +18,6 @@ export default function Summary(props) {
 
     const saveProject = useCallback(debounce(saveToDB, 500), [])
    
-
     function checkOptions() {
         if (Object.keys(props.options).some(key=>props.options[key] == "Ja")) {
             return true
@@ -45,17 +44,17 @@ export default function Summary(props) {
 
     async function saveToDB() {
         const url = "http://localhost:3000/api/savetodbAPI"
-        await fetch(url, {
-            method: "POST",
-            body: JSON.stringify({id: props.projectId, projectName: props.projectName, roomList: props.roomList, options: props.options})
-        })
-            .then(response => response.json())
-            .then((response)=> {
-                console.dir(response)
-                props.showToast("Project Saved!")
+        try {
+            const response = await fetch(url, {
+                method: "POST",
+                body: JSON.stringify({id: props.projectId, projectName: props.projectName, roomList: props.roomList, options: props.options})
             })
-            .catch(error => console.log("database error: " + error));
-        
+            if (response.status === 200) {
+                props.showToast("Project Saved!")
+            }
+        } catch (error) {
+            console.log("database error: " + error)
+        }
     }
 
     async function handleGetQuote(event) {
