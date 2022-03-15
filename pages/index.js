@@ -25,7 +25,7 @@ export default function Home() {
     async function newProject(event) {
         // set loading animation
         event.preventDefault();
-        event.target.disabled = true;
+        document.getElementById("new-project-button").disabled = true;
         const newText = 
             <span>
                 Skapar projekt
@@ -88,7 +88,7 @@ export default function Home() {
                                 required
                             />
                         </label>
-                        <button className="btn btn-dark mt-3" type="submit">{buttonText}</button>
+                        <button id="new-project-button" className="btn btn-dark mt-3" type="submit">{buttonText}</button>
                         </form>
                     </div>
 

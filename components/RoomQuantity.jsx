@@ -52,7 +52,7 @@ function RoomQuantity(props) {
                             <input 
                                 type="text" 
                                 className="form-control input-number bg-white text-center"
-                                style={{"max-width": "4rem"}}
+                                style={{"maxWidth": "4rem"}}
                                 value={props.roomList[props.index].noOfRooms} 
                                 onChange={handleQuantity} 
                                 onClick={event=>event.stopPropagation()}

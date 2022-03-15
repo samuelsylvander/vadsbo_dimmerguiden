@@ -41,7 +41,7 @@ function Quantity(props) {
                         <button type="button" className="btn btn-primary" data-type="minus" onClick={handleIncrement}>
                             <FontAwesomeIcon icon={faMinus} data-type="minus" />
                         </button>
-                        <input type="text" style={{"max-width": "4rem"}} className="form-control input-number bg-white" value={props.currentRoom[props.property]} onChange={handleQuantity} />
+                        <input type="text" style={{"maxWidth": "4rem"}} className="form-control input-number bg-white" value={props.currentRoom[props.property]} onChange={handleQuantity} />
                         <button type="button" className="btn btn-primary" data-type="plus" onClick={handleIncrement} >
                             <FontAwesomeIcon icon={faPlus} data-type="plus" />
                         </button>
