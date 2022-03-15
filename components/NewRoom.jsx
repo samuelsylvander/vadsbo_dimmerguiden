@@ -13,18 +13,6 @@ import Info from "./Info";
 
 function NewRoom(props) {
 
-    useEffect( ()=> {
-        if (props.currentRoom.switches > 0 || props.currentRoom.app == "App") {
-            document.getElementById("step4").classList.remove("visually-hidden-focusable")
-        } else if (props.currentRoom.group != "") {
-            document.getElementById("step3").classList.remove("visually-hidden-focusable")
-        } else if (props.currentRoom.lights > 0) {
-            document.getElementById("step2").classList.remove("visually-hidden-focusable")
-        } else if (props.currentRoom.name != "" && props.currentRoom.dali != "") {
-            document.getElementById("step1").classList.remove("visually-hidden-focusable")
-        }
-    }, [props.currentRoom]);
-
     return (
     <div className="container-fluid text-center">
         <h1 className="pt-4">Lägg till ett rum</h1>
@@ -53,7 +41,7 @@ function NewRoom(props) {
             infoText="Info text here"
         />
 
-        <div id="step1" className="visually-hidden-focusable">
+        <div id="step1" className={!(props.currentRoom.name != "" && props.currentRoom.dali != "") && "visually-hidden-focusable"}>
             <Quantity 
                 property="lights"
                 currentRoom={props.currentRoom}
@@ -63,7 +51,7 @@ function NewRoom(props) {
             />
         </div>
 
-        <div id="step2" className="visually-hidden-focusable">
+        <div id="step2" className={!(props.currentRoom.lights > 0) && "visually-hidden-focusable"}>
             <SwitchButtons 
                 property="group"
                 currentRoom={props.currentRoom}
@@ -74,7 +62,7 @@ function NewRoom(props) {
             />
         </div>
 
-        <div id="step3" className="visually-hidden-focusable">
+        <div id="step3" className={!(props.currentRoom.group != "") && "visually-hidden-focusable"}>
             <SwitchButtons 
                 property="app"
                 currentRoom={props.currentRoom}
@@ -93,7 +81,7 @@ function NewRoom(props) {
             />}
         </div>
 
-        <div id="step4" className="visually-hidden-focusable">
+        <div id="step4" className={!(props.currentRoom.switches > 0 || props.currentRoom.app == "App") && "visually-hidden-focusable"}>
             <button className="button btn-dark" onClick={props.saveRoom}>Spara rum</button>
         </div>
       
