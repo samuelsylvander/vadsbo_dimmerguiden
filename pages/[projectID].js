@@ -4,7 +4,7 @@ import Head from "next/head";
 import NewRoom from "../components/NewRoom";
 import Summary from "../components/Summary";
 import MoreOptions from '../components/MoreOptions';
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 config.autoAddCss = false;
@@ -69,13 +69,15 @@ export default function Project({ loadedProject, errorText }) {
         
     }
 
-    const [appState, setAppState] = useState("summary");
     const blankRoom = {"name": "", "dali": "", "lights": 0, "group": "", "app": "", "switches": 0, "noOfRooms": 1}
     const projectName = loadedProject.projectName
-    const [currentRoom, setCurrentRoom] = useState(blankRoom);
+
+    const [appState, setAppState] = useState("summary"); // state to control which 'page' is displayed
+    const [currentRoom, setCurrentRoom] = useState(blankRoom); // separate state for current room to simplify logic
     const [currentRoomIndex, setCurrentRoomIndex] = useState(-1); // index of room currently being edited. -1 for new room
     const [roomList, setRoomList] = useState(loadedProject.roomList); //array of all rooms in current project
     const [options, setOptions] = useState(loadedProject.options);
+    const toast = useRef();
 
 
     function saveRoom() {
@@ -106,8 +108,25 @@ export default function Project({ loadedProject, errorText }) {
         setRoomList(prevVal => prevVal.filter((room, index) => index != deletedIndex));
     }
 
+    function showToast(message) {
+        document.getElementById("toastMessage").innerHTML = message;
+        toast.current.show();
+    }
+
+    useEffect(()=> {
+        const { Toast } = require('bootstrap')
+        const toastAlert = document.getElementById('toastAlert')
+        toast.current = new Toast(toastAlert)
+
+        // set event listener to show toast on clicking share icon in navbar
+        document.getElementById("copy-url").addEventListener("click", ()=> showToast("Link copied to clipboard"))
+
+        // clean up event listener on component unload
+        return () => document.getElementById("copy-url").removeEventListener("click", ()=> showToast("Link copied to clipboard"))
+    }, [])
+
     // useEffect( ()=> {
-    //     if (roomList.length == 0) {
+    //     if (roomList.length === 0) {
     //         setAppState("newroom") // if there are no rooms yet, go straight to New Room
     //     }
     // }, [])
@@ -121,10 +140,13 @@ export default function Project({ loadedProject, errorText }) {
             <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
             <link rel="manifest" href="/site.webmanifest"></link>
         </Head>
-        <Header projectId={loadedProject._id}/>
+        <Header 
+            projectId={loadedProject._id}
+            showToast={showToast}
+        />
         <div className="vw-100 m-0 p-0">
 
-             {appState == "newroom" && <NewRoom  
+            {appState == "newroom" && <NewRoom  
                 projectName={projectName} 
                 currentRoom={currentRoom}
                 setCurrentRoom={setCurrentRoom}
@@ -141,12 +163,25 @@ export default function Project({ loadedProject, errorText }) {
                 deleteRoom={deleteRoom}
                 options={options}
                 setOptions={setOptions}
+                showToast={showToast}
             />}
             {appState == "moreoptions" && <MoreOptions
                 options={options}
                 setOptions={setOptions}
                 setAppState={setAppState}
             />}
+        </div>
+
+            {/* Toast Alert */}
+        <div className="position-fixed bottom-0 end-0 p-3" style={{"zIndex": 11}}>
+            <div id="toastAlert" className="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="1500">
+                <div className="d-flex">
+                    <div id="toastMessage" className="toast-body">
+                        Project Saved!
+                    </div>
+                    <button type="button" className="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
         </div>
         </>
     )

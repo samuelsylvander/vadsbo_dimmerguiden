@@ -6,12 +6,12 @@ import Image from "next/image";
 
 //this component could be deprecated easily
 
-function Header(props) {
-    const url = `localhost:3000/${props.projectId}`;
+function Header({projectId, showToast}) {
+    const url = `localhost:3000/${projectId}`;
 
     function copyURL() {
         navigator.clipboard.writeText(url);
-        // toast is shown in Summary, not here
+        showToast("Link Copied to Clipboard")
     }
 
     return (
@@ -21,7 +21,7 @@ function Header(props) {
                     <Image src={vadsboLogo} height={60} width={292} alt="Vadsbo Logo" />
                 </div>
                 <h2>dimmerGuiden&#8482;</h2>
-                {props.projectId && <div id="copy-url" className="d-flex" onClick={copyURL}>
+                {projectId && <div id="copy-url" className="d-flex" onClick={copyURL}>
                     <FontAwesomeIcon className="mx-3" icon={faLink} />
                 </div>}
             </div>

@@ -6,7 +6,6 @@ import sendEmail from "../libs/sendemail";
 
 export default function Summary(props) {
     const shareURL = `localhost:3000/${props.projectId}` //!!change at production
-    const toast = useRef();
     const quoteModal = useRef();
     const deleteModal = useRef();
     const shareModal = useRef();
@@ -39,7 +38,7 @@ export default function Summary(props) {
             .then(response => response.json())
             .then(response=> {
                 console.log("database response: " + JSON.stringify(response))
-                showToast("Project Saved!")
+                props.showToast("Project Saved!")
             })
             .catch(error => console.log("database error: " + error));
         
@@ -54,9 +53,9 @@ export default function Summary(props) {
         formdata.append("source", "getQuote");
         const result = await sendEmail(formdata);
         if (result === "success") {
-            showToast("Email Sent!")
+            props.showToast("Email Sent!")
         } else {
-            showToast("An error occurred, please try again")
+            props.showToast("An error occurred, please try again")
         }
     }
 
@@ -69,9 +68,9 @@ export default function Summary(props) {
         formdata.append("source", "shareProject");
         const result = await sendEmail(formdata);
         if (result === "success") {
-            showToast("Email Sent!")
+            props.showToast("Email Sent!")
         } else {
-            showToast("An error occurred, please try again")
+            props.showToast("An error occurred, please try again")
         }
     }
 
@@ -81,31 +80,18 @@ export default function Summary(props) {
         detailsModal.current.show()
     }
 
-    function showToast(message) {
-        document.getElementById("toastMessage").innerHTML = message;
-        toast.current.show();
-    }
-
     useEffect(()=> { //set up the references to the bootstrap toasts and modals
-        var bootstrap = require('bootstrap')
-
-        const toastAlert = document.getElementById('toastAlert')
-        toast.current = new bootstrap.Toast(toastAlert)
+        const { Modal } = require('bootstrap')
 
         const quote = document.getElementById('getQuote')
-        quoteModal.current = bootstrap.Modal.getOrCreateInstance(quote)
+        quoteModal.current = Modal.getOrCreateInstance(quote)
         const confirmDelete = document.getElementById('confirmDelete')
-        deleteModal.current = bootstrap.Modal.getOrCreateInstance(confirmDelete)
+        deleteModal.current = Modal.getOrCreateInstance(confirmDelete)
         const shareProject = document.getElementById('shareProject')
-        shareModal.current = bootstrap.Modal.getOrCreateInstance(shareProject)
+        shareModal.current = Modal.getOrCreateInstance(shareProject)
         const productDetails = document.getElementById('productDetails')
-        detailsModal.current = bootstrap.Modal.getOrCreateInstance(productDetails)
+        detailsModal.current = Modal.getOrCreateInstance(productDetails)
 
-        // set event listener to show toast on clicking share icon in navbar
-        document.getElementById("copy-url").addEventListener("click", ()=> showToast("Link copied to clipboard"))
-
-        // clean up event listener on component unload
-        return () => document.getElementById("copy-url").removeEventListener("click", ()=> showToast("Link copied to clipboard"))
     }, [])
 
     useEffect(()=> saveProject(), [props.roomList]) //save project every time we change the roomList
@@ -164,18 +150,6 @@ export default function Summary(props) {
                 />
             </div>
         </div>
-
-                    {/* Toast Alert */}
-            <div className="position-fixed bottom-0 end-0 p-3" style={{"zIndex": 11}}>
-                <div id="toastAlert" className="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="1500">
-                    <div className="d-flex">
-                        <div id="toastMessage" className="toast-body">
-                            Project Saved!
-                        </div>
-                        <button type="button" className="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-                    </div>
-                </div>
-            </div>
 
             <div className="position-fixed bottom-0 end-0 p-3" style={{"zIndex": 11}}>
                 <div id="copyLinkToast" className="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="1500">
