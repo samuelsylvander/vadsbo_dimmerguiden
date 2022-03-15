@@ -1,10 +1,11 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useCallback, useRef } from "react";
 import RoomQuantity from "./RoomQuantity";
 import OptionsList from "./OptionsList";
 import Sidebar from "./Sidebar";
 import sendEmail from "../libs/sendemail";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import debounce from "../libs/debounce";
 
 export default function Summary(props) {
     const shareURL = `localhost:3000/${props.projectId}` //!!change at production
@@ -14,6 +15,8 @@ export default function Summary(props) {
     const detailsModal = useRef();
     const confirmModal = useRef();
     const nameModal = useRef();
+
+    const saveProject = useCallback(debounce(saveToDB, 500), [])
    
 
     function checkOptions() {
@@ -40,15 +43,15 @@ export default function Summary(props) {
         }
     }
 
-    async function saveProject() {
+    async function saveToDB() {
         const url = "http://localhost:3000/api/savetodbAPI"
         await fetch(url, {
             method: "POST",
             body: JSON.stringify({id: props.projectId, projectName: props.projectName, roomList: props.roomList, options: props.options})
         })
             .then(response => response.json())
-            .then(response=> {
-                console.log("database response: " + JSON.stringify(response))
+            .then((response)=> {
+                console.dir(response)
                 props.showToast("Project Saved!")
             })
             .catch(error => console.log("database error: " + error));
