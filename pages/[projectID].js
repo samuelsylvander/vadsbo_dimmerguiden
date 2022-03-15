@@ -42,39 +42,12 @@ export async function getServerSideProps(context) {
 
 
 export default function Project({ loadedProject, errorText }) {
-    if (loadedProject == "errored") {
-        if (errorText="Invalid Project ID") {
-            return (
-                <>
-                    <Header />
-                    <div className="text-center m-5">
-                        <h1>Sorry, we can't find a project with that ID</h1>
-                        <h3>Please check you have copied the link correctly</h3>
-                        <h3>Or start a new project <a href="" className="text-black">here</a></h3>
-                    </div>
-                </>
-            )
-        } else {
-            return (
-                <>
-                    <Header />
-                    <div className="text-center m-5">
-                        <h1>Sorry, we can't open your project</h1>
-                        <h3>Please try again later</h3>
-                        <p>{errorText}</p>
-                    </div>
-                </>
-            )
-        }
-        
-    }
-
     const blankRoom = {"name": "", "dali": "", "lights": 0, "group": "", "app": "", "switches": 0, "noOfRooms": 1}
     const projectName = loadedProject.projectName
 
     const [appState, setAppState] = useState("summary"); // state to control which 'page' is displayed
     const [currentRoom, setCurrentRoom] = useState(blankRoom); // separate state for current room to simplify logic
-    const [currentRoomIndex, setCurrentRoomIndex] = useState(-1); // index of room currently being edited. -1 for new room
+    const [currentRoomIndex, setCurrentRoomIndex] = useState(-1); // index of room currently being edited. ** -1 for new room **
     const [roomList, setRoomList] = useState(loadedProject.roomList); //array of all rooms in current project
     const [options, setOptions] = useState(loadedProject.options);
     const toast = useRef();
@@ -117,12 +90,6 @@ export default function Project({ loadedProject, errorText }) {
         const { Toast } = require('bootstrap')
         const toastAlert = document.getElementById('toastAlert')
         toast.current = new Toast(toastAlert)
-
-        // set event listener to show toast on clicking share icon in navbar
-        document.getElementById("copy-url").addEventListener("click", ()=> showToast("Link copied to clipboard"))
-
-        // clean up event listener on component unload
-        return () => document.getElementById("copy-url").removeEventListener("click", ()=> showToast("Link copied to clipboard"))
     }, [])
 
     // useEffect( ()=> {
@@ -130,6 +97,33 @@ export default function Project({ loadedProject, errorText }) {
     //         setAppState("newroom") // if there are no rooms yet, go straight to New Room
     //     }
     // }, [])
+
+    if (loadedProject == "errored") {
+        if (errorText="Invalid Project ID") {
+            return (
+                <>
+                    <Header />
+                    <div className="text-center m-5">
+                        <h1>Sorry, we can't find a project with that ID</h1>
+                        <h3>Please check you have copied the link correctly</h3>
+                        <h3>Or start a new project <a href="" className="text-black">here</a></h3>
+                    </div>
+                </>
+            )
+        } else {
+            return (
+                <>
+                    <Header />
+                    <div className="text-center m-5">
+                        <h1>Sorry, we can't open your project</h1>
+                        <h3>Please try again later</h3>
+                        <p>{errorText}</p>
+                    </div>
+                </>
+            )
+        }
+        
+    }
 
     return (
         <>

@@ -10,6 +10,7 @@ export default function Summary(props) {
     const deleteModal = useRef();
     const shareModal = useRef();
     const detailsModal = useRef();
+    const confirmModal = useRef();
    
 
     function checkOptions() {
@@ -46,14 +47,15 @@ export default function Summary(props) {
 
     async function handleGetQuote(event) {
         event.preventDefault();
-        quoteModal.current.hide()
+        quoteModal.current.hide();
+        confirmModal.current.show();
         const formdata = new FormData(document.getElementById("get-quote-form"));
         formdata.append("projectId", props.projectId);
         formdata.append("url", shareURL);
         formdata.append("source", "getQuote");
         const result = await sendEmail(formdata);
         if (result === "success") {
-            props.showToast("Email Sent!")
+            props.showToast("Request Successfully Submitted")
         } else {
             props.showToast("An error occurred, please try again")
         }
@@ -83,14 +85,16 @@ export default function Summary(props) {
     useEffect(()=> { //set up the references to the bootstrap toasts and modals
         const { Modal } = require('bootstrap')
 
-        const quote = document.getElementById('getQuote')
-        quoteModal.current = Modal.getOrCreateInstance(quote)
-        const confirmDelete = document.getElementById('confirmDelete')
-        deleteModal.current = Modal.getOrCreateInstance(confirmDelete)
-        const shareProject = document.getElementById('shareProject')
-        shareModal.current = Modal.getOrCreateInstance(shareProject)
-        const productDetails = document.getElementById('productDetails')
-        detailsModal.current = Modal.getOrCreateInstance(productDetails)
+        const quote = document.getElementById('getQuote');
+        quoteModal.current = Modal.getOrCreateInstance(quote);
+        const confirmDelete = document.getElementById('confirmDelete');
+        deleteModal.current = Modal.getOrCreateInstance(confirmDelete);
+        const shareProject = document.getElementById('shareProject');
+        shareModal.current = Modal.getOrCreateInstance(shareProject);
+        const productDetails = document.getElementById('productDetails');
+        detailsModal.current = Modal.getOrCreateInstance(productDetails);
+        const confirm = document.getElementById('quoteSubmitted');
+        confirmModal.current = Modal.getOrCreateInstance(confirm);
 
     }, [])
 
@@ -151,17 +155,6 @@ export default function Summary(props) {
             </div>
         </div>
 
-            <div className="position-fixed bottom-0 end-0 p-3" style={{"zIndex": 11}}>
-                <div id="copyLinkToast" className="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="1500">
-                    <div className="d-flex">
-                        <div className="toast-body">
-                            Project Link Copied to Clipboard
-                        </div>
-                        <button type="button" className="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-                    </div>
-                </div>
-            </div>
-
                 {/* Confirm Delete Modal */}
             <div className="modal fade" id="confirmDelete" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div className="modal-dialog">
@@ -208,8 +201,8 @@ export default function Summary(props) {
                                     <textarea className="form-control bg-white" id="message" name="message"></textarea>
                                 </div>
                                 <div className="mb-3">
-                                    <input type="checkbox" className="form-check-input me-2" id="acceptpolicy" name="acceptpolicy" required />
-                                    <label htmlFor="acceptpolicy" className="form-label">
+                                    <input type="checkbox" className="form-check-input me-2" id="quoteacceptpolicy" name="acceptpolicy" required />
+                                    <label htmlFor="quoteacceptpolicy" className="form-label">
                                         Accept our <a href="https://www.vadsbo.net/integritetspolicy/" target="_blank" rel="noreferrer" className="text-black">privacy policy</a>
                                     </label>
                                 </div>
@@ -246,8 +239,8 @@ export default function Summary(props) {
                                     <textarea className="form-control bg-white" id="message" name="message" required ></textarea>
                                 </div>
                                 <div className="mb-3">
-                                    <label htmlFor="acceptpolicy" className="form-label">
-                                        <input type="checkbox" className="form-check-input me-2" id="acceptpolicy" name="acceptpolicy" required />
+                                    <label htmlFor="shareacceptpolicy" className="form-label">
+                                        <input type="checkbox" className="form-check-input me-2" id="shareacceptpolicy" name="acceptpolicy" required />
                                         Accept our <a href="https://www.vadsbo.net/integritetspolicy/" target="_blank" rel="noreferrer" className="text-black">privacy policy</a>
                                     </label>
                                 </div>
@@ -274,6 +267,25 @@ export default function Summary(props) {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Dismiss</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                {/* Quote Submitted Modal */}
+            <div className="modal fade" id="quoteSubmitted" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="quoteSubmittedLabel">Your Request Was Submitted</h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                            Would you like to continue editing this project, or go back to www.vadsbo.net?
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-outline-dark me-2" data-bs-dismiss="modal">Go Back to Project</button>
+                            <a href="https://www.vadsbo.net" id="goToVadsbo" type="button" className="btn btn-dark">Go to vadsbo.net</a>
                         </div>
                     </div>
                 </div>
