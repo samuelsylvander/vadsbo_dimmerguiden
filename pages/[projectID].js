@@ -13,24 +13,28 @@ import Header from "../components/Header";
 
 
 export async function getServerSideProps(context) {
-	const pid = context.query.pid;
-    console.log("url pid = " + pid);
+	const projectID = context.query.projectID;
+    
+    console.log("url pid = " + projectID);
 	let output;
 
     try {
         const { db } = await connectToDatabase();
         const dbResults = await db.collection("projects")
-        output = await dbResults.findOne({_id: new ObjectId(pid)})
+        output = await dbResults.findOne({_id: new ObjectId(projectID)})
         // console.log("database access results: " + JSON.stringify(output))
     } catch (e) {
         console.log("getServerSideProps error")
         // console.log(e)
+        if (projectID.length != 24) {
+            return {props: {loadedProject: "errored", errorText: "Invalid Project ID"}}
+        }
         return {props: {loadedProject: "errored", errorText: JSON.stringify(e)}}
     }
 
     return {
         props: {
-            loadedProject: JSON.parse(JSON.stringify(output))
+            loadedProject: JSON.parse(JSON.stringify(output)),
         },
     };
 
@@ -39,13 +43,30 @@ export async function getServerSideProps(context) {
 
 export default function Project({ loadedProject, errorText }) {
     if (loadedProject == "errored") {
-        return (
-            <>
-                <h1>Sorry, can&apos;t access database</h1>
-                <h3>Please try again later</h3>
-                <p>{errorText}</p>
-            </>
-        )
+        if (errorText="Invalid Project ID") {
+            return (
+                <>
+                    <Header />
+                    <div className="text-center m-5">
+                        <h1>Sorry, we can't find a project with that ID</h1>
+                        <h3>Please check you have copied the link correctly</h3>
+                        <h3>Or start a new project <a href="" className="text-black">here</a></h3>
+                    </div>
+                </>
+            )
+        } else {
+            return (
+                <>
+                    <Header />
+                    <div className="text-center m-5">
+                        <h1>Sorry, we can't open your project</h1>
+                        <h3>Please try again later</h3>
+                        <p>{errorText}</p>
+                    </div>
+                </>
+            )
+        }
+        
     }
 
     const [appState, setAppState] = useState("summary");
@@ -76,11 +97,11 @@ export default function Project({ loadedProject, errorText }) {
         setRoomList(prevVal => prevVal.filter((room, index) => index != deletedIndex));
     }
 
-    useEffect( ()=> {
-        if (roomList.length == 0) {
-            setAppState("newroom") // if there are no rooms yet, go straight to New Room
-        }
-    }, [])
+    // useEffect( ()=> {
+    //     if (roomList.length == 0) {
+    //         setAppState("newroom") // if there are no rooms yet, go straight to New Room
+    //     }
+    // }, [])
 
     return (
         <>
@@ -117,7 +138,6 @@ export default function Project({ loadedProject, errorText }) {
                 setOptions={setOptions}
                 setAppState={setAppState}
             />}
-            {/* {loadedProject._id} */}
         </div>
         </>
     )
