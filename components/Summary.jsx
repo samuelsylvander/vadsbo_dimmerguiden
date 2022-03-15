@@ -103,6 +103,9 @@ export default function Summary(props) {
 
         // set event listener to show toast on clicking share icon in navbar
         document.getElementById("copy-url").addEventListener("click", ()=> showToast("Link copied to clipboard"))
+
+        // clean up event listener on component unload
+        return () => document.getElementById("copy-url").removeEventListener("click", ()=> showToast("Link copied to clipboard"))
     }, [])
 
     useEffect(()=> saveProject(), [props.roomList]) //save project every time we change the roomList

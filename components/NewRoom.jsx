@@ -84,9 +84,6 @@ function NewRoom(props) {
         <div id="step4" className={!(props.currentRoom.switches > 0 || props.currentRoom.app == "App") && "visually-hidden-focusable"}>
             <button className="button btn-dark" onClick={props.saveRoom}>Spara rum</button>
         </div>
-      
-        {/* display currentRoom contents for debugging */}
-        {/* <p>{JSON.stringify(props.currentRoom)}</p> */}
 
     </div>
     )

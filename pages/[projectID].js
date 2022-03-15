@@ -73,13 +73,22 @@ export default function Project({ loadedProject, errorText }) {
     const blankRoom = {"name": "", "dali": "", "lights": 0, "group": "", "app": "", "switches": 0, "noOfRooms": 1}
     const projectName = loadedProject.projectName
     const [currentRoom, setCurrentRoom] = useState(blankRoom);
+    const [currentRoomIndex, setCurrentRoomIndex] = useState(-1); // index of room currently being edited. -1 for new room
     const [roomList, setRoomList] = useState(loadedProject.roomList); //array of all rooms in current project
     const [options, setOptions] = useState(loadedProject.options);
 
 
     function saveRoom() {
-        setRoomList(prevVal => [...prevVal, currentRoom])
-        setAppState("summary")
+        if (currentRoomIndex < 0) { // -1 means new room, not already in roomList array
+            setRoomList(prevVal => [...prevVal, currentRoom])
+            setAppState("summary")
+        } else {
+            let editedRooms = [...roomList];
+            editedRooms[currentRoomIndex] = currentRoom;
+            setRoomList(editedRooms);
+            setCurrentRoomIndex(-1);
+            setAppState("summary")
+        }
     };
 
     function addRoom() {
@@ -87,9 +96,9 @@ export default function Project({ loadedProject, errorText }) {
         setAppState("newroom");
     }
 
-    function loadRoom(loadedRoomName) {
-        setCurrentRoom(roomList.filter(room => room.name == loadedRoomName)[0]); //filter returns an array, need the [0]
-        setRoomList(prevVal => prevVal.filter(room => room.name != loadedRoomName)); //remove that room from the roomList to prevent duplicates
+    function loadRoom(loadedRoomIndex) {
+        setCurrentRoomIndex(loadedRoomIndex);
+        setCurrentRoom(roomList[loadedRoomIndex]);
         setAppState("newroom");
     }
 
