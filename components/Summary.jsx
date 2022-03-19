@@ -8,7 +8,6 @@ import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import debounce from "../libs/debounce";
 
 export default function Summary(props) {
-    const shareURL = `localhost:3000/${props.projectId}` //!!change at production
     const quoteModal = useRef();
     const deleteModal = useRef();
     const shareModal = useRef();
@@ -63,7 +62,7 @@ export default function Summary(props) {
         confirmModal.current.show();
         const formdata = new FormData(document.getElementById("get-quote-form"));
         formdata.append("projectId", props.projectId);
-        formdata.append("url", shareURL);
+        formdata.append("url", window.location.href);
         formdata.append("source", "getQuote");
         const result = await sendEmail(formdata);
         if (result === "success") {
@@ -78,7 +77,7 @@ export default function Summary(props) {
         shareModal.current.hide()
         const formdata = new FormData(document.getElementById("share-project-form"));
         formdata.append("projectId", props.projectId);
-        formdata.append("url", shareURL);
+        formdata.append("url", window.location.href);
         formdata.append("source", "shareProject");
         const result = await sendEmail(formdata);
         if (result === "success") {
