@@ -88,7 +88,9 @@ export default function Home() {
                                 required
                             />
                         </label>
+                        <div className='formcontrol'>
                         <button id="new-project-button" className="btn btn-dark mt-3" type="submit">{buttonText}</button>
+                        </div>
                         </form>
                     </div>
 
