@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+//import React, { useEffect } from "react";
 import Quantity from "./Quantity";
 import SwitchButtons from "./SwitchButtons";
 import Info from "./Info";
