@@ -30,18 +30,18 @@ function Quantity(props) {
     }
 
     return (
-        <div className="container bg-secondary text-start p-2 rounded">
-            <div className="row align-items-center justify-content-between">
-                <div className="col align-self-center">
-                    <h3 className="d-inline-block">{props.label}</h3>
+        <div className="col-auto bg-secondary p-2 rounded">
+            <div className="row align-middle">
+                <div className="col">
+                    <h3 className="m-0 p-0">{props.label}</h3>
                     {props.infoText && <Info text={props.infoText} />}
                 </div>
                 <div className="col-auto">
-                    <div className="input-group align-items-center">
+                    <div className="input-group">
                         <button type="button" className="btn btn-primary" data-type="minus" onClick={handleIncrement}>
                             <FontAwesomeIcon icon={faMinus} data-type="minus" />
                         </button>
-                        <input type="text" style={{"maxWidth": "4rem"}} className="form-control input-number bg-white" value={props.currentRoom[props.property]} onChange={handleQuantity} />
+                        <input type="text" style={{"maxWidth": "4rem"}} className="form-control input-number bg-white text-center" value={props.currentRoom[props.property]} onChange={handleQuantity} />
                         <button type="button" className="btn btn-primary" data-type="plus" onClick={handleIncrement} >
                             <FontAwesomeIcon icon={faPlus} data-type="plus" />
                         </button>

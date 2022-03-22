@@ -14,11 +14,11 @@ import Info from "./Info";
 function NewRoom(props) {
 
     return (
-    <div className="container-fluid text-center">
-        <div className="col-auto">
+    <div className="container text-center">
+        <div className="row">
             <h1 className="pt-4 mb-4">Lägg till ett rum</h1>
             
-            <div className="container">
+            <div className="row">
                 <label>
                     <h3 className="d-inline-block my-4">Lägg till nytt rum</h3>
                     <Info text={"Välj ett passande namn till rummet."} />
@@ -33,16 +33,18 @@ function NewRoom(props) {
                 </label>
             </div>
 
-            <SwitchButtons
-                property="dali" 
-                currentRoom={props.currentRoom}
-                setCurrentRoom={props.setCurrentRoom} 
-                label="Vad vill du styra?"
-                field={["DALI", "DALI TW", "DALI RGB"]}
-                infoText="Info text here"
-            />
+            <div className="row align-center">
+                <SwitchButtons
+                    property="dali" 
+                    currentRoom={props.currentRoom}
+                    setCurrentRoom={props.setCurrentRoom} 
+                    label="Vad vill du styra?"
+                    field={["DALI", "DALI TW", "DALI RGB"]}
+                    infoText="Info text here"
+                />
+            </div>
 
-            <div id="step1" className={!(props.currentRoom.name != "" && props.currentRoom.dali != "") && "visually-hidden-focusable"}>
+            <div id="step1" className={!(props.currentRoom.name != "" && props.currentRoom.dali != "") ? "visually-hidden-focusable" : "row mt-4 justify-content-center"}>
                 <Quantity 
                     property="lights"
                     currentRoom={props.currentRoom}
