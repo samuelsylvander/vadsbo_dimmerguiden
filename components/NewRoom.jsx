@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import Quantity from "./Quantity";
 import SwitchButtons from "./SwitchButtons";
 import Info from "./Info";
-import daliLogo from "../public/dali_pictogram.svg";
-import daliRGBLogo from "../public/dali_rgb_pictogram.svg";
-import daliTWLogo from "../public/dali_tw_pictogram.svg";
+import daliLogo from "../public/dali_pictogram.png";
+import daliRGBLogo from "../public/dali_rgb_pictogram.png";
+import daliTWLogo from "../public/dali_tw_pictogram.png";
 import Image from "next/image";
 
 // props required:
