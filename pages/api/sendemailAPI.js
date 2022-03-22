@@ -29,10 +29,11 @@ export default async function sendEmail(req, res) {
 async function createEmail(inputs) {
     const Handlebars = require("handlebars")
     const fsPromises = require("fs/promises");
+    const path = require("path");
 
     // TODO change type of email depending on source
     if (inputs.source === "getQuote") {
-        const email = await fsPromises.readFile("./email/quoteemail.handlebars", "utf8");
+        const email = await fsPromises.readFile(path.join("email", "quoteemail.handlebars"), "utf8");
         const template = Handlebars.compile(email);
         return ({
             from: "dimmerguiden@vadsbo.net",
@@ -42,7 +43,7 @@ async function createEmail(inputs) {
             html: template(inputs),
         })
     } else if (inputs.source === "shareProject") {
-        const email = await fsPromises.readFile("./email/shareemail.handlebars", "utf8");
+        const email = await fsPromises.readFile(path.join("email", "shareemail.handlebars"), "utf8");
         const template = Handlebars.compile(email);
         return ({
             from: "dimmerguiden@vadsbo.net",
