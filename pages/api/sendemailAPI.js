@@ -2,6 +2,9 @@
 export default async function sendEmail(req, res) {
     const nodemailer = require("nodemailer")
     const draft = JSON.parse(req.body)
+    const fsPromises = require("fs/promises");
+    const access = await fsPromises.access(path.join("email", "shareemail.handlebars"));
+
 
     try {
         const transporter = nodemailer.createTransport({
@@ -17,7 +20,7 @@ export default async function sendEmail(req, res) {
         let mail = await createEmail(draft)
 
         const info = await transporter.sendMail(mail);
-           res.status(200).json(info)
+           res.status(200).json({info: info, access: access})
 
     } catch (error) {
         res.status(500).json({error: error})
