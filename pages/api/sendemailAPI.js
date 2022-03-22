@@ -20,7 +20,7 @@ export default async function sendEmail(req, res) {
            res.status(200).json(info)
 
     } catch (error) {
-        res.status(500).send("error")
+        res.status(500).json({error: error})
         console.log(error)
     }
     
@@ -38,7 +38,7 @@ async function createEmail(inputs) {
             from: "dimmerguiden@vadsbo.net",
             to: "dimmerguiden@vadsbo.net",
             subject: "dimmerGuiden Offertbegäran",
-            text: "En kund har begärt en offert för projektet ${inputs.url}.",
+            text: `En kund har begärt en offert för projektet ${inputs.url}.`,
             html: template(inputs),
         })
     } else if (inputs.source === "shareProject") {
@@ -49,7 +49,7 @@ async function createEmail(inputs) {
             to: inputs.email,
             cc: "dimmerguiden@vadsbo.net",
             subject: "Vadsbo Projekt",
-            text: "Jag har skapat ett projekt med Vadsbos dimmerGuide, titta på projektet här: ${inputs.url}.",
+            text: `Jag har skapat ett projekt med Vadsbos dimmerGuide, titta på projektet här: ${inputs.url}.`,
             html: template(inputs),
         })
     }
