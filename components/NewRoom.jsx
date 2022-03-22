@@ -24,11 +24,11 @@ function NewRoom(props) {
 
     return (
     <div className="container-fluid text-center">
-        <h1 className="pt-4">Lägg till ett rum</h1>
+        <h1 className="py-4">Lägg till ett rum</h1>
         
-        <div className="container">
+        <div className="row pt-4">
             <label>
-                <h3 className="d-inline-block">Lägg till nytt rum</h3>
+                <h3 className="d-inline-block mb-2">Ge rummet ett namn</h3>
                 <Info text={"Välj ett passande namn till rummet."} />
                 <input 
                     className="fs-4" 
@@ -41,17 +41,19 @@ function NewRoom(props) {
             </label>
         </div>
 
-        <SwitchButtons
-            property="dali" 
-            currentRoom={props.currentRoom}
-            setCurrentRoom={props.setCurrentRoom} 
-            label="Vad vill du styra?"
-            images={daliButtons}
-            field={["DALI", "DALI TW", "DALI RGB"]}
-            infoText="Info text here"
-        />
+        <div className="row pt-4">
+            <SwitchButtons
+                property="dali" 
+                currentRoom={props.currentRoom}
+                setCurrentRoom={props.setCurrentRoom} 
+                label="Vad vill du styra?"
+                images={daliButtons}
+                field={["DALI", "DALI TW", "DALI RGB"]}
+                infoText="Info text here"
+            />
+        </div>
 
-        <div id="step1" className={!(props.currentRoom.name != "" && props.currentRoom.dali != "") ? "visually-hidden-focusable": undefined}>
+        <div id="step1" className={!(props.currentRoom.name != "" && props.currentRoom.dali != "") ? "visually-hidden-focusable": "row pt-4 justify-content-center"}>
             <Quantity 
                 property="lights"
                 currentRoom={props.currentRoom}
@@ -61,7 +63,7 @@ function NewRoom(props) {
             />
         </div>
 
-        <div id="step2" className={!(props.currentRoom.lights > 0) ? "visually-hidden-focusable": undefined}>
+        <div id="step2" className={!(props.currentRoom.lights > 0) ? "visually-hidden-focusable": "row pt-4 justify-content-center"}>
             <SwitchButtons 
                 property="group"
                 currentRoom={props.currentRoom}
@@ -72,7 +74,7 @@ function NewRoom(props) {
             />
         </div>
 
-        <div id="step3" className={!(props.currentRoom.group != "") ? "visually-hidden-focusable": undefined}>
+        <div id="step3" className={!(props.currentRoom.group != "") ? "visually-hidden-focusable": "row pt-4 justify-content-center"}>
             <SwitchButtons 
                 property="app"
                 currentRoom={props.currentRoom}
@@ -91,8 +93,8 @@ function NewRoom(props) {
             />}
         </div>
 
-        <div id="step4" className={!(props.currentRoom.switches > 0 || props.currentRoom.app == "App") ? "visually-hidden-focusable": undefined}>
-            <button className="button btn-dark" onClick={props.saveRoom}>Spara rum</button>
+        <div id="step4" className={!(props.currentRoom.switches > 0 || props.currentRoom.app == "App") ? "visually-hidden-focusable": "row pt-4 justify-content-center"}>
+            <button className="btn btn-lg btn-dark w-auto" onClick={props.saveRoom}>Spara rum</button>
         </div>
 
     </div>
