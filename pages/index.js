@@ -37,7 +37,7 @@ export default function Home() {
         setButtonText(newText)
 
         //start working
-        const url = "http://localhost:3000/api/savetodbAPI"
+        const url = window.location.href + "/api/savetodbAPI"
         await fetch(url, {
             method: "POST",
             body: JSON.stringify({projectName: projectName, roomList: [], options: {}})

@@ -42,7 +42,7 @@ export default function Summary(props) {
     }
 
     async function saveToDB() {
-        const url = "http://localhost:3000/api/savetodbAPI"
+        const url = window.location.href + "/api/savetodbAPI"
         try {
             const response = await fetch(url, {
                 method: "POST",
