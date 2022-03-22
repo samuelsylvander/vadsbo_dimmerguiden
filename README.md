@@ -59,6 +59,7 @@ The ToDo's below are not in priority order.
 - X Decrease and increase of rooms, should be saved instantly onChange.
 - X Rooms shold show details as default (remove collapse class) if the number of rooms are 5 or less. If else, they shold be set to collapse
 - X If you click the delete room icon, a bootstrap modal should show and and "Are you sure" to confirm before deletaion.
+- When deleting "option" there should also be a modal that asks are you sure. Same as if you delete a room.
 
 #### 5. SharePopup.jsx
 - X This should be a bootstrap modal and be handled as such.

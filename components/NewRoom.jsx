@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import Quantity from "./Quantity";
 import SwitchButtons from "./SwitchButtons";
 import Info from "./Info";
-import daliLogo from "../public/dali_pictogram.png";
-import daliRGBLogo from "../public/dali_rgb_pictogram.png";
-import daliTWLogo from "../public/dali_tw_pictogram.png";
+import daliLogo from "../public/dali-pictogram.png";
+import daliRGBLogo from "../public/dali-rgb-pictogram.png";
+import daliTWLogo from "../public/dali-tw-pictogram.png";
 import Image from "next/image";
 
 // props required:
@@ -26,19 +26,21 @@ function NewRoom(props) {
     <div className="container-fluid text-center">
         <h1 className="py-4">Lägg till ett rum</h1>
         
-        <div className="row pt-4">
-            <label>
-                <h3 className="d-inline-block mb-2">Ge rummet ett namn</h3>
-                <Info text={"Välj ett passande namn till rummet."} />
-                <input 
-                    className="fs-4" 
-                    type="text" 
-                    placeholder="Room name" 
-                    value={props.currentRoom["name"]} 
-                    onChange={(event)=>props.setCurrentRoom(prevVal => ({...prevVal, name: event.target.value}))}
-                    required 
-                />
-            </label>
+        <div className="row pt-4 justify-content-center">
+            <div className="col-auto">
+                <label>
+                    <h3 className="d-inline-block mb-2">Ge rummet ett namn</h3>
+                    <Info text={"Välj ett passande namn till rummet."} />
+                    <input 
+                        className="form-control bg-white" 
+                        type="text" 
+                        placeholder='T ex "Kontor"' 
+                        value={props.currentRoom["name"]} 
+                        onChange={(event)=>props.setCurrentRoom(prevVal => ({...prevVal, name: event.target.value}))}
+                        required 
+                    />
+                </label>
+            </div>
         </div>
 
         <div className="row pt-4">
