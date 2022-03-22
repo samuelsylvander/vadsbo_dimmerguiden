@@ -17,9 +17,9 @@ import Image from "next/image";
 
 function NewRoom(props) {
     const daliButtons = [
-        <Image src={daliLogo} height={200} width={200} alt="DALI logo"/>,
-        <Image src={daliTWLogo} height={200} width={200} alt="DALI TW logo"/>,
-        <Image src={daliRGBLogo} height={200} width={200} alt="DALI RGB logo"/>
+        <Image src={daliLogo} height={200} width={200} key={daliLogo} alt="DALI logo"/>,
+        <Image src={daliTWLogo} height={200} width={200} key={daliTWLogo} alt="DALI TW logo"/>,
+        <Image src={daliRGBLogo} height={200} width={200} key={daliRGBLogo} alt="DALI RGB logo"/>
     ]
 
     return (
@@ -55,7 +55,7 @@ function NewRoom(props) {
             />
         </div>
 
-        <div id="step1" key={props.currentRoom.name} className={!(props.currentRoom.name != "" && props.currentRoom.dali != "") ? "visually-hidden-focusable": "row pt-4 justify-content-center"}>
+        <div id="step1" className={!(props.currentRoom.name != "" && props.currentRoom.dali != "") ? "visually-hidden-focusable": "row pt-4 justify-content-center"}>
             <Quantity 
                 property="lights"
                 currentRoom={props.currentRoom}
@@ -65,7 +65,7 @@ function NewRoom(props) {
             />
         </div>
 
-        <div id="step2" key={props.currentRoom.lights} className={!(props.currentRoom.lights > 0) ? "visually-hidden-focusable": "row pt-4 justify-content-center"}>
+        <div id="step2" className={!(props.currentRoom.lights > 0) ? "visually-hidden-focusable": "row pt-4 justify-content-center"}>
             <SwitchButtons 
                 property="group"
                 currentRoom={props.currentRoom}
@@ -76,7 +76,7 @@ function NewRoom(props) {
             />
         </div>
 
-        <div id="step3" key={props.currentRoom.group} className={!(props.currentRoom.group != "") ? "visually-hidden-focusable": "row pt-4 justify-content-center"}>
+        <div id="step3" className={!(props.currentRoom.group != "") ? "visually-hidden-focusable": "row pt-4 justify-content-center"}>
             <SwitchButtons 
                 property="app"
                 currentRoom={props.currentRoom}
@@ -95,7 +95,7 @@ function NewRoom(props) {
             />}
         </div>
 
-        <div id="step4" key={props.currentRoom.switches} className={!(props.currentRoom.switches > 0 || props.currentRoom.app == "App") ? "visually-hidden-focusable": "row pt-4 justify-content-center"}>
+        <div id="step4" className={!(props.currentRoom.switches > 0 || props.currentRoom.app == "App") ? "visually-hidden-focusable": "row pt-4 justify-content-center"}>
             <button className="btn btn-lg btn-dark w-auto" onClick={props.saveRoom}>Spara rum</button>
         </div>
 
