@@ -20,10 +20,10 @@ export default async function sendEmail(req, res) {
         let mail = await createEmail(draft)
 
         const info = await transporter.sendMail(mail);
-           res.status(200).json({info})
+           res.status(200).json(info)
 
     } catch (error) {
-        res.status(500).json({access})
+        res.status(500).json(access)
         console.log(error)
     }
     
