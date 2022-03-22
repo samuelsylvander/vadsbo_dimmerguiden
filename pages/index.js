@@ -44,7 +44,7 @@ export default function Home() {
         })
             .then(response => response.json())
             .then(response => {
-                console.log("database response: " + JSON.stringify(response))
+                // console.log("database response: " + JSON.stringify(response))
                 router.push("./" + response.insertedId);
             })
             .catch(error => console.log("database error: " + error));

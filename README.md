@@ -78,6 +78,10 @@ The ToDos below are not in priority order.
 - X Edit room not displaying options correctly
 - X Edited room should go back to same position in room list
 
+## Future Ideas
+- Automatically scroll in New Room
+- Custom warnings in forms
+
 # Deploy Errors
 ./pages/[projectID].js
 99:8  Warning: React Hook useEffect has a missing dependency: 'roomList.length'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps

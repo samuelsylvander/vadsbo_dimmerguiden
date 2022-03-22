@@ -7,10 +7,8 @@ import Image from "next/image";
 //this component could be deprecated easily
 
 function Header({projectId, showToast}) {
-    const url = window.location.href
-
     function copyURL() {
-        navigator.clipboard.writeText(url);
+        navigator.clipboard.writeText(window.location.href);
         showToast("Link Copied to Clipboard")
     }
 
