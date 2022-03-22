@@ -3,7 +3,7 @@ export default async function sendEmail(input) {
     for (var pair of input.entries()) {
         email[pair[0]] = pair[1] 
     }
-    const url = "../api/sendemailAPI"
+    const url = "/api/sendemailAPI"
     const request = await fetch(url, {
         method: "POST",
         body: JSON.stringify(email)

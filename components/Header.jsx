@@ -7,7 +7,7 @@ import Image from "next/image";
 //this component could be deprecated easily
 
 function Header({projectId, showToast}) {
-    const url = `localhost:3000/${projectId}`;
+    const url = window.location.href
 
     function copyURL() {
         navigator.clipboard.writeText(url);
