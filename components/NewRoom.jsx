@@ -95,7 +95,7 @@ function NewRoom(props) {
             />}
         </div>
 
-        <div id="step4" className={!(props.currentRoom.switches > 0 || props.currentRoom.app == "App") ? "visually-hidden-focusable": "row pt-4 justify-content-center"}>
+        <div id="step4" key={props.currentRoom.switches} className={!(props.currentRoom.switches > 0 || props.currentRoom.app == "App") ? "visually-hidden-focusable": "row pt-4 justify-content-center"}>
             <button className="btn btn-lg btn-dark w-auto" onClick={props.saveRoom}>Spara rum</button>
         </div>
 
