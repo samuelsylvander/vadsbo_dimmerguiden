@@ -92,11 +92,11 @@ export default function Project({ loadedProject, errorText }) {
         toast.current = new Toast(toastAlert)
     }, [])
 
-    // useEffect( ()=> {
-    //     if (roomList.length === 0) {
-    //         setAppState("newroom") // if there are no rooms yet, go straight to New Room
-    //     }
-    // }, [])
+    useEffect( ()=> {
+        if (roomList.length === 0) {
+            setAppState("newroom") // if there are no rooms yet, go straight to New Room
+        }
+    }, [])
 
     if (loadedProject == "errored") {
         if (errorText="Invalid Project ID") {
