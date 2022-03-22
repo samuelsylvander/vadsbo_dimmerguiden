@@ -32,7 +32,7 @@ function SwitchButtons(props) {
 
     return (
         <div className="container">
-            <h3 className="d-inline-block mt-4">{props.label}</h3>
+            <h3 className="d-inline-block my-4">{props.label}</h3>
             {props.infoText && <Info text={props.infoText} />}
             <div>
                 {props.field.map((field) => {
