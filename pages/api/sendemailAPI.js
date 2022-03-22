@@ -23,7 +23,7 @@ export default async function sendEmail(req, res) {
            res.status(200).json(info)
 
     } catch (error) {
-        res.status(500).json(access)
+        res.status(500).json(`access results: ${access ? access : "undefined"}`)
         console.log(error)
     }
     
