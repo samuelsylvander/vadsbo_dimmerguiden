@@ -55,7 +55,7 @@ function NewRoom(props) {
             />
         </div>
 
-        <div id="step1" className={!(props.currentRoom.name != "" && props.currentRoom.dali != "") ? "visually-hidden-focusable": "row pt-4 justify-content-center"}>
+        <div id="step1" key={props.currentRoom.name} className={!(props.currentRoom.name != "" && props.currentRoom.dali != "") ? "visually-hidden-focusable": "row pt-4 justify-content-center"}>
             <Quantity 
                 property="lights"
                 currentRoom={props.currentRoom}
@@ -65,7 +65,7 @@ function NewRoom(props) {
             />
         </div>
 
-        <div id="step2" className={!(props.currentRoom.lights > 0) ? "visually-hidden-focusable": "row pt-4 justify-content-center"}>
+        <div id="step2" key={props.currentRoom.lights} className={!(props.currentRoom.lights > 0) ? "visually-hidden-focusable": "row pt-4 justify-content-center"}>
             <SwitchButtons 
                 property="group"
                 currentRoom={props.currentRoom}
@@ -76,7 +76,7 @@ function NewRoom(props) {
             />
         </div>
 
-        <div id="step3" className={!(props.currentRoom.group != "") ? "visually-hidden-focusable": "row pt-4 justify-content-center"}>
+        <div id="step3" key={props.currentRoom.group} className={!(props.currentRoom.group != "") ? "visually-hidden-focusable": "row pt-4 justify-content-center"}>
             <SwitchButtons 
                 property="app"
                 currentRoom={props.currentRoom}
