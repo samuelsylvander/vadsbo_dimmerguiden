@@ -17,9 +17,9 @@ import Image from "next/image";
 
 function NewRoom(props) {
     const daliButtons = [
-        <Image src={daliLogo} height={200} width={200} alt="DALI"/>,
-        <Image src={daliTWLogo} height={200} width={200} alt="DALI"/>,
-        <Image src={daliRGBLogo} height={200} width={200} alt="DALI"/>
+        <Image src={daliLogo} height={200} width={200} alt="DALI logo"/>,
+        <Image src={daliTWLogo} height={200} width={200} alt="DALI TW logo"/>,
+        <Image src={daliRGBLogo} height={200} width={200} alt="DALI RGB logo"/>
     ]
 
     return (
