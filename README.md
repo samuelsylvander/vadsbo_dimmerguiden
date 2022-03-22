@@ -82,10 +82,8 @@ The ToDos below are not in priority order.
 ./pages/[projectID].js
 99:8  Warning: React Hook useEffect has a missing dependency: 'roomList.length'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
 
-./components/NewRoom.jsx
-20:9  Error: Missing "key" prop for element in array  react/jsx-key
-21:9  Error: Missing "key" prop for element in array  react/jsx-key
-22:9  Error: Missing "key" prop for element in array  react/jsx-key
+./pages/api/sendemailAPI.js
+Module not found: Can't resolve 'nodemailer' in '/vercel/path0/pages/api'
 
 ./components/Summary.jsx
 18:25  Warning: React Hook useCallback received a function whose dependencies are unknown. Pass an inline function instead.  react-hooks/exhaustive-deps
