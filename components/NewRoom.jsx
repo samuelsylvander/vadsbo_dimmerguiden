@@ -34,7 +34,7 @@ function NewRoom(props) {
                     <input 
                         className="form-control bg-white" 
                         type="text" 
-                        placeholder='T ex "Kontor"' 
+                        placeholder="T ex Kontor"
                         value={props.currentRoom["name"]} 
                         onChange={(event)=>props.setCurrentRoom(prevVal => ({...prevVal, name: event.target.value}))}
                         required 

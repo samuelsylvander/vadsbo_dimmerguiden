@@ -94,19 +94,19 @@ export default function Summary(props) {
     }
 
     useEffect(()=> { //set up the references to the bootstrap modals
-        const { Modal } = require('bootstrap')
+        const { Modal } = require("bootstrap")
 
-        const quote = document.getElementById('getQuote');
+        const quote = document.getElementById("getQuote");
         quoteModal.current = Modal.getOrCreateInstance(quote);
-        const confirmDelete = document.getElementById('confirmDelete');
+        const confirmDelete = document.getElementById("confirmDelete");
         deleteModal.current = Modal.getOrCreateInstance(confirmDelete);
-        const shareProject = document.getElementById('shareProject');
+        const shareProject = document.getElementById("shareProject");
         shareModal.current = Modal.getOrCreateInstance(shareProject);
-        const productDetails = document.getElementById('productDetails');
+        const productDetails = document.getElementById("productDetails");
         detailsModal.current = Modal.getOrCreateInstance(productDetails);
-        const confirm = document.getElementById('quoteSubmitted');
+        const confirm = document.getElementById("quoteSubmitted");
         confirmModal.current = Modal.getOrCreateInstance(confirm);
-        const nameChange = document.getElementById('changeName');
+        const nameChange = document.getElementById("changeName");
         nameModal.current = Modal.getOrCreateInstance(nameChange);
 
     }, [])

@@ -1,7 +1,7 @@
 import React from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLink } from '@fortawesome/free-solid-svg-icons';
-import vadsboLogo from '../public/logo_Vadsbo_2018_RGB.png';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLink } from "@fortawesome/free-solid-svg-icons";
+import vadsboLogo from "../public/logo_Vadsbo_2018_RGB.png";
 import Image from "next/image";
 
 //this component could be deprecated easily

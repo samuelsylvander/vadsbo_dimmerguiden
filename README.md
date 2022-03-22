@@ -30,10 +30,10 @@ npm run build && npm run start      //to build and run an optimised version.
 You acces the app by visiting localhost:3000 in your browser.
 
 ## To do
-The ToDo's below are not in priority order.
+The ToDos below are not in priority order.
 
 #### General
-- Design: Samuel will do the design of margins etc. so don't spend time on that
+- Design: Samuel will do the design of margins etc. so dont spend time on that
 - Implement ENV variables
 - Setup production ENV variables
 - X Rebuild page structure to properly use bootstrap grid
@@ -74,6 +74,6 @@ The ToDo's below are not in priority order.
 - X When sent, a toast should appear telling that the message was sent.
 
 #### Bugs
-- X Share link in navbar doesn't work outside summary - move div
+- X Share link in navbar doesnt work outside summary - move div
 - X Edit room not displaying options correctly
 - X Edited room should go back to same position in room list
