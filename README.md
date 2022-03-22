@@ -77,3 +77,17 @@ The ToDos below are not in priority order.
 - X Share link in navbar doesnt work outside summary - move div
 - X Edit room not displaying options correctly
 - X Edited room should go back to same position in room list
+
+# Deploy Errors
+./pages/[projectID].js
+99:8  Warning: React Hook useEffect has a missing dependency: 'roomList.length'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./components/NewRoom.jsx
+20:9  Error: Missing "key" prop for element in array  react/jsx-key
+21:9  Error: Missing "key" prop for element in array  react/jsx-key
+22:9  Error: Missing "key" prop for element in array  react/jsx-key
+
+./components/Summary.jsx
+18:25  Warning: React Hook useCallback received a function whose dependencies are unknown. Pass an inline function instead.  react-hooks/exhaustive-deps
+114:35  Warning: React Hook useEffect has a missing dependency: 'saveProject'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+123:7  Warning: React Hook useEffect has a missing dependency: 'props.roomList.length'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
