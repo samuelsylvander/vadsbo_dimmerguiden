@@ -2,6 +2,10 @@ import React, { useEffect } from "react";
 import Quantity from "./Quantity";
 import SwitchButtons from "./SwitchButtons";
 import Info from "./Info";
+import daliLogo from "../public/dali_pictogram.svg";
+import daliRGBLogo from "../public/dali_rgb_pictogram.svg";
+import daliTWLogo from "../public/dali_tw_pictogram.svg";
+import Image from "next/image";
 
 // props required:
 // currentRoom - values to display/set
@@ -12,6 +16,11 @@ import Info from "./Info";
 
 
 function NewRoom(props) {
+    const daliButtons = [
+        <Image src={daliLogo} height={200} width={200} alt="DALI"/>,
+        <Image src={daliTWLogo} height={200} width={200} alt="DALI"/>,
+        <Image src={daliRGBLogo} height={200} width={200} alt="DALI"/>
+    ]
 
     return (
     <div className="container-fluid text-center">
@@ -37,11 +46,12 @@ function NewRoom(props) {
             currentRoom={props.currentRoom}
             setCurrentRoom={props.setCurrentRoom} 
             label="Vad vill du styra?"
+            images={daliButtons}
             field={["DALI", "DALI TW", "DALI RGB"]}
             infoText="Info text here"
         />
 
-        <div id="step1" className={!(props.currentRoom.name != "" && props.currentRoom.dali != "") && "visually-hidden-focusable"}>
+        <div id="step1" className={!(props.currentRoom.name != "" && props.currentRoom.dali != "") ? "visually-hidden-focusable": undefined}>
             <Quantity 
                 property="lights"
                 currentRoom={props.currentRoom}
@@ -51,7 +61,7 @@ function NewRoom(props) {
             />
         </div>
 
-        <div id="step2" className={!(props.currentRoom.lights > 0) && "visually-hidden-focusable"}>
+        <div id="step2" className={!(props.currentRoom.lights > 0) ? "visually-hidden-focusable": undefined}>
             <SwitchButtons 
                 property="group"
                 currentRoom={props.currentRoom}
@@ -62,7 +72,7 @@ function NewRoom(props) {
             />
         </div>
 
-        <div id="step3" className={!(props.currentRoom.group != "") && "visually-hidden-focusable"}>
+        <div id="step3" className={!(props.currentRoom.group != "") ? "visually-hidden-focusable": undefined}>
             <SwitchButtons 
                 property="app"
                 currentRoom={props.currentRoom}
@@ -81,7 +91,7 @@ function NewRoom(props) {
             />}
         </div>
 
-        <div id="step4" className={!(props.currentRoom.switches > 0 || props.currentRoom.app == "App") && "visually-hidden-focusable"}>
+        <div id="step4" className={!(props.currentRoom.switches > 0 || props.currentRoom.app == "App") ? "visually-hidden-focusable": undefined}>
             <button className="button btn-dark" onClick={props.saveRoom}>Spara rum</button>
         </div>
 
