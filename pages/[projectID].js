@@ -1,9 +1,9 @@
 import { ObjectId } from "mongodb";
-import { connectToDatabase } from '../libs/mongodb';
+import { connectToDatabase } from "../libs/mongodb";
 import Head from "next/head";
 import NewRoom from "../components/NewRoom";
 import Summary from "../components/Summary";
-import MoreOptions from '../components/MoreOptions';
+import MoreOptions from "../components/MoreOptions";
 import React, {useEffect, useState, useRef} from "react";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
@@ -45,7 +45,7 @@ export default function Project({ loadedProject, errorText }) {
     const blankRoom = {"name": "", "dali": "", "lights": 0, "group": "", "app": "", "switches": 0, "noOfRooms": 1}
 
     const [projectName, setProjectName] = useState(loadedProject.projectName)
-    const [appState, setAppState] = useState("summary"); // state to control which 'page' is displayed
+    const [appState, setAppState] = useState("summary"); // state to control which page is displayed
     const [currentRoom, setCurrentRoom] = useState(blankRoom); // separate state for current room to simplify logic
     const [currentRoomIndex, setCurrentRoomIndex] = useState(-1); // index of room currently being edited. ** -1 for new room **
     const [roomList, setRoomList] = useState(loadedProject.roomList); //array of all rooms in current project
@@ -87,8 +87,8 @@ export default function Project({ loadedProject, errorText }) {
     }
 
     useEffect(()=> {
-        const { Toast } = require('bootstrap')
-        const toastAlert = document.getElementById('toastAlert')
+        const { Toast } = require("bootstrap")
+        const toastAlert = document.getElementById("toastAlert")
         toast.current = new Toast(toastAlert)
     }, [])
 
@@ -104,9 +104,9 @@ export default function Project({ loadedProject, errorText }) {
                 <>
                     <Header />
                     <div className="text-center m-5">
-                        <h1>Sorry, we can't find a project with that ID</h1>
-                        <h3>Please check you have copied the link correctly</h3>
-                        <h3>Or start a new project <a href="" className="text-black">here</a></h3>
+                        <h1>Vi hittar tyvärr inget projekt med det IDt</h1>
+                        <h3>Kontrollera så att du har kopierat rätt länk</h3>
+                        <h3>Eller starta ett nytt projekt <a href="" className="text-black">här</a></h3>
                     </div>
                 </>
             )
@@ -115,8 +115,8 @@ export default function Project({ loadedProject, errorText }) {
                 <>
                     <Header />
                     <div className="text-center m-5">
-                        <h1>Sorry, we can't open your project</h1>
-                        <h3>Please try again later</h3>
+                        <h1>Projektet går inte att öppna</h1>
+                        <h3>Försök gärna igen senare</h3>
                         <p>{errorText}</p>
                     </div>
                 </>

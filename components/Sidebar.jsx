@@ -41,7 +41,7 @@ function Sidebar(props) {
                     <li>
                         {filteredOptions.length > 0 && <>
                             <h4 className="mt-5">Tillval</h4>
-                            {filteredOptions.map(option => <p className="my-1">{optionLookup[option]}</p>)}
+                            {filteredOptions.map(option => <p className="my-1" key={option}>{optionLookup[option]}</p>)}
                         </>}
                     </li> 
                 </ul>

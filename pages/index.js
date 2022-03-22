@@ -1,14 +1,14 @@
-import Head from 'next/head'
+import Head from "next/head";
 import React, {useState} from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 config.autoAddCss = false;
-import Image from 'next/image';
+import Image from "next/image";
 import phoneAppPic from "../public/phone-app.png"
-import { useRouter } from 'next/router';
-import Header from '../components/Header';
+import { useRouter } from "next/router";
+import Header from "../components/Header";
 
 
 
@@ -88,7 +88,7 @@ export default function Home() {
                                 required
                             />
                         </label>
-                        <div className='formcontrol'>
+                        <div className="formcontrol">
                         <button id="new-project-button" className="btn btn-dark mt-3" type="submit">{buttonText}</button>
                         </div>
                         </form>

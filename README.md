@@ -30,10 +30,10 @@ npm run build && npm run start      //to build and run an optimised version.
 You acces the app by visiting localhost:3000 in your browser.
 
 ## To do
-The ToDo's below are not in priority order.
+The ToDos below are not in priority order.
 
 #### General
-- Design: Samuel will do the design of margins etc. so don't spend time on that
+- Design: Samuel will do the design of margins etc. so dont spend time on that
 - Implement ENV variables
 - Setup production ENV variables
 - X Rebuild page structure to properly use bootstrap grid
@@ -59,6 +59,7 @@ The ToDo's below are not in priority order.
 - X Decrease and increase of rooms, should be saved instantly onChange.
 - X Rooms shold show details as default (remove collapse class) if the number of rooms are 5 or less. If else, they shold be set to collapse
 - X If you click the delete room icon, a bootstrap modal should show and and "Are you sure" to confirm before deletaion.
+- When deleting "option" there should also be a modal that asks are you sure. Same as if you delete a room.
 
 #### 5. SharePopup.jsx
 - X This should be a bootstrap modal and be handled as such.
@@ -73,6 +74,18 @@ The ToDo's below are not in priority order.
 - X When sent, a toast should appear telling that the message was sent.
 
 #### Bugs
-- X Share link in navbar doesn't work outside summary - move div
+- X Share link in navbar doesnt work outside summary - move div
 - X Edit room not displaying options correctly
 - X Edited room should go back to same position in room list
+
+# Deploy Errors
+./pages/[projectID].js
+99:8  Warning: React Hook useEffect has a missing dependency: 'roomList.length'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./pages/api/sendemailAPI.js
+Module not found: Can't resolve 'nodemailer' in '/vercel/path0/pages/api'
+
+./components/Summary.jsx
+18:25  Warning: React Hook useCallback received a function whose dependencies are unknown. Pass an inline function instead.  react-hooks/exhaustive-deps
+114:35  Warning: React Hook useEffect has a missing dependency: 'saveProject'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+123:7  Warning: React Hook useEffect has a missing dependency: 'props.roomList.length'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps

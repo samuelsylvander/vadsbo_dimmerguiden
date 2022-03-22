@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import '../styles/custom_theme.scss';
+import "../styles/custom_theme.scss";
 
 
 export default function App({ Component, pageProps }) {

@@ -94,19 +94,19 @@ export default function Summary(props) {
     }
 
     useEffect(()=> { //set up the references to the bootstrap modals
-        const { Modal } = require('bootstrap')
+        const { Modal } = require("bootstrap")
 
-        const quote = document.getElementById('getQuote');
+        const quote = document.getElementById("getQuote");
         quoteModal.current = Modal.getOrCreateInstance(quote);
-        const confirmDelete = document.getElementById('confirmDelete');
+        const confirmDelete = document.getElementById("confirmDelete");
         deleteModal.current = Modal.getOrCreateInstance(confirmDelete);
-        const shareProject = document.getElementById('shareProject');
+        const shareProject = document.getElementById("shareProject");
         shareModal.current = Modal.getOrCreateInstance(shareProject);
-        const productDetails = document.getElementById('productDetails');
+        const productDetails = document.getElementById("productDetails");
         detailsModal.current = Modal.getOrCreateInstance(productDetails);
-        const confirm = document.getElementById('quoteSubmitted');
+        const confirm = document.getElementById("quoteSubmitted");
         confirmModal.current = Modal.getOrCreateInstance(confirm);
-        const nameChange = document.getElementById('changeName');
+        const nameChange = document.getElementById("changeName");
         nameModal.current = Modal.getOrCreateInstance(nameChange);
 
     }, [])
@@ -154,9 +154,9 @@ export default function Summary(props) {
                 />}
 
                 <div className="py-5">
-                    <button className="btn btn-dark mx-3" onClick={props.addRoom}>Lägg till rum</button>
-                    <button className="btn btn-dark mx-3" onClick={() => props.setAppState("moreoptions")}>Tillval</button>
-                    <button className="btn btn-dark mx-3" onClick={() => shareModal.current.show()}>Dela</button>
+                    <button className="btn btn-lg btn-dark mx-3" onClick={props.addRoom}>Lägg till rum</button>
+                    <button className="btn btn-lg  btn-dark mx-3" onClick={() => props.setAppState("moreoptions")}>Tillval</button>
+                    <button className="btn btn-lg  btn-dark mx-3" onClick={() => shareModal.current.show()}>Dela</button>
                 </div>
                 
             </div>
@@ -171,20 +171,20 @@ export default function Summary(props) {
             </div>
         </div>
 
-                {/* Confirm Delete Modal */}
+            {/* Confirm Delete Modal */}
             <div className="modal fade" id="confirmDelete" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="confirmDeleteLabel">Are you sure you want to delete?</h5>
+                            <h5 className="modal-title" id="confirmDeleteLabel">Är du säker?</h5>
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
-                            This action cannot be undone.
+                            Detta går inte att ångra.
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button id="confirmDeleteButton" type="button" className="btn btn-primary">Delete</button>
+                            <button type="button" className="btn btn-outline-dark" data-bs-dismiss="modal">Avbryt</button>
+                            <button id="confirmDeleteButton" type="button" className="btn btn-dark">Radera</button>
                         </div>
                     </div>
                 </div>
@@ -219,7 +219,7 @@ export default function Summary(props) {
                                 <div className="mb-3">
                                     <input type="checkbox" className="form-check-input me-2" id="quoteacceptpolicy" name="acceptpolicy" required />
                                     <label htmlFor="quoteacceptpolicy" className="form-label">
-                                        Accept our <a href="https://www.vadsbo.net/integritetspolicy/" target="_blank" rel="noreferrer" className="text-black">privacy policy</a>
+                                        Godkänn hur vi hanterar dina <a href="https://www.vadsbo.net/integritetspolicy/" target="_blank" rel="noreferrer" className="text-black">personuppgifter</a>
                                     </label>
                                 </div>
                             </div>
@@ -257,7 +257,7 @@ export default function Summary(props) {
                                 <div className="mb-3">
                                     <label htmlFor="shareacceptpolicy" className="form-label">
                                         <input type="checkbox" className="form-check-input me-2" id="shareacceptpolicy" name="acceptpolicy" required />
-                                        Accept our <a href="https://www.vadsbo.net/integritetspolicy/" target="_blank" rel="noreferrer" className="text-black">privacy policy</a>
+                                        Godkänn hur vi hanterar dina <a href="https://www.vadsbo.net/integritetspolicy/" target="_blank" rel="noreferrer" className="text-black">personuppgifter</a>
                                     </label>
                                 </div>
                             </div>
@@ -275,14 +275,14 @@ export default function Summary(props) {
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="productDetailsHeader">Product</h5>
+                            <h5 className="modal-title" id="productDetailsHeader">Produkt</h5>
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div id="productDetailsBody" className="modal-body">
-                            Product details here.
+                            Produktdetaljer.
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Dismiss</button>
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Avbryt</button>
                         </div>
                     </div>
                 </div>
@@ -297,11 +297,11 @@ export default function Summary(props) {
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
-                            Would you like to continue editing this project, or go back to www.vadsbo.net?
+                            Vill du fortsätta att arbeta på projektet, eller gå vidare till www.vadsbo.net?
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-outline-dark me-2" data-bs-dismiss="modal">Go Back to Project</button>
-                            <a href="https://www.vadsbo.net" id="goToVadsbo" type="button" className="btn btn-dark">Go to vadsbo.net</a>
+                            <button type="button" className="btn btn-outline-dark me-2" data-bs-dismiss="modal">Tillbaka till Projektet</button>
+                            <a href="https://www.vadsbo.net" id="goToVadsbo" type="button" className="btn btn-dark">Vidare till vadsbo.net</a>
                         </div>
                     </div>
                 </div>
@@ -312,19 +312,19 @@ export default function Summary(props) {
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="confirmDeleteLabel">Edit Project Name</h5>
+                            <h5 className="modal-title" id="confirmDeleteLabel">Uppdatera Projektets Namn</h5>
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <form id="change-name-form" name="share-project" onSubmit={handleNameChange}>
                             <div className="modal-body">
                                 <div className="mb-3">
-                                    <label htmlFor="name" className="form-label">New Project Name</label>
+                                    <label htmlFor="name" className="form-label">Nytt Projektnamn</label>
                                     <input type="text" placeholder={props.projectName} className="form-control bg-white" id="newProjectName" required />
                                 </div>
                             </div>
                             <div className="modal-footer">
                                 <button id="dismissmodal" className="btn btn-outline-dark me-2" type="button" data-bs-dismiss="modal">Avbryt</button>
-                                <button className="btn btn-dark" type="submit">Skicka</button>
+                                <button className="btn btn-dark" type="submit">Spara</button>
                             </div>
                         </form>
                     </div>
