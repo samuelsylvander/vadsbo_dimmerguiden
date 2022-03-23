@@ -1,12 +1,27 @@
+const html = (draft) => {
+    const output = `<!DOCTYPE html>
+        <html>
+        <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Vadsbo dimmerGuiden</title>
+        </head>
+        <body>
+
+        <h2>${draft.name} delade sitt projekt på dimmerGUiden med dig.</h2>
+
+            <p>${draft.message}}</p>
+
+        <p>Titta gärna på projektet <a href="${draft.url}" target="_blank">här!</a></p>
+
+        </body>
+        </html>`;
+    return output;
+};
 
 export default async function sendEmail(req, res) {
     const nodemailer = require("nodemailer")
     const draft = JSON.parse(req.body)
-    const fsPromises = require("fs/promises");
-    const path = require("path");
-    const access = await fsPromises.access(path.join("email", "shareemail.handlebars"));
-    console.log("access results: " + access);
-
 
     try {
         const transporter = nodemailer.createTransport({
@@ -19,7 +34,14 @@ export default async function sendEmail(req, res) {
             secure: false,
         });
 
-        let mail = await createEmail(draft)
+        let mail = {
+            from: "dimmerguiden@vadsbo.net",
+            to: draft.email,
+            cc: "dimmerguiden@vadsbo.net",
+            subject: "Vadsbo Projekt",
+            text: `Jag har skapat ett projekt med Vadsbos dimmerGuide, titta på projektet här: ${draft.url}.`,
+            html: html(draft),
+        }
 
         const info = await transporter.sendMail(mail);
            res.status(200).json(info)
