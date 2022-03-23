@@ -53,33 +53,33 @@ export default async function sendEmail(req, res) {
     
 }
 
-async function createEmail(inputs) {
-    const Handlebars = require("handlebars")
-    const fsPromises = require("fs/promises");
-    const path = require("path");
+// async function createEmail(inputs) {
+//     const Handlebars = require("handlebars")
+//     const fsPromises = require("fs/promises");
+//     const path = require("path");
 
-    // TODO change type of email depending on source
-    if (inputs.source === "getQuote") {
-        const email = await fsPromises.readFile(path.join("email", "quoteemail.handlebars"), "utf8");
-        const template = Handlebars.compile(email);
-        return ({
-            from: "dimmerguiden@vadsbo.net",
-            to: "dimmerguiden@vadsbo.net",
-            subject: "dimmerGuiden Offertbegäran",
-            text: `En kund har begärt en offert för projektet ${inputs.url}.`,
-            html: template(inputs),
-        })
-    } else if (inputs.source === "shareProject") {
-        const email = await fsPromises.readFile(path.join("email", "shareemail.handlebars"), "utf8");
-        const template = Handlebars.compile(email);
-        return ({
-            from: "dimmerguiden@vadsbo.net",
-            to: inputs.email,
-            cc: "dimmerguiden@vadsbo.net",
-            subject: "Vadsbo Projekt",
-            text: `Jag har skapat ett projekt med Vadsbos dimmerGuide, titta på projektet här: ${inputs.url}.`,
-            html: template(inputs),
-        })
-    }
+//     // TODO change type of email depending on source
+//     if (inputs.source === "getQuote") {
+//         const email = await fsPromises.readFile(path.join("email", "quoteemail.handlebars"), "utf8");
+//         const template = Handlebars.compile(email);
+//         return ({
+//             from: "dimmerguiden@vadsbo.net",
+//             to: "dimmerguiden@vadsbo.net",
+//             subject: "dimmerGuiden Offertbegäran",
+//             text: `En kund har begärt en offert för projektet ${inputs.url}.`,
+//             html: template(inputs),
+//         })
+//     } else if (inputs.source === "shareProject") {
+//         const email = await fsPromises.readFile(path.join("email", "shareemail.handlebars"), "utf8");
+//         const template = Handlebars.compile(email);
+//         return ({
+//             from: "dimmerguiden@vadsbo.net",
+//             to: inputs.email,
+//             cc: "dimmerguiden@vadsbo.net",
+//             subject: "Vadsbo Projekt",
+//             text: `Jag har skapat ett projekt med Vadsbos dimmerGuide, titta på projektet här: ${inputs.url}.`,
+//             html: template(inputs),
+//         })
+//     }
     
-}
+// }
