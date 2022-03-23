@@ -3,7 +3,9 @@ export default async function sendEmail(req, res) {
     const nodemailer = require("nodemailer")
     const draft = JSON.parse(req.body)
     const fsPromises = require("fs/promises");
+    const path = require("path");
     const access = await fsPromises.access(path.join("email", "shareemail.handlebars"));
+    console.log("access results: " + access);
 
 
     try {
@@ -23,8 +25,8 @@ export default async function sendEmail(req, res) {
            res.status(200).json(info)
 
     } catch (error) {
-        res.status(500).json({error: `access results: ${access ? access : "undefined"}`})
-        console.log(error)
+        res.status(500).json(error)
+        console.log("sendEmail error: " + error)
     }
     
 }
