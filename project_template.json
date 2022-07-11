@@ -1,0 +1,121 @@
+{
+	"project types": [{
+		"id": 1,
+		"name": "Office",
+		"description": "Office project description",
+		"photo": "/photos/my-photo.png",
+		"icon": "/icons/my-icon.png",
+		"products": [{
+				"id": 1,
+				"quantity": 2
+			},
+			{
+				"id": 2,
+				"quantity": 3
+			}
+		],
+		"addons": [1, 2],
+		"rooms": [{
+			"id": 1,
+			"name": "Small Office",
+			"description": "2-10m2",
+			"photo": "/photos/my-photo.png",
+			"icon": "/icons/my-icon.png",
+			"products": [{
+                "id": 1,
+                "quantity": 2
+            },
+            {
+                "id": 2,
+                "quantity": 3
+            }],
+			"sensor": {
+                "optional": false,
+                "options": [
+                {
+                    "no": {
+                        "products": [{
+                            "id": 1,
+                            "quantity": 2
+                        }],
+                        "optional products": [{
+                            "id": 2,
+                            "quantity": 2
+                        }]
+                    }
+                },
+                {
+                    "yes": {
+                        "products": [{
+                            "id": 1,
+                            "quantity": 2
+                        }],
+                        "optional products": [{
+                            "id": 2,
+                            "quantity": 2
+                        }]
+                    }
+                }]
+            }
+		}]
+	}],
+	"products": [{
+			"id": 1,
+			"name": "",
+			"description": "",
+			"color options": [
+				"white",
+				"black"
+			],
+			"brand options": [{
+				"name": "Mpress Elko",
+				"color options": [
+					"white",
+					"black"
+				]
+			}, {
+				"name": "Exxact",
+				"color options": [
+					"white",
+					"black"
+				]
+			}]
+		},
+		{
+			"id": 2,
+			"name": "",
+			"description": "",
+			"photo": "/photos/my-photo.png",
+			"icon": "/icons/my-icon.png"
+		},
+		{
+			"id": 3,
+			"name": "",
+			"description": "",
+			"photo": "/photos/my-photo.png",
+			"icon": "/icons/my-icon.png"
+		}
+	],
+	"addons": [{
+			"id": 1,
+			"name": "",
+			"description": "",
+			"photo": "/photos/my-photo.png",
+			"icon": "/icons/my-icon.png"
+		},
+		{
+			"id": 2,
+			"name": "",
+			"description": "",
+			"photo": "/photos/my-photo.png",
+			"icon": "/icons/my-icon.png"
+		},
+		{
+			"id": 3,
+			"name": "",
+			"description": "",
+			"photo": "/photos/my-photo.png",
+			"icon": "/icons/my-icon.png"
+		}
+	]
+}
