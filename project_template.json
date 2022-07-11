@@ -61,26 +61,27 @@
 	}],
 	"products": [{
 			"id": 1,
-			"name": "",
+			"name": "Dimmer",
 			"description": "",
-			"color options": [
-				"white",
-				"black"
-			],
-			"brand options": [{
-				"name": "Mpress Elko",
-				"color options": [
-					"white",
-					"black"
-				]
-			}, {
-				"name": "Exxact",
-				"color options": [
-					"white",
-					"black"
-				]
-			}]
-		},
+            "photo": "/photos/my-photo.png",
+			"icon": "/icons/my-icon.png",
+			"options": 
+            {
+                "brand": [{
+                    "name": "Mpress Elko",
+                    "color options": [
+                        "white",
+                        "black"
+                    ]
+                }, {
+                    "name": "Exxact",
+                    "color options": [
+                        "white",
+                        "black"
+                    ]
+                }]
+		    }
+        },
 		{
 			"id": 2,
 			"name": "",
