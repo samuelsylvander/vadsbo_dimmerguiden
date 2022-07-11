@@ -9,7 +9,7 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 config.autoAddCss = false;
 import Header from "../components/Header";
-import ProjectTemplateContext from "../libs/ProjectTemplateContext";
+import ProjectTemplateContextProvider from "../libs/ProjectTemplateContext";
 import ProjectDataContextProvider from "../libs/ProjectDataContext";
 
 export async function getServerSideProps(context) {
@@ -138,7 +138,7 @@ export default function Project({ loadedProject, errorText }) {
 			</Head>
 			<Header projectId={loadedProject._id} showToast={showToast} />
 			<div className='vw-100 m-0 p-0'>
-				<ProjectTemplateContext.Provider>
+				<ProjectTemplateContextProvider>
 					<ProjectDataContextProvider>
 						{appState == "newroom" && (
 							<NewRoom
@@ -168,7 +168,7 @@ export default function Project({ loadedProject, errorText }) {
 							<MoreOptions options={options} setOptions={setOptions} setAppState={setAppState} />
 						)}
 					</ProjectDataContextProvider>
-				</ProjectTemplateContext.Provider>
+				</ProjectTemplateContextProvider>
 			</div>
 
 			{/* Toast Alert */}

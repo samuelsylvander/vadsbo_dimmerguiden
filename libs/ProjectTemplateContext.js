@@ -1,6 +1,10 @@
 import { createContext } from "react";
-import projectTemplateJSON from "./projectTemplate.json";
+import projectTemplateJSON from "../project_template.json";
 
-const ProjectTemplateContext = createContext(projectTemplateJSON);
+const ProjectTemplateContext = createContext();
 
-export default ProjectTemplateContext;
+export default function ProjectTemplateContextProvider({ children }) {
+	return <ProjectTemplateContext.Provider value={projectTemplateJSON}>{children}</ProjectTemplateContext.Provider>;
+}
+
+export { ProjectTemplateContext };

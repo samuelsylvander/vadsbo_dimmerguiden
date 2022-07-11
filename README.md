@@ -48,4 +48,6 @@ Update NewRoom, MoreOptions to dynamically create options based on project templ
 
 ## Future Ideas
 
+Addons are just binary yes/no. Do we need to add the ability to set quantities too?
+
 # Deploy Errors

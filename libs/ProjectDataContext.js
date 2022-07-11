@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useReducer } from "react";
 
 const ProjectDataContext = createContext();
 
@@ -27,6 +27,11 @@ function reducer({ state, action }) {
 		case "decrease":
 			if (typeof editedField === "number") {
 				editedField++;
+			}
+			break;
+		case "push":
+			if (editedField.isArray()) {
+				editedField.push(value);
 			}
 			break;
 	}
