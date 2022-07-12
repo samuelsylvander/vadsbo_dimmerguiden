@@ -14,12 +14,22 @@ import { ProjectTemplateContext } from "../libs/ProjectTemplateContext";
 export default function Home() {
 	const [projectName, setProjectName] = useState("");
 	const [buttonText, setButtonText] = useState("Start Project");
+	const [projectTemplateIndex, setProjectTemplateIndex] = useState(undefined);
 	const router = useRouter();
 	const projectTemplate = useContext(ProjectTemplateContext);
 
 	function handleUpdate(event) {
 		let name = event.target.value;
 		setProjectName(name);
+	}
+
+	function handleProjectType(e) {
+		const selectedTemplateId = e.target.value;
+		const selectedTemplateIndex = projectTemplate["project types"].findIndex(
+			(template) => template.id == selectedTemplateId
+			// intentional '==', not '===', since value is returned as string
+		);
+		setProjectTemplateIndex(selectedTemplateIndex);
 	}
 
 	async function newProject(event) {
@@ -39,7 +49,11 @@ export default function Home() {
 
 		//start working
 		const url = "/api/savetodbAPI";
-		const newProject = { ...projectTemplate["project types"][0], name: projectName, id: undefined };
+		const newProject = {
+			...projectTemplate["project types"][projectTemplateIndex],
+			name: projectName,
+			id: undefined,
+		};
 		console.log(newProject);
 		await fetch(url, {
 			method: "POST",
@@ -95,6 +109,19 @@ export default function Home() {
 									placeholder='Ex. Storgatan 8'
 									required
 								/>
+							</label>
+							<br />
+							<label htmlFor='project-template'>
+								<select onChange={handleProjectType} required>
+									<option disabled selected>
+										Choose a template
+									</option>
+									{projectTemplate["project types"].map((template) => (
+										<option key={template.id} value={template.id}>
+											{template.name}
+										</option>
+									))}
+								</select>
 							</label>
 							<div className='formcontrol'>
 								<button id='new-project-button' className='btn btn-dark mt-3' type='submit'>
