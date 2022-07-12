@@ -34,6 +34,11 @@ function reducer({ state, action }) {
 				editedField.push(value);
 			}
 			break;
+		case "remove":
+			if (editedField.isArray()) {
+				editedField.splice(value, 1);
+			}
+			break;
 	}
 	return newState;
 }

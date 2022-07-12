@@ -4,13 +4,12 @@ import Head from "next/head";
 import NewRoom from "../components/NewRoom";
 import Summary from "../components/Summary";
 import MoreOptions from "../components/MoreOptions";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 config.autoAddCss = false;
 import Header from "../components/Header";
-import ProjectTemplateContextProvider from "../libs/ProjectTemplateContext";
-import ProjectDataContextProvider from "../libs/ProjectDataContext";
+import { ProjectDataContext } from "../libs/ProjectDataContext";
 
 export async function getServerSideProps(context) {
 	const projectID = context.query.projectID;
@@ -40,44 +39,11 @@ export async function getServerSideProps(context) {
 }
 
 export default function Project({ loadedProject, errorText }) {
-	const blankRoom = { name: "", dali: "", lights: 0, group: "", app: "", switches: 0, noOfRooms: 1 };
+	// const blankRoom = { name: "", dali: "", lights: 0, group: "", app: "", switches: 0, noOfRooms: 1 };
 
-	const [projectName, setProjectName] = useState(loadedProject.projectName);
 	const [appState, setAppState] = useState("summary"); // state to control which page is displayed
-	const [currentRoom, setCurrentRoom] = useState(blankRoom); // separate state for current room to simplify logic
-	const [currentRoomIndex, setCurrentRoomIndex] = useState(-1); // index of room currently being edited. ** -1 for new room **
-	const [roomList, setRoomList] = useState(loadedProject.roomList); //array of all rooms in current project
-	const [options, setOptions] = useState(loadedProject.options);
 	const toast = useRef();
-
-	function saveRoom() {
-		if (currentRoomIndex < 0) {
-			// -1 means new room, not already in roomList array
-			setRoomList((prevVal) => [...prevVal, currentRoom]);
-			setAppState("summary");
-		} else {
-			let editedRooms = [...roomList];
-			editedRooms[currentRoomIndex] = currentRoom;
-			setRoomList(editedRooms);
-			setCurrentRoomIndex(-1);
-			setAppState("summary");
-		}
-	}
-
-	function addRoom() {
-		setCurrentRoom(blankRoom);
-		setAppState("newroom");
-	}
-
-	function loadRoom(loadedRoomIndex) {
-		setCurrentRoomIndex(loadedRoomIndex);
-		setCurrentRoom(roomList[loadedRoomIndex]);
-		setAppState("newroom");
-	}
-
-	function deleteRoom(deletedIndex) {
-		setRoomList((prevVal) => prevVal.filter((room, index) => index != deletedIndex));
-	}
+	const { projectData, dispatch } = useContext(ProjectDataContext);
 
 	function showToast(message) {
 		document.getElementById("toastMessage").innerHTML = message;
@@ -85,15 +51,14 @@ export default function Project({ loadedProject, errorText }) {
 	}
 
 	useEffect(() => {
-		const { Toast } = require("bootstrap");
-		const toastAlert = document.getElementById("toastAlert");
-		toast.current = new Toast(toastAlert);
+		dispatch({ type: "initialise", value: loadedProject });
 	}, []);
 
 	useEffect(() => {
-		if (roomList.length === 0) {
-			setAppState("newroom"); // if there are no rooms yet, go straight to New Room
-		}
+		//set up bootstrap toasts
+		const { Toast } = require("bootstrap");
+		const toastAlert = document.getElementById("toastAlert");
+		toast.current = new Toast(toastAlert);
 	}, []);
 
 	if (loadedProject == "errored") {
@@ -137,38 +102,12 @@ export default function Project({ loadedProject, errorText }) {
 				<link rel='manifest' href='/site.webmanifest'></link>
 			</Head>
 			<Header projectId={loadedProject._id} showToast={showToast} />
+
+			{/* App Screens Here */}
 			<div className='vw-100 m-0 p-0'>
-				<ProjectTemplateContextProvider>
-					<ProjectDataContextProvider>
-						{appState == "newroom" && (
-							<NewRoom
-								projectName={projectName}
-								currentRoom={currentRoom}
-								setCurrentRoom={setCurrentRoom}
-								saveRoom={saveRoom}
-							/>
-						)}
-						{appState == "summary" && (
-							<Summary
-								projectId={loadedProject._id}
-								roomList={roomList}
-								setRoomList={setRoomList}
-								setAppState={setAppState}
-								projectName={projectName}
-								setProjectName={setProjectName}
-								addRoom={addRoom}
-								loadRoom={loadRoom}
-								deleteRoom={deleteRoom}
-								options={options}
-								setOptions={setOptions}
-								showToast={showToast}
-							/>
-						)}
-						{appState == "moreoptions" && (
-							<MoreOptions options={options} setOptions={setOptions} setAppState={setAppState} />
-						)}
-					</ProjectDataContextProvider>
-				</ProjectTemplateContextProvider>
+				{appState == "newroom" && <NewRoom setAppState={setAppState} />}
+				{appState == "summary" && <Summary setAppState={setAppState} showToast={showToast} />}
+				{appState == "moreoptions" && <MoreOptions setAppState={setAppState} />}
 			</div>
 
 			{/* Toast Alert */}

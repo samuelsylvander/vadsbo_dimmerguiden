@@ -1,87 +1,100 @@
 {
-	"project types": [{
-		"id": 1,
-		"name": "Office",
-		"description": "Office project description",
-		"photo": "/photos/my-photo.png",
-		"icon": "/icons/my-icon.png",
-		"products": [{
-				"id": 1,
-				"quantity": 2
-			},
-			{
-				"id": 2,
-				"quantity": 3
-			}
-		],
-		"addons": [1, 2],
-		"rooms": [{
+	"project types": [
+		{
 			"id": 1,
-			"name": "Small Office",
-			"description": "2-10m2",
+			"name": "Office",
+			"description": "Office project description",
 			"photo": "/photos/my-photo.png",
 			"icon": "/icons/my-icon.png",
-			"products": [{
-                "id": 1,
-                "quantity": 2
-            },
-            {
-                "id": 2,
-                "quantity": 3
-            }],
-			"sensor": {
-                "optional": false,
-                "options": [
-                {
-                    "no": {
-                        "products": [{
-                            "id": 1,
-                            "quantity": 2
-                        }],
-                        "optional products": [{
-                            "id": 2,
-                            "quantity": 2
-                        }]
-                    }
-                },
-                {
-                    "yes": {
-                        "products": [{
-                            "id": 1,
-                            "quantity": 2
-                        }],
-                        "optional products": [{
-                            "id": 2,
-                            "quantity": 2
-                        }]
-                    }
-                }]
-            }
-		}]
-	}],
-	"products": [{
+			"products": [
+				{
+					"id": 1,
+					"quantity": 2
+				},
+				{
+					"id": 2,
+					"quantity": 3
+				}
+			],
+			"addons": [1, 2],
+			"rooms": [
+				{
+					"id": 1,
+					"name": "Small Office",
+					"description": "2-10m2",
+					"photo": "/photos/my-photo.png",
+					"icon": "/icons/my-icon.png",
+					"products": [
+						{
+							"id": 1,
+							"quantity": 2
+						},
+						{
+							"id": 2,
+							"quantity": 3
+						}
+					],
+					"sensor": {
+						"optional": false,
+						"options": [
+							{
+								"no": {
+									"products": [
+										{
+											"id": 1,
+											"quantity": 2
+										}
+									],
+									"optional products": [
+										{
+											"id": 2,
+											"quantity": 2
+										}
+									]
+								}
+							},
+							{
+								"yes": {
+									"products": [
+										{
+											"id": 1,
+											"quantity": 2
+										}
+									],
+									"optional products": [
+										{
+											"id": 2,
+											"quantity": 2
+										}
+									]
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	],
+	"products": [
+		{
 			"id": 1,
 			"name": "Dimmer",
 			"description": "",
-            "photo": "/photos/my-photo.png",
+			"photo": "/photos/my-photo.png",
 			"icon": "/icons/my-icon.png",
-			"options": 
-            {
-                "brand": [{
-                    "name": "Mpress Elko",
-                    "color options": [
-                        "white",
-                        "black"
-                    ]
-                }, {
-                    "name": "Exxact",
-                    "color options": [
-                        "white",
-                        "black"
-                    ]
-                }]
-		    }
-        },
+			"options": {
+				"brand": [
+					{
+						"name": "Mpress Elko",
+						"color options": ["white", "black"]
+					},
+					{
+						"name": "Exxact",
+						"color options": ["white", "black"]
+					}
+				]
+			}
+		},
 		{
 			"id": 2,
 			"name": "",
@@ -97,7 +110,8 @@
 			"icon": "/icons/my-icon.png"
 		}
 	],
-	"addons": [{
+	"addons": [
+		{
 			"id": 1,
 			"name": "",
 			"description": "",
