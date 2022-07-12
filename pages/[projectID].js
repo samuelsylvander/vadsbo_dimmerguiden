@@ -41,7 +41,8 @@ export async function getServerSideProps(context) {
 export default function Project({ loadedProject, errorText }) {
 	// const blankRoom = { name: "", dali: "", lights: 0, group: "", app: "", switches: 0, noOfRooms: 1 };
 
-	const [appState, setAppState] = useState("summary"); // state to control which page is displayed
+	const [appState, setAppState] = useState("newroom"); // state to control which page is displayed
+	const [roomIndex, setRoomIndex] = useState(0);
 	const toast = useRef();
 	const { projectData, dispatch } = useContext(ProjectDataContext);
 
@@ -49,10 +50,6 @@ export default function Project({ loadedProject, errorText }) {
 		document.getElementById("toastMessage").innerHTML = message;
 		toast.current.show();
 	}
-
-	useEffect(() => {
-		dispatch({ type: "initialise", value: loadedProject });
-	}, []);
 
 	useEffect(() => {
 		//set up bootstrap toasts
@@ -105,7 +102,7 @@ export default function Project({ loadedProject, errorText }) {
 
 			{/* App Screens Here */}
 			<div className='vw-100 m-0 p-0'>
-				{appState == "newroom" && <NewRoom setAppState={setAppState} />}
+				{appState == "newroom" && <NewRoom setAppState={setAppState} roomIndex={roomIndex} />}
 				{appState == "summary" && <Summary setAppState={setAppState} showToast={showToast} />}
 				{appState == "moreoptions" && <MoreOptions setAppState={setAppState} />}
 			</div>

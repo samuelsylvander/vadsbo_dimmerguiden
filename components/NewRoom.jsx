@@ -1,4 +1,4 @@
-//import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import Quantity from "./Quantity";
 import SwitchButtons from "./SwitchButtons";
 import Info from "./Info";
@@ -7,13 +7,7 @@ import daliRGBLogo from "../public/dali-rgb-pictogram.png";
 import daliTWLogo from "../public/dali-tw-pictogram.png";
 import Image from "next/image";
 import { ProjectTemplateContext } from "../libs/ProjectTemplateContext";
-
-// props required:
-// currentRoom - values to display/set
-// setCurrentRoom - function to update currentRoom
-// project - name of project to display
-// setRoom - function to submit details
-// error - array containing missing fields
+import { ProjectDataContext } from "../libs/ProjectDataContext";
 
 function NewRoom({ setAppState, roomIndex }) {
 	const { projectData, dispatch } = useContext(ProjectDataContext);
@@ -83,16 +77,9 @@ function NewRoom({ setAppState, roomIndex }) {
 		setAppState("summary");
 	}
 
-	useEffect(() => {
-		if (!roomIndex) {
-			dispatch({ type: "push", field: "rooms", value: newRoomTemplate });
-		}
-	}, []);
-
 	return (
 		<div className='container-fluid text-center'>
 			<h1 className='py-4'>Lägg till ett rum</h1>
-
 			<div className='row pt-4 justify-content-center'>
 				<div className='col-auto'>
 					<label>

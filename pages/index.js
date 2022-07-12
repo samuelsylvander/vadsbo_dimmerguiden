@@ -39,14 +39,15 @@ export default function Home() {
 
 		//start working
 		const url = "/api/savetodbAPI";
-		const newProject = { ...projectTemplate, name: projectName, id: undefined };
+		const newProject = { ...projectTemplate["project types"][0], name: projectName, id: undefined };
+		console.log(newProject);
 		await fetch(url, {
 			method: "POST",
 			body: JSON.stringify(newProject),
 		})
 			.then((response) => response.json())
 			.then((response) => {
-				// console.log("database response: " + JSON.stringify(response))
+				// console.log("database response: " + JSON.stringify(response));
 				router.push("./" + response.insertedId);
 			})
 			.catch((error) => console.log("database error: " + error));
