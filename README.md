@@ -44,6 +44,12 @@ The ToDos below are not in priority order.
 Rework New Room flow
 Update NewRoom, MoreOptions to dynamically create options based on project template json
 
+#### Changes to project_template.json
+
+`sensor` --> does this need to be nested inside rooms? We need to be able to access the options with/without a sensor easily.
+`sensor.options` --> can this be an object instead of array? Then we can address it with `options.yes` instead of `options[1]`
+`"project types".products` --> could this be renamed to `required_products` to make it clearer?
+
 #### Bugs
 
 ## Future Ideas
