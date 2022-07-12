@@ -51,6 +51,7 @@ export default function Home() {
 		const url = "/api/savetodbAPI";
 		const newProject = {
 			...projectTemplate["project types"][projectTemplateIndex],
+			template_id: projectTemplate["project types"][projectTemplateIndex].id,
 			name: projectName,
 			id: undefined,
 		};

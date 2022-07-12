@@ -94,14 +94,14 @@
 		},
 		{
 			"id": 2,
-			"name": "",
+			"name": "Second Option",
 			"description": "",
 			"photo": "/photos/my-photo.png",
 			"icon": "/icons/my-icon.png"
 		},
 		{
 			"id": 3,
-			"name": "",
+			"name": "Third Option",
 			"description": "",
 			"photo": "/photos/my-photo.png",
 			"icon": "/icons/my-icon.png"

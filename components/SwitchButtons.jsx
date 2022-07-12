@@ -4,18 +4,21 @@ import Info from "./Info";
 
 //props required
 // label
+// buttonLabels - if not passed, will show options instead
 // options - array containing options to display. Will be written to var field
 // field - reference to the field in projectData these buttons will set, ex: 'rooms.2.sensor'
 // (images - array containing images to display. Not required, but will replace options on button display)
 // infoText - in case more information is needed
 
-function SwitchButtons({ label, options, field, infoText, images }) {
+function SwitchButtons({ label, buttonLabels, options, field, infoText, images }) {
 	const { projectData, dispatch } = useContext(ProjectDataContext);
 
 	function handleSwitch(event) {
 		const buttonValue = event.currentTarget.dataset.option;
 		dispatch({ type: "replace", field: field, value: buttonValue });
 		const siblings = event.target.parentElement.children;
+
+		//set classes for selected and non-selected buttons
 		for (let i = 0; i < siblings.length; i++) {
 			if (siblings[i] === event.target) {
 				siblings[i].classList.remove("btn-outline-dark");
@@ -39,10 +42,10 @@ function SwitchButtons({ label, options, field, infoText, images }) {
 							height='2rem'
 							data-option={option}
 							className='btn btn-outline-dark mx-2 p-2 px-3'
-							// if changing class, change it in handleSwitch above
+							// if changing class, don't forget to change it in handleSwitch above
 							onClick={handleSwitch}
 						>
-							{images ? images[index] : option}
+							{images ? images[index] : buttonLabels ? buttonLabels[index] : JSON.stringify(option)}
 						</button>
 					);
 				})}

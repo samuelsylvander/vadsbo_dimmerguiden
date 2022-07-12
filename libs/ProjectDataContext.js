@@ -6,7 +6,7 @@ const ProjectDataContext = createContext();
 
 export default function ProjectDataContextProvider({ children }) {
 	function reducer(state, action) {
-		console.log(action);
+		// console.log(action);
 		let newState = {};
 		if (state) {
 			newState = JSON.parse(JSON.stringify(state)); //deep copy
@@ -16,39 +16,44 @@ export default function ProjectDataContextProvider({ children }) {
 			}
 		}
 
-		//assign editedField by reference to edit newState
-		let editedField = newState;
-		if (action.field) {
-			const fieldLevelsArray = action.field.split(".");
-			fieldLevelsArray.forEach((field) => (editedField = editedField[field]));
+		if (action.type === "initialise") {
+			newState = JSON.parse(JSON.stringify(action.value));
+		} else {
+			setDeep(action.field, action.value, action.type);
 		}
 
-		switch (action.type) {
-			case "initialise":
-				newState = JSON.parse(JSON.stringify(action.value));
-			case "replace":
-				editedField = action.value;
-				break;
-			case "increase":
-				if (typeof editedField === "number") {
-					editedField++;
-				}
-				break;
-			case "decrease":
-				if (typeof editedField === "number") {
-					editedField++;
-				}
-				break;
-			case "push":
-				if (Array.isArray(editedField)) {
-					editedField.push(action.value);
-				}
-				break;
-			case "remove":
-				if (Array.isArray(editedField)) {
-					editedField.splice(action.value, 1);
-				}
-				break;
+		function setDeep(path, value, action) {
+			const pathLevelsArray = path.split(".");
+			const lastLevel = pathLevelsArray[pathLevelsArray.length - 1];
+			let reference = newState;
+			for (let i = 0; i < pathLevelsArray.length - 1; i++) {
+				reference = reference[pathLevelsArray[i]];
+			}
+			switch (action) {
+				case "replace":
+					reference[lastLevel] = value;
+					break;
+				case "increase":
+					if (typeof reference[lastLevel] === "number") {
+						reference[lastLevel]++;
+					}
+					break;
+				case "decrease":
+					if (typeof reference[lastLevel] === "number") {
+						reference[lastLevel]++;
+					}
+					break;
+				case "push":
+					if (Array.isArray(reference[lastLevel])) {
+						reference[lastLevel].push(value);
+					}
+					break;
+				case "remove":
+					if (Array.isArray(reference[lastLevel])) {
+						reference[lastLevel].splice(value, 1);
+					}
+					break;
+			}
 		}
 		return newState;
 	}

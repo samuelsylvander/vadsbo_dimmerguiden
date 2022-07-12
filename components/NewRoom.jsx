@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import Quantity from "./Quantity";
 import SwitchButtons from "./SwitchButtons";
 import Info from "./Info";
@@ -12,7 +12,29 @@ import { ProjectDataContext } from "../libs/ProjectDataContext";
 function NewRoom({ setAppState, roomIndex }) {
 	const { projectData, dispatch } = useContext(ProjectDataContext);
 	const projectTemplate = useContext(ProjectTemplateContext);
-	console.log(projectData);
+	const [sensorOptions, setSensorOptions] = useState([]);
+
+	useEffect(() => {
+		if (projectData.rooms && projectTemplate) {
+			const currentTemplate = projectTemplate["project types"].find(
+				(template) => template.id === projectData.template_id
+			);
+
+			let optionsFromTemplate = [];
+
+			if (projectData.rooms[roomIndex].sensor === "true") {
+				optionsFromTemplate = currentTemplate.sensor.options.yes["optional products"];
+			} else if (projectData.rooms[roomIndex].sensor === "false") {
+				optionsFromTemplate = currentTemplate.sensor.options.no["optional products"];
+			}
+
+			const optionsDetails = optionsFromTemplate.map((option) =>
+				projectTemplate.products.find((product) => product.id === 2)
+			);
+
+			setSensorOptions(optionsDetails);
+		}
+	}, [projectData, projectTemplate]);
 
 	const newRoomTemplate = {
 		name: "Small Office",
@@ -103,9 +125,24 @@ function NewRoom({ setAppState, roomIndex }) {
 							}
 							required
 						/>
-
-						<SwitchButtons label='Test' options={["yes", "no"]} field={`rooms.${roomIndex}.test`} />
 					</label>
+					<SwitchButtons
+						label='Do you need a Sensor?'
+						buttonLabels={["Yes", "No"]}
+						options={[true, false]}
+						field={`rooms.${roomIndex}.sensor`}
+					/>
+
+					<SwitchButtons
+						label='Sensor options'
+						buttonLabels={sensorOptions.map((option) => option.name)}
+						options={sensorOptions.map((option) => option.id)}
+						field={`rooms.${roomIndex}.sensor_options`}
+					/>
+
+					<button className='btn btn-lg btn-dark w-auto my-3' onClick={handleSaveRoom}>
+						Spara rum
+					</button>
 				</div>
 			</div>
 		</div>
@@ -193,11 +230,7 @@ const oldNewRoomSteps = () => {
 						? "visually-hidden-focusable"
 						: "row pt-4 justify-content-center"
 				}
-			>
-				<button className='btn btn-lg btn-dark w-auto' onClick={handleSaveRoom}>
-					Spara rum
-				</button>
-			</div>
+			></div>
 		</>
 	);
 };
