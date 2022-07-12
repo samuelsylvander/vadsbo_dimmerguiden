@@ -52,6 +52,11 @@ export default function Project({ loadedProject, errorText }) {
 	}
 
 	useEffect(() => {
+		//initialise projectData with data from MongoDB
+		dispatch({ type: "initialise", value: loadedProject });
+	}, []);
+
+	useEffect(() => {
 		//set up bootstrap toasts
 		const { Toast } = require("bootstrap");
 		const toastAlert = document.getElementById("toastAlert");

@@ -12,6 +12,7 @@ import { ProjectDataContext } from "../libs/ProjectDataContext";
 function NewRoom({ setAppState, roomIndex }) {
 	const { projectData, dispatch } = useContext(ProjectDataContext);
 	const projectTemplate = useContext(ProjectTemplateContext);
+	console.log(projectData);
 
 	const newRoomTemplate = {
 		name: "Small Office",
@@ -77,6 +78,8 @@ function NewRoom({ setAppState, roomIndex }) {
 		setAppState("summary");
 	}
 
+	// return <div>{JSON.stringify(projectData.rooms[roomIndex])}</div>;
+
 	return (
 		<div className='container-fluid text-center'>
 			<h1 className='py-4'>Lägg till ett rum</h1>
@@ -84,12 +87,13 @@ function NewRoom({ setAppState, roomIndex }) {
 				<div className='col-auto'>
 					<label>
 						<h3 className='d-inline-block mb-2'>Ge rummet ett namn</h3>
+
 						<Info text={"Välj ett passande namn till rummet."} />
 						<input
 							className='form-control bg-white'
 							type='text'
 							placeholder='T ex Kontor'
-							value={projectData.rooms[roomIndex]}
+							value={projectData.rooms && projectData.rooms[roomIndex].name}
 							onChange={(event) =>
 								dispatch({
 									type: "replace",
@@ -99,10 +103,18 @@ function NewRoom({ setAppState, roomIndex }) {
 							}
 							required
 						/>
+
+						<SwitchButtons label='Test' options={["yes", "no"]} field={`rooms.${roomIndex}.test`} />
 					</label>
 				</div>
 			</div>
+		</div>
+	);
+}
 
+const oldNewRoomSteps = () => {
+	return (
+		<>
 			<div className='row pt-4'>
 				<SwitchButtons
 					property='dali'
@@ -186,8 +198,8 @@ function NewRoom({ setAppState, roomIndex }) {
 					Spara rum
 				</button>
 			</div>
-		</div>
+		</>
 	);
-}
+};
 
 export default NewRoom;
