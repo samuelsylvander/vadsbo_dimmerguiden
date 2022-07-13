@@ -39,20 +39,30 @@ You access the app by visiting localhost:3000 in your browser.
 
 The ToDos below are not in priority order.
 
-#### General
+### General
 
 Rework New Room flow
+
 Update NewRoom, MoreOptions to dynamically create options based on project template json
 
-#### Changes to project_template.json
+### Changes to project_template.json
 
-`sensor` --> does this need to be nested inside rooms? We need to be able to access the options with/without a sensor easily.
+rename `"project types"` to `project_templates`, partly to remove the space so we can use dot notation
+
+`sensor.options.yes/no` --> does this need to be nested inside rooms? We need to be able to access the options with/without a sensor easily.
+Will there be different sensor requirements for different templates? If not, we can just have one central set of rules regarding sensors.
+
 `sensor.options` --> can this be an object instead of array? Then we can address it with `options.yes` instead of `options[1]`
-`"project types".products` --> could this be renamed to `required_products` to make it clearer?
 
-#### Bugs
+add `sensor.selected` flag for projects with/without sensor
 
-## Future Ideas
+rename `sensor.optional` to `sensor.required` for consistency
+
+`"project types".products` --> could this be renamed to `required_products` to make it clearer? Alternatively, maybe just have a `required: true` flag inside products which are added by template.
+
+### Bugs
+
+## Questions
 
 Addons are just binary yes/no. Do we need to add the ability to set quantities too?
 

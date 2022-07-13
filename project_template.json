@@ -1,12 +1,12 @@
 {
-	"project types": [
+	"project_templates": [
 		{
 			"id": 1,
 			"name": "Office",
 			"description": "Office project description",
 			"photo": "/photos/my-photo.png",
 			"icon": "/icons/my-icon.png",
-			"products": [
+			"required_products": [
 				{
 					"id": 1,
 					"quantity": 2
@@ -27,51 +27,55 @@
 					"products": [
 						{
 							"id": 1,
-							"quantity": 2
+							"quantity": 2,
+							"required": false
 						},
 						{
 							"id": 2,
-							"quantity": 3
+							"quantity": 3,
+							"required": false
 						}
-					]
-				}
-			],
-			"sensor": {
-				"optional": false,
-				"options": {
-					"no": {
-						"products": [
-							{
-								"id": 1,
-								"quantity": 2
-							}
-						],
-						"optional products": [
-							{
-								"id": 2,
-								"quantity": 2
-							}
-						]
-					},
-
-					"yes": {
-						"products": [
-							{
-								"id": 1,
-								"quantity": 2
-							}
-						],
-						"optional products": [
-							{
-								"id": 2,
-								"quantity": 2
-							}
-						]
+					],
+					"sensor": {
+						"selected": true,
+						"required": false,
+						"products": [{ "id": 1, "quantity": 2, "required": true }]
 					}
 				}
-			}
+			]
 		}
 	],
+	"sensor_options": {
+		"no": {
+			"required_products": [
+				{
+					"id": 1,
+					"quantity": 2
+				}
+			],
+			"optional_products": [
+				{
+					"id": 2,
+					"quantity": 2
+				}
+			]
+		},
+
+		"yes": {
+			"required_products": [
+				{
+					"id": 1,
+					"quantity": 2
+				}
+			],
+			"optional_products": [
+				{
+					"id": 2,
+					"quantity": 2
+				}
+			]
+		}
+	},
 	"products": [
 		{
 			"id": 1,
