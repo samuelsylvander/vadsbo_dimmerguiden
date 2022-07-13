@@ -41,24 +41,28 @@ The ToDos below are not in priority order.
 
 ### General
 
+Add cards, project name modal to index.js
+
 Rework New Room flow
 
 Update NewRoom, MoreOptions to dynamically create options based on project template json
 
 ### Changes to project_template.json
 
-rename `"project types"` to `project_templates`, partly to remove the space so we can use dot notation
+-   rename `"project types"` to `project_templates`, partly to remove the space so we can use dot notation
 
-`sensor.options.yes/no` --> does this need to be nested inside rooms? We need to be able to access the options with/without a sensor easily.
-Will there be different sensor requirements for different templates? If not, we can just have one central set of rules regarding sensors.
+-   `sensor.options.yes/no` --> does this need to be nested inside rooms? We need to be able to access the options with/without a sensor easily.
+    Will there be different sensor requirements for different templates? If not, we can just have one central set of rules regarding sensors.
 
-`sensor.options` --> can this be an object instead of array? Then we can address it with `options.yes` instead of `options[1]`
+-   `sensor.options` --> can this be an object instead of array? Then we can address it with `options.yes` instead of `options[1]`
 
-add `sensor.selected` flag for projects with/without sensor
+-   add `sensor.selected` flag for projects with/without sensor
 
-rename `sensor.optional` to `sensor.required` for consistency
+-   rename `sensor.optional` to `sensor.required` for consistency
 
-`"project types".products` --> could this be renamed to `required_products` to make it clearer? Alternatively, maybe just have a `required: true` flag inside products which are added by template.
+-   `"project types".products` --> could this be renamed to `required_products` to make it clearer? Alternatively, maybe just have a `required: true` flag inside products which are added by template.
+
+-   added some products, just for testing
 
 ### Bugs
 

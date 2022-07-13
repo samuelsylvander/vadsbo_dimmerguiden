@@ -25,7 +25,7 @@ export default function Home() {
 
 	function handleProjectType(e) {
 		const selectedTemplateId = e.target.value;
-		const selectedTemplateIndex = projectTemplate["project types"].findIndex(
+		const selectedTemplateIndex = projectTemplate.project_templates.findIndex(
 			(template) => template.id == selectedTemplateId
 			// intentional '==', not '===', since value is returned as string
 		);
@@ -50,8 +50,8 @@ export default function Home() {
 		//start working
 		const url = "/api/savetodbAPI";
 		const newProject = {
-			...projectTemplate["project types"][projectTemplateIndex],
-			template_id: projectTemplate["project types"][projectTemplateIndex].id,
+			...projectTemplate.project_templates[projectTemplateIndex],
+			template_id: projectTemplate.project_templates[projectTemplateIndex].id,
 			name: projectName,
 			id: undefined,
 		};
@@ -117,7 +117,7 @@ export default function Home() {
 									<option disabled selected>
 										Choose a template
 									</option>
-									{projectTemplate["project types"].map((template) => (
+									{projectTemplate.project_templates.map((template) => (
 										<option key={template.id} value={template.id}>
 											{template.name}
 										</option>

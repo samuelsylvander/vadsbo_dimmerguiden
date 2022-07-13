@@ -16,79 +16,29 @@ function NewRoom({ setAppState, roomIndex }) {
 
 	useEffect(() => {
 		if (projectData.rooms && projectTemplate) {
-			const currentTemplate = projectTemplate["project types"].find(
-				(template) => template.id === projectData.template_id
-			);
+			//use this if sensor rules vary by template
+			// const currentTemplate = projectTemplate["project types"].find(
+			// 	(template) => template.id === projectData.template_id
+			// );
 
 			let optionsFromTemplate = [];
 
-			if (projectData.rooms[roomIndex].sensor === "true") {
-				optionsFromTemplate = currentTemplate.sensor.options.yes["optional products"];
-			} else if (projectData.rooms[roomIndex].sensor === "false") {
-				optionsFromTemplate = currentTemplate.sensor.options.no["optional products"];
+			console.log(projectData.rooms[roomIndex].sensor.selected);
+
+			if (projectData.rooms[roomIndex].sensor.selected === "true") {
+				optionsFromTemplate = projectTemplate.sensor_options.yes.optional_products;
+			} else if (projectData.rooms[roomIndex].sensor.selected === "false") {
+				optionsFromTemplate = projectTemplate.sensor_options.no.optional_products;
 			}
 
 			const optionsDetails = optionsFromTemplate.map((option) =>
-				projectTemplate.products.find((product) => product.id === 2)
+				projectTemplate.products.find((product) => product.id === option.id)
 			);
 
+			console.log(optionsDetails);
 			setSensorOptions(optionsDetails);
 		}
 	}, [projectData, projectTemplate]);
-
-	const newRoomTemplate = {
-		name: "Small Office",
-		description: "2-10m2",
-		photo: "/photos/my-photo.png",
-		icon: "/icons/my-icon.png",
-		products: [
-			{
-				id: 1,
-				quantity: 2,
-			},
-			{
-				id: 2,
-				quantity: 3,
-			},
-		],
-		sensor: {
-			optional: false,
-			options: [
-				{
-					no: {
-						products: [
-							{
-								id: 1,
-								quantity: 2,
-							},
-						],
-						"optional products": [
-							{
-								id: 2,
-								quantity: 2,
-							},
-						],
-					},
-				},
-				{
-					yes: {
-						products: [
-							{
-								id: 1,
-								quantity: 2,
-							},
-						],
-						"optional products": [
-							{
-								id: 2,
-								quantity: 2,
-							},
-						],
-					},
-				},
-			],
-		},
-	};
 
 	const daliButtons = [
 		<Image src={daliLogo} height={200} width={200} key={daliLogo} alt='DALI logo' />,
@@ -105,9 +55,10 @@ function NewRoom({ setAppState, roomIndex }) {
 	return (
 		<div className='container-fluid text-center'>
 			<h1 className='py-4'>Lägg till ett rum</h1>
+
 			<div className='row pt-4 justify-content-center'>
 				<div className='col-auto'>
-					<label>
+					{/* <label>
 						<h3 className='d-inline-block mb-2'>Ge rummet ett namn</h3>
 
 						<Info text={"Välj ett passande namn till rummet."} />
@@ -115,7 +66,7 @@ function NewRoom({ setAppState, roomIndex }) {
 							className='form-control bg-white'
 							type='text'
 							placeholder='T ex Kontor'
-							value={projectData.rooms && projectData.rooms[roomIndex].name}
+							value={projectData.rooms[roomIndex].name}
 							onChange={(event) =>
 								dispatch({
 									type: "replace",
@@ -125,19 +76,20 @@ function NewRoom({ setAppState, roomIndex }) {
 							}
 							required
 						/>
-					</label>
+					</label> */}
 					<SwitchButtons
 						label='Do you need a Sensor?'
 						buttonLabels={["Yes", "No"]}
 						options={[true, false]}
-						field={`rooms.${roomIndex}.sensor`}
+						field={`rooms.${roomIndex}.sensor.selected`}
 					/>
 
 					<SwitchButtons
 						label='Sensor options'
-						buttonLabels={sensorOptions.map((option) => option.name)}
-						options={sensorOptions.map((option) => option.id)}
-						field={`rooms.${roomIndex}.sensor_options`}
+						buttonLabels={sensorOptions.map((option) => option?.name)}
+						options={sensorOptions.map((option) => option?.id)}
+						field={`rooms.${roomIndex}.sensor.products`}
+						multiple
 					/>
 
 					<button className='btn btn-lg btn-dark w-auto my-3' onClick={handleSaveRoom}>

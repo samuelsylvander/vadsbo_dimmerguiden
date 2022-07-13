@@ -9,25 +9,40 @@ import Info from "./Info";
 // field - reference to the field in projectData these buttons will set, ex: 'rooms.2.sensor'
 // (images - array containing images to display. Not required, but will replace options on button display)
 // infoText - in case more information is needed
+// multiple - flag to add if you want to allow multiple values to be selected
 
-function SwitchButtons({ label, buttonLabels, options, field, infoText, images }) {
+function SwitchButtons({ label, buttonLabels, options, field, infoText, images, multiple }) {
 	const { projectData, dispatch } = useContext(ProjectDataContext);
 
 	function handleSwitch(event) {
-		const buttonValue = event.currentTarget.dataset.option;
-		dispatch({ type: "replace", field: field, value: buttonValue });
-		const siblings = event.target.parentElement.children;
+		const button = event.target;
+		const siblings = Array.from(event.target.parentElement.children);
+
+		if (button.dataset.selected === "false") {
+			button.dataset.selected = "true";
+			if (multiple) {
+				dispatch({ type: "add", field: field, value: button.dataset.option });
+			} else {
+				dispatch({ type: "replace", field: field, value: button.dataset.option });
+				siblings
+					.filter((sibling) => sibling !== event.target)
+					.forEach((sibling) => (sibling.dataset.selected = "false"));
+			}
+		} else if (button.dataset.selected === "true" && multiple) {
+			button.dataset.selected = "false";
+			dispatch({ type: "remove", field: field, value: button.dataset.option });
+		}
 
 		//set classes for selected and non-selected buttons
-		for (let i = 0; i < siblings.length; i++) {
-			if (siblings[i] === event.target) {
-				siblings[i].classList.remove("btn-outline-dark");
-				siblings[i].classList.add("btn-primary");
+		siblings.forEach((sibling) => {
+			if (sibling.dataset.selected === "true") {
+				sibling.classList.remove("btn-outline-dark");
+				sibling.classList.add("btn-primary");
 			} else {
-				siblings[i].classList.add("btn-outline-dark");
-				siblings[i].classList.remove("btn-primary");
+				sibling.classList.add("btn-outline-dark");
+				sibling.classList.remove("btn-primary");
 			}
-		}
+		});
 	}
 
 	return (
@@ -41,6 +56,7 @@ function SwitchButtons({ label, buttonLabels, options, field, infoText, images }
 							key={index}
 							height='2rem'
 							data-option={option}
+							data-selected={false}
 							className='btn btn-outline-dark mx-2 p-2 px-3'
 							// if changing class, don't forget to change it in handleSwitch above
 							onClick={handleSwitch}

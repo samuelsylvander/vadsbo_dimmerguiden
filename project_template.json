@@ -49,13 +49,17 @@
 		"no": {
 			"required_products": [
 				{
-					"id": 1,
+					"id": 201,
 					"quantity": 2
 				}
 			],
 			"optional_products": [
 				{
-					"id": 2,
+					"id": 201,
+					"quantity": 2
+				},
+				{
+					"id": 204,
 					"quantity": 2
 				}
 			]
@@ -64,14 +68,18 @@
 		"yes": {
 			"required_products": [
 				{
-					"id": 1,
+					"id": 202,
 					"quantity": 2
 				}
 			],
 			"optional_products": [
 				{
-					"id": 2,
-					"quantity": 2
+					"id": 202,
+					"quantity": 1
+				},
+				{
+					"id": 203,
+					"quantity": 1
 				}
 			]
 		}
@@ -106,6 +114,34 @@
 		{
 			"id": 3,
 			"name": "Third Option",
+			"description": "",
+			"photo": "/photos/my-photo.png",
+			"icon": "/icons/my-icon.png"
+		},
+		{
+			"id": 201,
+			"name": "Sensor option 1",
+			"description": "",
+			"photo": "/photos/my-photo.png",
+			"icon": "/icons/my-icon.png"
+		},
+		{
+			"id": 202,
+			"name": "Sensor option 2",
+			"description": "",
+			"photo": "/photos/my-photo.png",
+			"icon": "/icons/my-icon.png"
+		},
+		{
+			"id": 203,
+			"name": "Sensor option 3",
+			"description": "",
+			"photo": "/photos/my-photo.png",
+			"icon": "/icons/my-icon.png"
+		},
+		{
+			"id": 204,
+			"name": "Sensor option 4",
 			"description": "",
 			"photo": "/photos/my-photo.png",
 			"icon": "/icons/my-icon.png"

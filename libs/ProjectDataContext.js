@@ -43,14 +43,19 @@ export default function ProjectDataContextProvider({ children }) {
 						reference[lastLevel]++;
 					}
 					break;
-				case "push":
+				case "add":
 					if (Array.isArray(reference[lastLevel])) {
-						reference[lastLevel].push(value);
+						if (!reference[lastLevel].includes(value)) {
+							reference[lastLevel].push(value);
+						}
 					}
 					break;
 				case "remove":
 					if (Array.isArray(reference[lastLevel])) {
-						reference[lastLevel].splice(value, 1);
+						const foundIndex = reference[lastLevel].indexOf(value);
+						if (foundIndex >= 0) {
+							reference[lastLevel].splice(foundIndex, 1);
+						}
 					}
 					break;
 			}
