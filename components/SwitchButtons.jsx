@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { ProjectDataContext } from "../libs/ProjectDataContext";
 import Info from "./Info";
 
@@ -12,11 +12,22 @@ import Info from "./Info";
 // multiple - flag to add if you want to allow multiple values to be selected
 
 function SwitchButtons({ label, buttonLabels, options, field, infoText, images, multiple }) {
-	const { projectData, dispatch } = useContext(ProjectDataContext);
+	const { dispatch } = useContext(ProjectDataContext);
+	const parentRef = useRef();
+	const buttonLabelsValue = useRef();
+
+	useEffect(() => {
+		if (buttonLabelsValue.current !== JSON.stringify(buttonLabels)) {
+			buttonLabelsValue.current = JSON.stringify(buttonLabels);
+			const siblings = Array.from(parentRef.current.children);
+			siblings.forEach((sibling) => (sibling.dataset.selected = "false"));
+			setClasses(siblings);
+		}
+	}, [buttonLabels]);
 
 	function handleSwitch(event) {
 		const button = event.target;
-		const siblings = Array.from(event.target.parentElement.children);
+		const siblings = Array.from(parentRef.current.children);
 
 		if (button.dataset.selected === "false") {
 			button.dataset.selected = "true";
@@ -32,9 +43,12 @@ function SwitchButtons({ label, buttonLabels, options, field, infoText, images, 
 			button.dataset.selected = "false";
 			dispatch({ type: "remove", field: field, value: button.dataset.option });
 		}
+		setClasses(siblings);
+	}
 
+	function setClasses(buttons) {
 		//set classes for selected and non-selected buttons
-		siblings.forEach((sibling) => {
+		buttons.forEach((sibling) => {
 			if (sibling.dataset.selected === "true") {
 				sibling.classList.remove("btn-outline-dark");
 				sibling.classList.add("btn-primary");
@@ -49,7 +63,7 @@ function SwitchButtons({ label, buttonLabels, options, field, infoText, images, 
 		<div className='container'>
 			<h3 className='d-inline-block my-4'>{label}</h3>
 			{infoText && <Info text={infoText} />}
-			<div>
+			<div ref={parentRef}>
 				{options.map((option, index) => {
 					return (
 						<button
@@ -58,7 +72,7 @@ function SwitchButtons({ label, buttonLabels, options, field, infoText, images, 
 							data-option={option}
 							data-selected={false}
 							className='btn btn-outline-dark mx-2 p-2 px-3'
-							// if changing class, don't forget to change it in handleSwitch above
+							// if changing class, don't forget to change it in setClasses above
 							onClick={handleSwitch}
 						>
 							{images ? images[index] : buttonLabels ? buttonLabels[index] : JSON.stringify(option)}
