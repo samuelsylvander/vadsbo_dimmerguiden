@@ -44,7 +44,7 @@ export default function Project({ loadedProject, errorText }) {
 	const [appState, setAppState] = useState("newroom"); // state to control which page is displayed
 	const [roomIndex, setRoomIndex] = useState(0);
 	const toast = useRef();
-	const { projectData, dispatch } = useContext(ProjectDataContext);
+	const { isLoading, projectData, dispatch } = useContext(ProjectDataContext);
 
 	function showToast(message) {
 		document.getElementById("toastMessage").innerHTML = message;
@@ -107,9 +107,9 @@ export default function Project({ loadedProject, errorText }) {
 
 			{/* App Screens Here */}
 			<div className='vw-100 m-0 p-0'>
-				{appState == "newroom" && <NewRoom setAppState={setAppState} roomIndex={roomIndex} />}
-				{appState == "summary" && <Summary setAppState={setAppState} showToast={showToast} />}
-				{appState == "moreoptions" && <MoreOptions setAppState={setAppState} />}
+				{!isLoading && appState == "newroom" && <NewRoom setAppState={setAppState} roomIndex={roomIndex} />}
+				{!isLoading && appState == "summary" && <Summary setAppState={setAppState} showToast={showToast} />}
+				{!isLoading && appState == "moreoptions" && <MoreOptions setAppState={setAppState} />}
 			</div>
 
 			{/* Toast Alert */}

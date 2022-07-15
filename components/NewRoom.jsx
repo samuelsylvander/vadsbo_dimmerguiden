@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useContext, useState, useMemo } from "react";
 import Quantity from "./Quantity";
 import SwitchButtons from "./SwitchButtons";
 import Info from "./Info";
@@ -10,20 +10,24 @@ import { ProjectTemplateContext } from "../libs/ProjectTemplateContext";
 import { ProjectDataContext } from "../libs/ProjectDataContext";
 
 function NewRoom({ setAppState, roomIndex }) {
-	const { projectData, dispatch } = useContext(ProjectDataContext);
+	const { isLoading, projectData } = useContext(ProjectDataContext);
 	const projectTemplate = useContext(ProjectTemplateContext);
-	const [sensorOptions, setSensorOptions] = useState([]);
+	const sensorOptions = useMemo(() => getSensorOptions(), [projectData, projectTemplate]);
+	const environmentalSensorOptions = useMemo(() => getEnvironmentalSensorOptions(), [projectData, projectTemplate]);
+	const environmentalSensorDetailedOptionsList = useMemo(
+		() => getEnvironmentalSensorDetailedOptionsList(),
+		[environmentalSensorOptions]
+	);
 
-	useEffect(() => {
-		if (projectData.rooms && projectTemplate) {
+	function getSensorOptions() {
+		if (isLoading) {
+			return [];
+		} else {
 			//use this if sensor rules vary by template
 			// const currentTemplate = projectTemplate["project types"].find(
 			// 	(template) => template.id === projectData.template_id
 			// );
-
 			let optionsFromTemplate = [];
-
-			console.log(projectData.rooms[roomIndex].sensor.selected);
 
 			if (projectData.rooms[roomIndex].sensor.selected === "true") {
 				optionsFromTemplate = projectTemplate.sensor_options.yes.optional_products;
@@ -35,22 +39,49 @@ function NewRoom({ setAppState, roomIndex }) {
 				projectTemplate.products.find((product) => product.id === option.id)
 			);
 
-			console.log(optionsDetails);
-			setSensorOptions(optionsDetails);
+			return optionsDetails;
 		}
-	}, [projectData, projectTemplate]);
+	}
 
-	const daliButtons = [
-		<Image src={daliLogo} height={200} width={200} key={daliLogo} alt='DALI logo' />,
-		<Image src={daliTWLogo} height={200} width={200} key={daliTWLogo} alt='DALI TW logo' />,
-		<Image src={daliRGBLogo} height={200} width={200} key={daliRGBLogo} alt='DALI RGB logo' />,
-	];
+	function getEnvironmentalSensorOptions() {
+		if (isLoading) {
+			return [];
+		} else {
+			const environmentalOptionsFromTemplate = projectTemplate.sensor_options.environmental.optional_products;
+			const environmentalOptionsDetails = environmentalOptionsFromTemplate.map((option) =>
+				projectTemplate.products.find((product) => product.id === option.id)
+			);
+			// console.log(environmentalOptionsDetails);
+			return environmentalOptionsDetails;
+		}
+	}
+
+	function getEnvironmentalSensorDetailedOptionsList() {
+		if (isLoading) {
+			return [];
+		} else {
+			const chosenEnvironmentalSensorId = projectData.rooms[roomIndex].environmental_sensor.products.id;
+			const matchingProduct = projectTemplate.products.find(
+				(product) => product.id == chosenEnvironmentalSensorId
+			);
+			// console.log(matchingProduct);
+
+			if (matchingProduct && matchingProduct.hasOwnProperty("options")) {
+				const optionKeys = Object.keys(matchingProduct.options);
+				const optionsArray = optionKeys.map((key) => {
+					return { name: key, values: matchingProduct.options[key] };
+				});
+				// console.log(optionsArray);
+				return optionsArray;
+			} else {
+				return [];
+			}
+		}
+	}
 
 	function handleSaveRoom() {
 		setAppState("summary");
 	}
-
-	// return <div>{JSON.stringify(projectData.rooms[roomIndex])}</div>;
 
 	return (
 		<div className='container-fluid text-center'>
@@ -92,6 +123,37 @@ function NewRoom({ setAppState, roomIndex }) {
 						multiple
 					/>
 
+					<SwitchButtons
+						label='Environmental Sensor?'
+						buttonLabels={["Yes", "No"]}
+						options={[true, false]}
+						field={`rooms.${roomIndex}.environmental_sensor.selected`}
+					/>
+
+					{projectData.rooms[roomIndex].environmental_sensor.selected === "true" && (
+						<SwitchButtons
+							label='Environmental Sensor Options'
+							buttonLabels={environmentalSensorOptions.map((option) => option?.name)}
+							options={environmentalSensorOptions.map((option) => option?.id)}
+							field={`rooms.${roomIndex}.environmental_sensor.products.id`}
+						/>
+					)}
+
+					{environmentalSensorDetailedOptionsList.map((detailedOption) => (
+						<>
+							<SwitchButtons
+								label={detailedOption.name}
+								buttonLabels={detailedOption.values.map((option) => option?.name)}
+								options={detailedOption.values.map((option) => option?.name)}
+								field={`rooms.${roomIndex}.environmental_sensor.products.options.${detailedOption.name}`}
+							/>
+							{/* color options here */}
+						</>
+					))}
+
+					{JSON.stringify(projectData.rooms[roomIndex])}
+					<br />
+
 					<button className='btn btn-lg btn-dark w-auto my-3' onClick={handleSaveRoom}>
 						Spara rum
 					</button>
@@ -102,6 +164,11 @@ function NewRoom({ setAppState, roomIndex }) {
 }
 
 const oldNewRoomSteps = () => {
+	const daliButtons = [
+		<Image src={daliLogo} height={200} width={200} key={daliLogo} alt='DALI logo' />,
+		<Image src={daliTWLogo} height={200} width={200} key={daliTWLogo} alt='DALI TW logo' />,
+		<Image src={daliRGBLogo} height={200} width={200} key={daliRGBLogo} alt='DALI RGB logo' />,
+	];
 	return (
 		<>
 			<div className='row pt-4'>

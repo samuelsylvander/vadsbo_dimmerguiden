@@ -40,6 +40,11 @@
 						"selected": true,
 						"required": false,
 						"products": [{ "id": 1, "quantity": 2, "required": true }]
+					},
+					"environmental_sensor": {
+						"selected": false,
+						"required": false,
+						"products": { "id": 301, "quantity": 2, "options": {} }
 					}
 				}
 			]
@@ -79,6 +84,18 @@
 				},
 				{
 					"id": 203,
+					"quantity": 1
+				}
+			]
+		},
+		"environmental": {
+			"optional_products": [
+				{
+					"id": 301,
+					"quantity": 1
+				},
+				{
+					"id": 302,
 					"quantity": 1
 				}
 			]
@@ -145,6 +162,32 @@
 			"description": "",
 			"photo": "/photos/my-photo.png",
 			"icon": "/icons/my-icon.png"
+		},
+		{
+			"id": 301,
+			"name": "Environmental Sensor 1",
+			"description": "",
+			"photo": "/photos/my-photo.png",
+			"icon": "/icons/my-icon.png"
+		},
+		{
+			"id": 302,
+			"name": "Environmental Sensor 2",
+			"description": "",
+			"photo": "/photos/my-photo.png",
+			"icon": "/icons/my-icon.png",
+			"options": {
+				"brand": [
+					{
+						"name": "Mpress Elko",
+						"color options": ["white", "black"]
+					},
+					{
+						"name": "Exxact",
+						"color options": ["white", "black"]
+					}
+				]
+			}
 		}
 	],
 	"addons": [

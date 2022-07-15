@@ -1,10 +1,15 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useState } from "react";
 
 const ProjectDataContext = createContext();
 
 //reducer function called by dispatch({action: 'replace', field: 'room.name', value: 'new name'})
 
 export default function ProjectDataContextProvider({ children }) {
+	const [isLoading, setIsLoading] = useState(true);
+	const [projectData, dispatch] = useReducer(reducer, {});
+
+	const contextValue = { isLoading, projectData, dispatch };
+
 	function reducer(state, action) {
 		// console.log(action);
 		let newState = {};
@@ -18,6 +23,7 @@ export default function ProjectDataContextProvider({ children }) {
 
 		if (action.type === "initialise") {
 			newState = JSON.parse(JSON.stringify(action.value));
+			setIsLoading(false);
 		} else {
 			setDeep(action.field, action.value, action.type);
 		}
@@ -62,9 +68,6 @@ export default function ProjectDataContextProvider({ children }) {
 		}
 		return newState;
 	}
-	const [projectData, dispatch] = useReducer(reducer, {});
-
-	const contextValue = { projectData, dispatch };
 
 	return <ProjectDataContext.Provider value={contextValue}>{children}</ProjectDataContext.Provider>;
 }

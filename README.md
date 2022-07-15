@@ -62,6 +62,8 @@ Update NewRoom, MoreOptions to dynamically create options based on project templ
 
 -   `"project types".products` --> could this be renamed to `required_products` to make it clearer? Alternatively, maybe just have a `required: true` flag inside products which are added by template.
 
+-   I don't really know what environmental sensors are, but I added them as a separate type of sensor: `environmental_sensor`
+
 -   added some products, just for testing
 
 ### Bugs
