@@ -45,7 +45,7 @@
 					"environmental_sensor": {
 						"selected": false,
 						"required": false,
-						"products": { "id": 301, "quantity": 2, "options": {} }
+						"products": [{ "id": 301, "quantity": 2, "options": {} }]
 					}
 				}
 			]

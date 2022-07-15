@@ -109,7 +109,7 @@ export default function Summary({ setAppState, showToast, setRoomIndex }) {
 		nameModal.current = Modal.getOrCreateInstance(nameChange);
 	}, []);
 
-	// useEffect(saveProject, [projectData]); //save project every time we change any details
+	useEffect(saveProject, [projectData]); //save project every time we change any details
 
 	useEffect(() => {
 		//uncollapse the details if less than six items
@@ -163,11 +163,10 @@ export default function Summary({ setAppState, showToast, setRoomIndex }) {
 					</div>
 				</div>
 
-				{/* <div id='basket' style={{ background: "rgba(0,0,0,0.7)" }} className='col-sm-4 col-xl-3 m-0 p-0'>
+				<div id='basket' style={{ background: "rgba(0,0,0,0.7)" }} className='col-sm-4 col-xl-3 m-0 p-0'>
 					<Sidebar setAppState={setAppState} showDetails={showDetails} />
-				</div> */}
+				</div>
 			</div>
-
 			{/* Confirm Delete Modal */}
 			<div
 				className='modal fade'
@@ -203,7 +202,6 @@ export default function Summary({ setAppState, showToast, setRoomIndex }) {
 					</div>
 				</div>
 			</div>
-
 			{/* Get Quote Modal */}
 			<div
 				className='modal fade'
@@ -301,7 +299,6 @@ export default function Summary({ setAppState, showToast, setRoomIndex }) {
 					</div>
 				</div>
 			</div>
-
 			{/* Share Project Modal */}
 			<div
 				className='modal fade'
@@ -392,7 +389,6 @@ export default function Summary({ setAppState, showToast, setRoomIndex }) {
 					</div>
 				</div>
 			</div>
-
 			{/* Sidebar Product Info Modal */}
 			<div
 				className='modal fade'
@@ -427,7 +423,6 @@ export default function Summary({ setAppState, showToast, setRoomIndex }) {
 					</div>
 				</div>
 			</div>
-
 			{/* Quote Submitted Modal */}
 			<div
 				className='modal fade'
@@ -465,7 +460,6 @@ export default function Summary({ setAppState, showToast, setRoomIndex }) {
 					</div>
 				</div>
 			</div>
-
 			{/* Change Project Name Modal */}
 			<div
 				className='modal fade'
@@ -521,8 +515,7 @@ export default function Summary({ setAppState, showToast, setRoomIndex }) {
 					</div>
 				</div>
 			</div>
-
-			{/* display roomList for debugging {"Currently in Project: " + JSON.stringify(roomList)} */}
+			{"Currently in Project: " + JSON.stringify(projectData)}
 		</>
 	);
 }

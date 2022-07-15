@@ -40,7 +40,11 @@ export default function ProjectDataContextProvider({ children }) {
 			}
 			switch (action) {
 				case "replace":
-					reference[lastLevel] = value;
+					if (Array.isArray(reference[lastLevel])) {
+						reference[lastLevel] = [value];
+					} else {
+						reference[lastLevel] = value;
+					}
 					break;
 				case "increase":
 					if (typeof reference[lastLevel] === "number") {

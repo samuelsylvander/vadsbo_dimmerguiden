@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { ProjectDataContext } from "../libs/ProjectDataContext";
 import { ProjectTemplateContext } from "../libs/ProjectTemplateContext";
-import Addon from "./Addon";
 import SwitchButtons from "./SwitchButtons";
 
 function MoreOptions({ setAppState }) {
