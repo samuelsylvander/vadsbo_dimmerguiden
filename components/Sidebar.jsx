@@ -36,7 +36,9 @@ function Sidebar({ showDetails }) {
 			room.environmental_sensor.products.forEach((product) => {
 				addProduct(product, roomTotals);
 			});
-			Object.keys(roomTotals).forEach((id) => addProduct(roomTotals[id], productsTotal));
+			Object.keys(roomTotals).forEach((id) =>
+				addProduct({ ...roomTotals[id], quantity: roomTotals[id].quantity * room.quantity }, productsTotal)
+			);
 		});
 
 		Object.keys(productsTotal).forEach((itemId) => {
