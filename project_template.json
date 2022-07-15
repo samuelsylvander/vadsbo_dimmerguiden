@@ -59,7 +59,7 @@
 	],
 	"room_templates": [
 		{
-			"id": 1,
+			"room_template_id": 1,
 			"name": "Small Office",
 			"description": "2-10m2",
 			"photo": "/photos/my-photo.png",

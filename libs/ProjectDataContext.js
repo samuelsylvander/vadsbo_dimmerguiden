@@ -11,7 +11,6 @@ export default function ProjectDataContextProvider({ children }) {
 	const contextValue = { isLoading, projectData, dispatch };
 
 	function reducer(state, action) {
-		// console.log(action);
 		let newState = {};
 		if (state) {
 			newState = JSON.parse(JSON.stringify(state)); //deep copy

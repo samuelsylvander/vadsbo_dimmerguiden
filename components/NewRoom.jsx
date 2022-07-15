@@ -31,7 +31,7 @@ function NewRoom({ setAppState, roomIndex }) {
 	}, [projectData]);
 
 	function getSensorOptions() {
-		if (isLoading) {
+		if (isLoading || projectData.rooms.length <= roomIndex) {
 			return [];
 		} else {
 			let optionsFromTemplate = [];
@@ -51,7 +51,7 @@ function NewRoom({ setAppState, roomIndex }) {
 	}
 
 	function getEnvironmentalSensorOptions() {
-		if (isLoading) {
+		if (isLoading || projectData.rooms.length <= roomIndex) {
 			return [];
 		} else {
 			const environmentalOptionsFromTemplate = projectTemplate.sensor_options.environmental.optional_products;
@@ -63,7 +63,7 @@ function NewRoom({ setAppState, roomIndex }) {
 	}
 
 	function getEnvironmentalSensorDetailedOptionsList() {
-		if (isLoading) {
+		if (isLoading || projectData.rooms.length <= roomIndex) {
 			return [];
 		} else {
 			const chosenEnvironmentalSensorId = projectData.rooms[roomIndex].environmental_sensor.products.id;
@@ -88,12 +88,13 @@ function NewRoom({ setAppState, roomIndex }) {
 	}
 
 	function handleSelectTemplate(selectedTemplate) {
-		dispatch({ type: "replace", field: `rooms.${roomIndex}`, field: selectedTemplate });
+		dispatch({ type: "add", field: `rooms`, value: selectedTemplate });
 	}
 
 	return (
 		<div className='container-fluid text-center'>
 			<h1 className='py-4'>Lägg till ett rum</h1>
+			<h2>Current Room: {roomIndex}</h2>
 
 			<h3>Choose a room template</h3>
 			{projectTemplate.room_templates.map((template) => {
@@ -107,75 +108,79 @@ function NewRoom({ setAppState, roomIndex }) {
 
 			<div className='row pt-4 justify-content-center'>
 				<div className='col-auto'>
-					<label>
-						<h3 className='d-inline-block mb-2'>Ge rummet ett namn</h3>
-
-						<Info text={"Välj ett passande namn till rummet."} />
-						<input
-							className='form-control bg-white'
-							type='text'
-							placeholder='T ex Kontor'
-							value={projectData.rooms[roomIndex].name}
-							onChange={(event) =>
-								dispatch({
-									type: "replace",
-									field: `rooms.${roomIndex}.name`,
-									value: event.target.value,
-								})
-							}
-							required
-						/>
-					</label>
-
-					<SwitchButtons
-						label='Do you need a Sensor?'
-						buttonLabels={["Yes", "No"]}
-						options={[true, false]}
-						field={`rooms.${roomIndex}.sensor.selected`}
-					/>
-
-					<SwitchButtons
-						label='Sensor options'
-						buttonLabels={sensorOptions.map((option) => option.name)}
-						options={sensorOptions.map((option) => {
-							return { id: option.id, quantity: 1 };
-						})}
-						field={`rooms.${roomIndex}.sensor.products`}
-						multiple
-					/>
-
-					<SwitchButtons
-						label='Environmental Sensor?'
-						buttonLabels={["Yes", "No"]}
-						options={[true, false]}
-						field={`rooms.${roomIndex}.environmental_sensor.selected`}
-					/>
-
-					{projectData.rooms[roomIndex].environmental_sensor.selected === "true" && (
-						<SwitchButtons
-							label='Environmental Sensor Options'
-							buttonLabels={environmentalSensorOptions.map((option) => option?.name)}
-							options={environmentalSensorOptions.map((option) => option?.id)}
-							field={`rooms.${roomIndex}.environmental_sensor.products.id`}
-						/>
-					)}
-
-					{environmentalSensorDetailedOptionsList.map((detailedOption) => (
+					{projectData.rooms.length - 1 === roomIndex && (
 						<>
+							<label>
+								<h3 className='d-inline-block mb-2'>Ge rummet ett namn</h3>
+
+								<Info text={"Välj ett passande namn till rummet."} />
+								<input
+									className='form-control bg-white'
+									type='text'
+									placeholder='T ex Kontor'
+									value={projectData.rooms[roomIndex].name}
+									onChange={(event) =>
+										dispatch({
+											type: "replace",
+											field: `rooms.${roomIndex}.name`,
+											value: event.target.value,
+										})
+									}
+									required
+								/>
+							</label>
+
 							<SwitchButtons
-								label={detailedOption.name}
-								buttonLabels={detailedOption.values.map((option) => option?.name)}
-								options={detailedOption.values.map((option) => {
+								label='Do you need a Sensor?'
+								buttonLabels={["Yes", "No"]}
+								options={[true, false]}
+								field={`rooms.${roomIndex}.sensor.selected`}
+							/>
+
+							<SwitchButtons
+								label='Sensor options'
+								buttonLabels={sensorOptions.map((option) => option.name)}
+								options={sensorOptions.map((option) => {
 									return { id: option.id, quantity: 1 };
 								})}
-								field={`rooms.${roomIndex}.environmental_sensor.products.options.${detailedOption.name}`}
+								field={`rooms.${roomIndex}.sensor.products`}
+								multiple
 							/>
-							{/* color options here */}
-						</>
-					))}
 
-					{/* {JSON.stringify(projectData.rooms[roomIndex])}
-					<br /> */}
+							<SwitchButtons
+								label='Environmental Sensor?'
+								buttonLabels={["Yes", "No"]}
+								options={[true, false]}
+								field={`rooms.${roomIndex}.environmental_sensor.selected`}
+							/>
+
+							{projectData.rooms[roomIndex].environmental_sensor.selected === "true" && (
+								<SwitchButtons
+									label='Environmental Sensor Options'
+									buttonLabels={environmentalSensorOptions.map((option) => option?.name)}
+									options={environmentalSensorOptions.map((option) => option?.id)}
+									field={`rooms.${roomIndex}.environmental_sensor.products.id`}
+								/>
+							)}
+
+							{environmentalSensorDetailedOptionsList.map((detailedOption) => (
+								<>
+									<SwitchButtons
+										label={detailedOption.name}
+										buttonLabels={detailedOption.values.map((option) => option?.name)}
+										options={detailedOption.values.map((option) => {
+											return { id: option.id, quantity: 1 };
+										})}
+										field={`rooms.${roomIndex}.environmental_sensor.products.options.${detailedOption.name}`}
+									/>
+									{/* color options here */}
+								</>
+							))}
+						</>
+					)}
+
+					{JSON.stringify(projectData.rooms)}
+					<br />
 
 					<button
 						className='btn btn-lg btn-dark w-auto my-3'

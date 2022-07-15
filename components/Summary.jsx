@@ -20,7 +20,10 @@ export default function Summary({ setAppState, showToast, setRoomIndex }) {
 
 	const saveProject = useCallback(debounce(saveToDB, 500), []);
 
-	function handleAddRoom() {}
+	function handleAddRoom() {
+		setRoomIndex(projectData.rooms.length);
+		setAppState("newroom");
+	}
 
 	function handleNameChange(event) {
 		event.preventDefault();
