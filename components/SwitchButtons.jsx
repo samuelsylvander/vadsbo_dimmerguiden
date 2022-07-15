@@ -63,7 +63,7 @@ function SwitchButtons({ label, buttonLabels, options, field, infoText, images, 
 		<div className='container'>
 			<h3 className='d-inline-block my-4'>{label}</h3>
 			{infoText && <Info text={infoText} />}
-			<div ref={parentRef}>
+			<div ref={parentRef} className='switch-buttons'>
 				{options.map((option, index) => {
 					return (
 						<button

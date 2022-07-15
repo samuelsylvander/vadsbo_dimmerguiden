@@ -18,6 +18,17 @@ function NewRoom({ setAppState, roomIndex }) {
 		() => getEnvironmentalSensorDetailedOptionsList(),
 		[environmentalSensorOptions]
 	);
+	const [inputCompleteFlag, setInputCompleteFlag] = useState(false);
+
+	useEffect(() => {
+		//check each div named 'switch-buttons', see if it has a selected value
+		const switchesArray = Array.from(document.getElementsByClassName("switch-buttons"));
+		const completedBoolean = switchesArray.every((switchDiv) => {
+			const children = Array.from(switchDiv.children);
+			return children.some((child) => child.dataset.selected === "true");
+		});
+		setInputCompleteFlag(completedBoolean);
+	}, [projectData]);
 
 	function getSensorOptions() {
 		if (isLoading) {
@@ -151,10 +162,14 @@ function NewRoom({ setAppState, roomIndex }) {
 						</>
 					))}
 
-					{JSON.stringify(projectData.rooms[roomIndex])}
-					<br />
+					{/* {JSON.stringify(projectData.rooms[roomIndex])}
+					<br /> */}
 
-					<button className='btn btn-lg btn-dark w-auto my-3' onClick={handleSaveRoom}>
+					<button
+						className='btn btn-lg btn-dark w-auto my-3'
+						onClick={handleSaveRoom}
+						disabled={!inputCompleteFlag}
+					>
 						Spara rum
 					</button>
 				</div>
