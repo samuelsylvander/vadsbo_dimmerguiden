@@ -87,6 +87,36 @@
 				"required": false,
 				"products": { "id": 301, "quantity": 2, "options": {} }
 			}
+		},
+		{
+			"room_template_id": 2,
+			"name": "Conference Room",
+			"description": "10-20m2",
+			"photo": "/photos/my-photo.png",
+			"icon": "/icons/my-icon.png",
+			"quantity": 1,
+			"products": [
+				{
+					"id": 1,
+					"quantity": 4,
+					"required": false
+				},
+				{
+					"id": 2,
+					"quantity": 8,
+					"required": false
+				}
+			],
+			"sensor": {
+				"selected": true,
+				"required": false,
+				"products": [{ "id": 1, "quantity": 2, "required": true }]
+			},
+			"environmental_sensor": {
+				"selected": false,
+				"required": false,
+				"products": { "id": 301, "quantity": 2, "options": {} }
+			}
 		}
 	],
 	"sensor_options": {

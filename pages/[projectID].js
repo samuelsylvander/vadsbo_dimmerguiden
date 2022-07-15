@@ -4,6 +4,7 @@ import Head from "next/head";
 import NewRoom from "../components/NewRoom";
 import Summary from "../components/Summary";
 import MoreOptions from "../components/MoreOptions";
+import RoomDetails from "../components/RoomDetails";
 import React, { useEffect, useState, useRef, useContext } from "react";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
@@ -108,6 +109,9 @@ export default function Project({ loadedProject, errorText }) {
 			{/* App Screens Here */}
 			<div className='vw-100 m-0 p-0'>
 				{!isLoading && appState == "newroom" && <NewRoom setAppState={setAppState} roomIndex={roomIndex} />}
+				{!isLoading && appState == "roomdetails" && (
+					<RoomDetails setAppState={setAppState} roomIndex={roomIndex} />
+				)}
 				{!isLoading && appState == "summary" && (
 					<Summary setAppState={setAppState} showToast={showToast} setRoomIndex={setRoomIndex} />
 				)}

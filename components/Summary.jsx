@@ -518,7 +518,6 @@ export default function Summary({ setAppState, showToast, setRoomIndex }) {
 					</div>
 				</div>
 			</div>
-			{"Currently in Project: " + JSON.stringify(projectData)}
 		</>
 	);
 }
