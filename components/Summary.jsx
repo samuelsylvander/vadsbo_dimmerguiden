@@ -20,6 +20,8 @@ export default function Summary({ setAppState, showToast }) {
 
 	const saveProject = useCallback(debounce(saveToDB, 500), []);
 
+	function handleAddRoom() {}
+
 	function handleNameChange(event) {
 		event.preventDefault();
 		const newName = document.getElementById("newProjectName").value;
@@ -44,7 +46,7 @@ export default function Summary({ setAppState, showToast }) {
 				body: JSON.stringify(projectData),
 			});
 			if (response.status === 200) {
-				props.showToast("Project Saved!");
+				showToast("Project Saved!");
 			}
 		} catch (error) {
 			console.log("database error: " + error);
@@ -61,9 +63,9 @@ export default function Summary({ setAppState, showToast }) {
 		formdata.append("source", "getQuote");
 		const result = await sendEmail(formdata);
 		if (result === "success") {
-			props.showToast("Request Successfully Submitted");
+			showToast("Request Successfully Submitted");
 		} else {
-			props.showToast("An error occurred, please try again");
+			showToast("An error occurred, please try again");
 		}
 	}
 
@@ -76,9 +78,9 @@ export default function Summary({ setAppState, showToast }) {
 		formdata.append("source", "shareProject");
 		const result = await sendEmail(formdata);
 		if (result === "success") {
-			props.showToast("Email Sent!");
+			showToast("Email Sent!");
 		} else {
-			props.showToast("An error occurred, please try again");
+			showToast("An error occurred, please try again");
 		}
 	}
 
@@ -130,18 +132,16 @@ export default function Summary({ setAppState, showToast }) {
 						</span>
 					</h1>
 					{projectData.rooms.map((item, index) => {
-						return (
-							<RoomQuantity key={item.id} label={item.name} index={index} handleDelete={handleDelete} />
-						);
+						return <RoomQuantity key={index} roomIndex={index} />;
 					})}
 
-					{projectData.addons.length > 0 && (
+					{/* {projectData.addons.length > 0 && (
 						<OptionsList
 							label='Tillval'
 							edit={() => setAppState("moreoptions")}
 							delete={() => dispatch({ type: "replace", field: "addons", value: [] })}
 						/>
-					)}
+					)} */}
 
 					<div className='py-5'>
 						<button className='btn btn-lg btn-dark mx-3' onClick={handleAddRoom}>
@@ -156,9 +156,9 @@ export default function Summary({ setAppState, showToast }) {
 					</div>
 				</div>
 
-				<div id='basket' style={{ background: "rgba(0,0,0,0.7)" }} className='col-sm-4 col-xl-3 m-0 p-0'>
+				{/* <div id='basket' style={{ background: "rgba(0,0,0,0.7)" }} className='col-sm-4 col-xl-3 m-0 p-0'>
 					<Sidebar setAppState={setAppState} showDetails={showDetails} />
-				</div>
+				</div> */}
 			</div>
 
 			{/* Confirm Delete Modal */}
@@ -490,7 +490,7 @@ export default function Summary({ setAppState, showToast }) {
 									</label>
 									<input
 										type='text'
-										placeholder={props.projectName}
+										placeholder={projectData.name}
 										className='form-control bg-white'
 										id='newProjectName'
 										required
@@ -515,7 +515,7 @@ export default function Summary({ setAppState, showToast }) {
 				</div>
 			</div>
 
-			{/* display roomList for debugging {"Currently in Project: " + JSON.stringify(props.roomList)} */}
+			{/* display roomList for debugging {"Currently in Project: " + JSON.stringify(roomList)} */}
 		</>
 	);
 }
