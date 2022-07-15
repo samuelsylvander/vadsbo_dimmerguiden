@@ -32,7 +32,6 @@ function RoomQuantity({ roomIndex, setAppState, setRoomIndex, handleDelete }) {
 
 	function handleIncrement(event) {
 		event.stopPropagation();
-		console.log(event.currentTarget.dataset.type);
 		let update = parseFloat(projectData.rooms[roomIndex].quantity);
 		if (event.currentTarget.dataset.type === "plus") {
 			dispatch({ type: "increase", field: `rooms.${roomIndex}.quantity` });
@@ -110,9 +109,9 @@ function RoomQuantity({ roomIndex, setAppState, setRoomIndex, handleDelete }) {
 			</div>
 			<div className='collapse p-0' id={"summarydetails" + roomIndex}>
 				<div className='card-body'>
-					{roomProducts.map((product) => {
+					{roomProducts.map((product, index) => {
 						return (
-							<p>
+							<p key={index}>
 								{product.name + ": "}
 								<strong>{product.quantity}</strong>
 							</p>

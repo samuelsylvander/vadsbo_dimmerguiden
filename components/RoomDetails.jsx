@@ -6,13 +6,13 @@ import { ProjectTemplateContext } from "../libs/ProjectTemplateContext";
 import { ProjectDataContext } from "../libs/ProjectDataContext";
 
 export default function NewRoom({ setAppState, roomIndex }) {
-	const { isLoading, projectData, dispatch } = useContext(ProjectDataContext);
+	const { projectData, dispatch } = useContext(ProjectDataContext);
 	const projectTemplate = useContext(ProjectTemplateContext);
 	const sensorOptions = useMemo(() => getSensorOptions(), [projectData, projectTemplate]);
 	const environmentalSensorOptions = useMemo(() => getEnvironmentalSensorOptions(), [projectData, projectTemplate]);
 	const environmentalSensorDetailedOptionsList = useMemo(
 		() => getEnvironmentalSensorDetailedOptionsList(),
-		[environmentalSensorOptions]
+		[projectData, projectTemplate]
 	);
 	const [inputCompleteFlag, setInputCompleteFlag] = useState(false);
 
@@ -27,55 +27,41 @@ export default function NewRoom({ setAppState, roomIndex }) {
 	}, [projectData]);
 
 	function getSensorOptions() {
-		if (isLoading || projectData.rooms.length <= roomIndex) {
-			return [];
-		} else {
-			let optionsFromTemplate = [];
+		let optionsFromTemplate = [];
 
-			if (projectData.rooms[roomIndex].sensor.selected === true) {
-				optionsFromTemplate = projectTemplate.sensor_options.yes.optional_products;
-			} else if (projectData.rooms[roomIndex].sensor.selected === false) {
-				optionsFromTemplate = projectTemplate.sensor_options.no.optional_products;
-			}
-
-			const optionsDetails = optionsFromTemplate.map((option) =>
-				projectTemplate.products.find((product) => product.id === option.id)
-			);
-
-			return optionsDetails;
+		if (projectData.rooms[roomIndex].sensor.selected === true) {
+			optionsFromTemplate = projectTemplate.sensor_options.yes.optional_products;
+		} else if (projectData.rooms[roomIndex].sensor.selected === false) {
+			optionsFromTemplate = projectTemplate.sensor_options.no.optional_products;
 		}
+
+		const optionsDetails = optionsFromTemplate.map((option) =>
+			projectTemplate.products.find((product) => product.id === option.id)
+		);
+
+		return optionsDetails;
 	}
 
 	function getEnvironmentalSensorOptions() {
-		if (isLoading || projectData.rooms.length <= roomIndex) {
-			return [];
-		} else {
-			const environmentalOptionsFromTemplate = projectTemplate.sensor_options.environmental.optional_products;
-			const environmentalOptionsDetails = environmentalOptionsFromTemplate.map((option) =>
-				projectTemplate.products.find((product) => product.id === option.id)
-			);
-			return environmentalOptionsDetails;
-		}
+		const environmentalOptionsFromTemplate = projectTemplate.sensor_options.environmental.optional_products;
+		const environmentalOptionsDetails = environmentalOptionsFromTemplate.map((option) =>
+			projectTemplate.products.find((product) => product.id === option.id)
+		);
+		return environmentalOptionsDetails;
 	}
 
 	function getEnvironmentalSensorDetailedOptionsList() {
-		if (isLoading || projectData.rooms.length <= roomIndex) {
-			return [];
-		} else {
-			const chosenEnvironmentalSensorId = projectData.rooms[roomIndex].environmental_sensor.products.id;
-			const matchingProduct = projectTemplate.products.find(
-				(product) => product.id == chosenEnvironmentalSensorId
-			);
+		const chosenEnvironmentalSensorId = projectData.rooms[roomIndex].environmental_sensor.products.id;
+		const matchingProduct = projectTemplate.products.find((product) => product.id == chosenEnvironmentalSensorId);
 
-			if (matchingProduct && matchingProduct.hasOwnProperty("options")) {
-				const optionKeys = Object.keys(matchingProduct.options);
-				const optionsArray = optionKeys.map((key) => {
-					return { name: key, values: matchingProduct.options[key] };
-				});
-				return optionsArray;
-			} else {
-				return [];
-			}
+		if (matchingProduct && matchingProduct.hasOwnProperty("options")) {
+			const optionKeys = Object.keys(matchingProduct.options);
+			const optionsArray = optionKeys.map((key) => {
+				return { name: key, values: matchingProduct.options[key] };
+			});
+			return optionsArray;
+		} else {
+			return [];
 		}
 	}
 
@@ -132,7 +118,7 @@ export default function NewRoom({ setAppState, roomIndex }) {
 						field={`rooms.${roomIndex}.environmental_sensor.selected`}
 					/>
 
-					{projectData.rooms[roomIndex].environmental_sensor.selected === "true" && (
+					{projectData.rooms[roomIndex].environmental_sensor.selected === true && (
 						<SwitchButtons
 							label='Environmental Sensor Options'
 							buttonLabels={environmentalSensorOptions.map((option) => option?.name)}

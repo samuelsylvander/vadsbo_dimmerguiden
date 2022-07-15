@@ -39,13 +39,25 @@ You access the app by visiting localhost:3000 in your browser.
 
 The ToDos below are not in priority order.
 
-### General
+### Completed
 
-Add cards, project name modal to index.js
+Added project templates, room templates
 
-Rework New Room flow
+Rewrote every component to dynamically present options and products based on project_template.json
 
-Update NewRoom, MoreOptions to dynamically create options based on project template json
+Centralized all project data into one component
+
+### Still to do
+
+Add cards, project name modal to landing page
+
+Finish Addons page, decide on data structure for addons
+
+Work on displaying deeply nested options for rooms, eg `environmental_sensor.products.options.brands.colors`
+
+Cosmetic work
+
+Add more test data
 
 ### Changes to project_template.json
 

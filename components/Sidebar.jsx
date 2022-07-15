@@ -60,7 +60,6 @@ function Sidebar({ showDetails }) {
 			addonsTotal[itemId].name = details.name;
 			addonsTotal[itemId].description = details.description;
 		});
-		console.log(addonsTotal);
 
 		return { productsTotal, addonsTotal };
 	}

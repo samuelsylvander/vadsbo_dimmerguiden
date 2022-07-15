@@ -1,11 +1,10 @@
 import React, { useContext, useRef, useState } from "react";
-import Info from "./Info";
 import Image from "next/image";
 import { ProjectTemplateContext } from "../libs/ProjectTemplateContext";
 import { ProjectDataContext } from "../libs/ProjectDataContext";
 
 export default function NewRoom({ setAppState, roomIndex }) {
-	const { projectData, dispatch } = useContext(ProjectDataContext);
+	const { dispatch } = useContext(ProjectDataContext);
 	const projectTemplate = useContext(ProjectTemplateContext);
 	const [inputCompleteFlag, setInputCompleteFlag] = useState(false);
 	const templateParent = useRef();
@@ -39,7 +38,7 @@ export default function NewRoom({ setAppState, roomIndex }) {
 				{projectTemplate.room_templates.map((template) => {
 					return (
 						<div className='card d-inline-block w-auto' onClick={(e) => handleSelectTemplate(e, template)}>
-							<img src={template.icon} className='card-img-top' />
+							<Image src={template.icon} className='card-img-top' />
 							<div className='card-body'>{template.name}</div>
 						</div>
 					);

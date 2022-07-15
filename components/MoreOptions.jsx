@@ -36,7 +36,7 @@ function MoreOptions({ setAppState }) {
 							{ id: addon.id, quantity: 1 },
 							{ id: addon.id, quantity: 0 },
 						]}
-						field={`addons.${addon.name}.selected`}
+						field={`addons`}
 					/>
 					// </div>
 				))}
