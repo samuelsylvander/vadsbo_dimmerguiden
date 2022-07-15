@@ -109,7 +109,7 @@ export default function Summary({ setAppState, showToast }) {
 		nameModal.current = Modal.getOrCreateInstance(nameChange);
 	}, []);
 
-	useEffect(saveProject, [projectData]); //save project every time we change any details
+	// useEffect(saveProject, [projectData]); //save project every time we change any details
 
 	useEffect(() => {
 		//uncollapse the details if less than six items

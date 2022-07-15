@@ -27,26 +27,18 @@ function RoomQuantity({ roomIndex }) {
 		if (update == "") {
 			update = 0;
 		}
-		props.setRoomList((prevVal) => {
-			let temp = [...prevVal];
-			temp[props.index].noOfRooms = update;
-			return temp;
-		});
+		dispatch({ type: "replace", field: `rooms.${roomIndex}.quantity`, value: update });
 	}
 
 	function handleIncrement(event) {
 		event.stopPropagation();
-		let update = parseFloat(props.roomList[props.index].noOfRooms);
+		let update = parseFloat(projectData.rooms[roomIndex].quantity);
 		if (event.currentTarget.dataset.type == "plus") {
 			update = update + 1;
 		} else if (event.currentTarget.dataset.type == "minus" && update > 1) {
 			update = update - 1;
 		}
-		// props.setRoomList((prevVal) => {
-		// 	let temp = [...prevVal];
-		// 	temp[props.index].noOfRooms = update;
-		// 	return temp;
-		// });
+		dispatch({ type: "increase", field: `rooms.${roomIndex}.quantity` });
 	}
 
 	function deleteRoom() {}
@@ -114,7 +106,7 @@ function RoomQuantity({ roomIndex }) {
 					{roomProducts.map((product) => {
 						return (
 							<p>
-								{product.name}
+								{product.name + ": "}
 								<strong>{product.quantity}</strong>
 							</p>
 						);
