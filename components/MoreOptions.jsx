@@ -1,68 +1,49 @@
 import React, { useContext } from "react";
+import { ProjectDataContext } from "../libs/ProjectDataContext";
 import { ProjectTemplateContext } from "../libs/ProjectTemplateContext";
 import Addon from "./Addon";
 import SwitchButtons from "./SwitchButtons";
 
-function MoreOptions(props) {
-	const { addons } = useContext(ProjectTemplateContext);
-	console.log(addons);
+function MoreOptions({ setAppState }) {
+	const { projectData, dispatch } = useContext(ProjectDataContext);
+	const projectTemplate = useContext(ProjectTemplateContext);
+	const selectedOptions = getAddonDetails();
+
+	function getAddonDetails() {
+		const currentOptionsArray = projectData.addons;
+		const optionsDetailsArray = currentOptionsArray.map((option) =>
+			projectTemplate.products.find((product) => product.id === option)
+		);
+		return optionsDetailsArray;
+	}
+
+	function handleSave() {
+		setAppState("summary");
+	}
 
 	return (
 		<>
 			<div className='container-fluid text-center'>
 				<h1 className='py-4'>Möjliga tillval</h1>
 
-				{addons.map((addon) => {
-					<Addon addon={addon} />;
-				})}
+				{projectTemplate.addons.map((addon) => (
+					// <div className='row pt-4 justify-content-center'>
+					<SwitchButtons
+						infoText={addon.description}
+						key={addon.name}
+						label={addon.name}
+						buttonLabels={["Yes", "No"]}
+						options={[true, false]}
+						field={`addons.${addon.name}.selected`}
+					/>
+					// </div>
+				))}
 
-				<div className='row pt-4 justify-content-center'>
-					<SwitchButtons
-						property='battery'
-						currentRoom={props.options}
-						setCurrentRoom={props.setOptions}
-						label='Batteri-backup'
-						field={["Ja", "Nej"]}
-						infoText='Info text here'
-					/>
-				</div>
-				<div className='row pt-4 justify-content-center'>
-					<SwitchButtons
-						property='boka'
-						currentRoom={props.options}
-						setCurrentRoom={props.setOptions}
-						label='Vadsbox Boka'
-						field={["Ja", "Nej"]}
-						infoText='Info text here'
-					/>
-				</div>
-				<div className='row pt-4 justify-content-center'>
-					<SwitchButtons
-						property='larm'
-						currentRoom={props.options}
-						setCurrentRoom={props.setOptions}
-						label='Vadsbox Larm'
-						field={["Ja", "Nej"]}
-						infoText='Info text here'
-					/>
-				</div>
-				<div className='row pt-4 justify-content-center'>
-					<SwitchButtons
-						property='drift'
-						currentRoom={props.options}
-						setCurrentRoom={props.setOptions}
-						label='Driftsättning'
-						field={["Ja", "Nej"]}
-						infoText='Info text here'
-					/>
-				</div>
-				<div className='row pt-4 justify-content-center'>
-					{Object.keys(props.options).length > 3 && (
-						<button className='btn btn-lg btn-dark col-auto' onClick={() => props.setAppState("summary")}>
-							Spara tillval
-						</button>
-					)}
-				</div>
+				<br />
+
+				<button className='btn btn-lg  btn-dark mx-3' onClick={handleSave}>
+					Save Options
+				</button>
 			</div>
 		</>
 	);
