@@ -86,10 +86,28 @@ export default function NewRoom({ setAppState, roomIndex }) {
 	return (
 		<div className='container-fluid text-center'>
 			<h1 className='py-4'>Lägg till ett rum</h1>
-			<h2>Current Room: {roomIndex}</h2>
 
 			<div className='row pt-4 justify-content-center'>
 				<div className='col-auto'>
+					<label>
+						<h3 className='d-inline-block mb-2'>Ge rummet ett namn</h3>
+
+						<Info text={"Välj ett passande namn till rummet."} />
+						<input
+							className='form-control bg-white'
+							type='text'
+							placeholder='T ex Kontor'
+							value={projectData.rooms[roomIndex].name}
+							onChange={(event) =>
+								dispatch({
+									type: "replace",
+									field: `rooms.${roomIndex}.name`,
+									value: event.target.value,
+								})
+							}
+							required
+						/>
+					</label>
 					<SwitchButtons
 						label='Do you need a Sensor?'
 						buttonLabels={["Yes", "No"]}

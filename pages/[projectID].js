@@ -55,6 +55,11 @@ export default function Project({ loadedProject, errorText }) {
 	useEffect(() => {
 		//initialise projectData with data from MongoDB
 		dispatch({ type: "initialise", value: loadedProject });
+
+		//if this is an existing project, go straight to summary
+		if (loadedProject.rooms.length > 1) {
+			setAppState("summary");
+		}
 	}, []);
 
 	useEffect(() => {

@@ -36,7 +36,7 @@ export default function Summary({ setAppState, showToast, setRoomIndex }) {
 		deleteModal.current.show();
 		let deleteButton = document.getElementById("confirmDeleteButton");
 		deleteButton.onclick = () => {
-			dispatch({ type: "remove", field: "rooms", value: deleteIndex });
+			dispatch({ type: "remove-index", field: "rooms", value: deleteIndex });
 			deleteModal.current.hide();
 		};
 	}
@@ -89,7 +89,7 @@ export default function Summary({ setAppState, showToast, setRoomIndex }) {
 
 	function showDetails(item) {
 		//come back and fix this later
-		document.getElementById("productDetailsHeader").innerText = item;
+		document.getElementById("productDetailsHeader").innerText = "Product Details";
 		document.getElementById("productDetailsBody").innerText = "Details about " + item; // add an object lookup for the details
 		detailsModal.current.show();
 	}
@@ -141,6 +141,7 @@ export default function Summary({ setAppState, showToast, setRoomIndex }) {
 								roomIndex={index}
 								setAppState={setAppState}
 								setRoomIndex={setRoomIndex}
+								handleDelete={handleDelete}
 							/>
 						);
 					})}

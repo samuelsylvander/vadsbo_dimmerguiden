@@ -16,7 +16,7 @@ export default function NewRoom({ setAppState, roomIndex }) {
 
 	function handleSelectTemplate(e, selectedTemplate) {
 		setInputCompleteFlag(true);
-		dispatch({ type: "replace", field: `rooms`, value: selectedTemplate });
+		dispatch({ type: "replace", field: `rooms.${roomIndex}`, value: selectedTemplate });
 
 		Array.from(templateParent.current.children).forEach((card) => {
 			if (card === e.currentTarget) {
@@ -46,37 +46,9 @@ export default function NewRoom({ setAppState, roomIndex }) {
 				})}
 			</div>
 
-			<div className='row pt-4 justify-content-center'>
-				<div className='col-auto'>
-					<label>
-						<h3 className='d-inline-block mb-2'>Ge rummet ett namn</h3>
-
-						<Info text={"Välj ett passande namn till rummet."} />
-						<input
-							className='form-control bg-white'
-							type='text'
-							placeholder='T ex Kontor'
-							value={projectData.rooms[roomIndex] ? projectData.rooms[roomIndex].name : "new room"}
-							onChange={(event) =>
-								dispatch({
-									type: "replace",
-									field: `rooms.${roomIndex}.name`,
-									value: event.target.value,
-								})
-							}
-							required
-						/>
-					</label>
-					<br />
-					<button
-						className='btn btn-lg btn-dark w-auto my-3'
-						onClick={handleSaveRoom}
-						disabled={!inputCompleteFlag}
-					>
-						Spara rum
-					</button>
-				</div>
-			</div>
+			<button className='btn btn-lg btn-dark w-auto my-3' onClick={handleSaveRoom} disabled={!inputCompleteFlag}>
+				Spara rum
+			</button>
 		</div>
 	);
 }

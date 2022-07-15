@@ -7,7 +7,7 @@ import { ProjectTemplateContext } from "../libs/ProjectTemplateContext";
 // props required:
 // index: index of current room in roomList
 
-function RoomQuantity({ roomIndex, setAppState, setRoomIndex }) {
+function RoomQuantity({ roomIndex, setAppState, setRoomIndex, handleDelete }) {
 	const { projectData, dispatch } = useContext(ProjectDataContext);
 	const projectTemplate = useContext(ProjectTemplateContext);
 	const roomProducts = getRoomProducts();
@@ -41,13 +41,15 @@ function RoomQuantity({ roomIndex, setAppState, setRoomIndex }) {
 		}
 	}
 
-	function deleteRoom() {
-		dispatch({ type: "remove-index", field: `rooms`, value: roomIndex });
+	function editRoom(e) {
+		e.stopPropagation();
+		setRoomIndex(roomIndex);
+		setAppState("roomdetails");
 	}
 
-	function editRoom() {
-		setRoomIndex(roomIndex);
-		setAppState("newroom");
+	function deleteRoom(e) {
+		e.stopPropagation();
+		handleDelete(roomIndex);
 	}
 
 	return (
@@ -86,10 +88,10 @@ function RoomQuantity({ roomIndex, setAppState, setRoomIndex }) {
 						</div>
 					</div>
 					<div className='col-auto'>
-						<a className='text-dark me-2' onClick={() => loadRoom(props.index)}>
+						<a className='text-dark me-2' onClick={editRoom}>
 							<FontAwesomeIcon icon={faPenToSquare} />
 						</a>
-						<a className='text-dark me-2' onClick={() => deleteRoom(props.index)}>
+						<a className='text-dark me-2' onClick={deleteRoom}>
 							<FontAwesomeIcon icon={faTrashCan} />
 						</a>
 
