@@ -33,6 +33,9 @@ export default function ProjectDataContextProvider({ children }) {
 			const lastLevel = pathLevelsArray[pathLevelsArray.length - 1];
 			let reference = newState;
 			for (let i = 0; i < pathLevelsArray.length - 1; i++) {
+				if (!reference.hasOwnProperty(pathLevelsArray[i])) {
+					reference[pathLevelsArray[i]] = {};
+				}
 				reference = reference[pathLevelsArray[i]];
 			}
 			switch (action) {
