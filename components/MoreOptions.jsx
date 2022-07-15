@@ -32,7 +32,10 @@ function MoreOptions({ setAppState }) {
 						key={addon.name}
 						label={addon.name}
 						buttonLabels={["Yes", "No"]}
-						options={[true, false]}
+						options={[
+							{ id: addon.id, quantity: 1 },
+							{ id: addon.id, quantity: 0 },
+						]}
 						field={`addons.${addon.name}.selected`}
 					/>
 					// </div>

@@ -16,7 +16,13 @@
 					"quantity": 3
 				}
 			],
-			"addons": [1, 2],
+			"addons": [
+				{
+					"id": 1,
+					"quantity": 2,
+					"required": false
+				}
+			],
 			"rooms": [
 				{
 					"id": 1,

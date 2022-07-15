@@ -7,11 +7,11 @@ import { ProjectTemplateContext } from "../libs/ProjectTemplateContext";
 function Sidebar({ showDetails }) {
 	const { projectData } = useContext(ProjectDataContext);
 	const projectTemplate = useContext(ProjectTemplateContext);
-	const basketItems = calculateTotals(projectData);
-	const filteredOptions = projectData.addons;
+	const { productsTotal, addonsTotal } = calculateTotals(projectData);
 
 	function calculateTotals() {
-		const output = {};
+		//total up products, then get details
+		const productsTotal = {};
 
 		function addProduct(addFrom, addTo) {
 			if (addTo.hasOwnProperty(addFrom.id)) {
@@ -21,14 +21,11 @@ function Sidebar({ showDetails }) {
 			}
 		}
 
-		console.log(projectData);
-
 		projectData.required_products.forEach((product) => {
-			addProduct(product, output);
+			addProduct(product, productsTotal);
 		});
 
 		projectData.rooms.forEach((room) => {
-			console.log("current room " + room.name);
 			const roomTotals = {};
 			room.products.forEach((product) => {
 				addProduct(product, roomTotals);
@@ -39,21 +36,28 @@ function Sidebar({ showDetails }) {
 			room.environmental_sensor.products.forEach((product) => {
 				addProduct(product, roomTotals);
 			});
-			Object.keys(roomTotals).forEach((id) => addProduct(roomTotals[id], output));
+			Object.keys(roomTotals).forEach((id) => addProduct(roomTotals[id], productsTotal));
 		});
 
-		console.log(output);
-
-		Object.keys(output).forEach((itemId) => {
-			console.log(itemId);
+		Object.keys(productsTotal).forEach((itemId) => {
 			const details = projectTemplate.products.find((product) => product.id == itemId);
-			console.log(details);
-			output[itemId].name = details.name;
-			output[itemId].description = details.description;
+			productsTotal[itemId].name = details.name;
+			productsTotal[itemId].description = details.description;
 		});
-		console.log(output);
 
-		return output;
+		//total up addons, then get details
+		const addonsTotal = {};
+		projectData.addons.forEach((product) => {
+			addProduct(product, addonsTotal);
+		});
+		Object.keys(addonsTotal).forEach((itemId) => {
+			const details = projectTemplate.addons.find((product) => product.id == itemId);
+			addonsTotal[itemId].name = details.name;
+			addonsTotal[itemId].description = details.description;
+		});
+		console.log(addonsTotal);
+
+		return { productsTotal, addonsTotal };
 	}
 
 	return (
@@ -61,32 +65,35 @@ function Sidebar({ showDetails }) {
 			<div id='basket-items' className='text-white flex-grow-1 p-2'>
 				<h2 className='text-center pt-2 pb-4'>Plocklista</h2>
 				<ul className='list-unstyled p-2'>
-					{Object.keys(basketItems).map((item) => {
+					{Object.keys(productsTotal).map((item) => {
 						return (
 							<li className='mb-4' key={item}>
 								<h4>
-									{basketItems[item].name}{" "}
-									<FontAwesomeIcon icon={faCircleInfo} onClick={() => showDetails(item)} />
+									{productsTotal[item].name}{" "}
+									<FontAwesomeIcon
+										icon={faCircleInfo}
+										onClick={() => showDetails(productsTotal[item].description)}
+									/>
 								</h4>
 								<div className='d-flex justify-content-between'>
 									<div>Antal</div>
-									<div>{basketItems[item].quantity}</div>
+									<div>{productsTotal[item].quantity}</div>
 								</div>
 							</li>
 						);
 					})}
-					{/* <li>
-						{filteredOptions.length > 0 && (
+					<li>
+						{Object.keys(addonsTotal).length > 0 && (
 							<>
 								<h4 className='mt-5'>Tillval</h4>
-								{filteredOptions.map((option) => (
-									<p className='my-1' key={option}>
-										{optionLookup[option]}
+								{Object.keys(addonsTotal).map((addon) => (
+									<p className='my-1' key={addon}>
+										{addonsTotal[addon].name}
 									</p>
 								))}
 							</>
 						)}
-					</li> */}
+					</li>
 				</ul>
 			</div>
 
