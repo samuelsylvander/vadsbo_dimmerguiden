@@ -49,6 +49,8 @@ Update NewRoom, MoreOptions to dynamically create options based on project templ
 
 ### Changes to project_template.json
 
+-   add `room_templates` to be able to easily generate new rooms
+
 -   rename `"project types"` to `project_templates`, partly to remove the space so we can use dot notation
 
 -   `sensor.options.yes/no` --> does this need to be nested inside rooms? We need to be able to access the options with/without a sensor easily.

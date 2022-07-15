@@ -7,7 +7,7 @@ import { ProjectTemplateContext } from "../libs/ProjectTemplateContext";
 // props required:
 // index: index of current room in roomList
 
-function RoomQuantity({ roomIndex }) {
+function RoomQuantity({ roomIndex, setAppState, setRoomIndex }) {
 	const { projectData, dispatch } = useContext(ProjectDataContext);
 	const projectTemplate = useContext(ProjectTemplateContext);
 	const roomProducts = getRoomProducts();
@@ -41,9 +41,14 @@ function RoomQuantity({ roomIndex }) {
 		dispatch({ type: "increase", field: `rooms.${roomIndex}.quantity` });
 	}
 
-	function deleteRoom() {}
+	function deleteRoom() {
+		dispatch({ type: "remove-index", field: `rooms`, value: roomIndex });
+	}
 
-	function editRoom() {}
+	function editRoom() {
+		setRoomIndex(roomIndex);
+		setAppState("newroom");
+	}
 
 	return (
 		<div className='card bg-secondary mb-4 p-3'>

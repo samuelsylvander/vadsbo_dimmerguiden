@@ -8,7 +8,7 @@ import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import debounce from "../libs/debounce";
 import { ProjectDataContext } from "../libs/ProjectDataContext";
 
-export default function Summary({ setAppState, showToast }) {
+export default function Summary({ setAppState, showToast, setRoomIndex }) {
 	const { projectData, dispatch } = useContext(ProjectDataContext);
 
 	const quoteModal = useRef();
@@ -132,7 +132,14 @@ export default function Summary({ setAppState, showToast }) {
 						</span>
 					</h1>
 					{projectData.rooms.map((item, index) => {
-						return <RoomQuantity key={index} roomIndex={index} />;
+						return (
+							<RoomQuantity
+								key={index}
+								roomIndex={index}
+								setAppState={setAppState}
+								setRoomIndex={setRoomIndex}
+							/>
+						);
 					})}
 
 					{/* {projectData.addons.length > 0 && (

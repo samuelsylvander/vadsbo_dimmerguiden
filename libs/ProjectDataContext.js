@@ -64,6 +64,11 @@ export default function ProjectDataContextProvider({ children }) {
 						}
 					}
 					break;
+				case "remove-index":
+					if (Array.isArray(reference[lastLevel])) {
+						reference[lastLevel].splice(value, 1);
+					}
+					break;
 			}
 		}
 		return newState;

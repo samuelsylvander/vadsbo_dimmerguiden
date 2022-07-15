@@ -108,7 +108,9 @@ export default function Project({ loadedProject, errorText }) {
 			{/* App Screens Here */}
 			<div className='vw-100 m-0 p-0'>
 				{!isLoading && appState == "newroom" && <NewRoom setAppState={setAppState} roomIndex={roomIndex} />}
-				{!isLoading && appState == "summary" && <Summary setAppState={setAppState} showToast={showToast} />}
+				{!isLoading && appState == "summary" && (
+					<Summary setAppState={setAppState} showToast={showToast} setRoomIndex={setRoomIndex} />
+				)}
 				{!isLoading && appState == "moreoptions" && <MoreOptions setAppState={setAppState} />}
 			</div>
 
