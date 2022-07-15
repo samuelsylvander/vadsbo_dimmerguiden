@@ -58,7 +58,10 @@ export default function ProjectDataContextProvider({ children }) {
 					break;
 				case "add":
 					if (Array.isArray(reference[lastLevel])) {
-						if (!reference[lastLevel].includes(value)) {
+						if (
+							reference[lastLevel].includes(value) === false &&
+							reference[lastLevel].some((item) => item.id === value.id) === false
+						) {
 							reference[lastLevel].push(value);
 						}
 					}
@@ -68,6 +71,9 @@ export default function ProjectDataContextProvider({ children }) {
 						const foundIndex = reference[lastLevel].indexOf(value);
 						if (foundIndex >= 0) {
 							reference[lastLevel].splice(foundIndex, 1);
+						} else {
+							const foundIdIndex = reference[lastLevel].findIndex((item) => item.id === value.id);
+							reference[lastLevel].splice(foundIdIndex, 1);
 						}
 					}
 					break;

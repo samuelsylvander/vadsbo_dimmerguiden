@@ -10,7 +10,7 @@ import { ProjectTemplateContext } from "../libs/ProjectTemplateContext";
 import { ProjectDataContext } from "../libs/ProjectDataContext";
 
 function NewRoom({ setAppState, roomIndex }) {
-	const { isLoading, projectData } = useContext(ProjectDataContext);
+	const { isLoading, projectData, dispatch } = useContext(ProjectDataContext);
 	const projectTemplate = useContext(ProjectTemplateContext);
 	const sensorOptions = useMemo(() => getSensorOptions(), [projectData, projectTemplate]);
 	const environmentalSensorOptions = useMemo(() => getEnvironmentalSensorOptions(), [projectData, projectTemplate]);
@@ -34,10 +34,6 @@ function NewRoom({ setAppState, roomIndex }) {
 		if (isLoading) {
 			return [];
 		} else {
-			//use this if sensor rules vary by template
-			// const currentTemplate = projectTemplate["project types"].find(
-			// 	(template) => template.id === projectData.template_id
-			// );
 			let optionsFromTemplate = [];
 
 			if (projectData.rooms[roomIndex].sensor.selected === true) {
@@ -62,7 +58,6 @@ function NewRoom({ setAppState, roomIndex }) {
 			const environmentalOptionsDetails = environmentalOptionsFromTemplate.map((option) =>
 				projectTemplate.products.find((product) => product.id === option.id)
 			);
-			// console.log(environmentalOptionsDetails);
 			return environmentalOptionsDetails;
 		}
 	}
@@ -75,14 +70,12 @@ function NewRoom({ setAppState, roomIndex }) {
 			const matchingProduct = projectTemplate.products.find(
 				(product) => product.id == chosenEnvironmentalSensorId
 			);
-			// console.log(matchingProduct);
 
 			if (matchingProduct && matchingProduct.hasOwnProperty("options")) {
 				const optionKeys = Object.keys(matchingProduct.options);
 				const optionsArray = optionKeys.map((key) => {
 					return { name: key, values: matchingProduct.options[key] };
 				});
-				// console.log(optionsArray);
 				return optionsArray;
 			} else {
 				return [];
@@ -94,9 +87,23 @@ function NewRoom({ setAppState, roomIndex }) {
 		setAppState("summary");
 	}
 
+	function handleSelectTemplate(selectedTemplate) {
+		dispatch({ type: "replace", field: `rooms.${roomIndex}`, field: selectedTemplate });
+	}
+
 	return (
 		<div className='container-fluid text-center'>
 			<h1 className='py-4'>Lägg till ett rum</h1>
+
+			<h3>Choose a room template</h3>
+			{projectTemplate.room_templates.map((template) => {
+				return (
+					<div className='card d-inline-block w-auto' onClick={() => handleSelectTemplate(template)}>
+						<img src={template.icon} className='card-img-top' />
+						<div className='card-body'>{template.name}</div>
+					</div>
+				);
+			})}
 
 			<div className='row pt-4 justify-content-center'>
 				<div className='col-auto'>

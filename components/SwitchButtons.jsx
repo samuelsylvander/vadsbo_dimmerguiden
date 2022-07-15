@@ -12,10 +12,9 @@ import Info from "./Info";
 // multiple - flag to add if you want to allow multiple values to be selected
 
 function SwitchButtons({ label, buttonLabels, options, field, infoText, images, multiple }) {
-	const { dispatch } = useContext(ProjectDataContext);
+	const { projectData, dispatch } = useContext(ProjectDataContext);
 	const parentRef = useRef();
 	const buttonLabelsValue = useRef();
-	// const fieldValue = useRef();
 
 	useEffect(() => {
 		if (buttonLabelsValue.current !== JSON.stringify(buttonLabels)) {
@@ -23,36 +22,51 @@ function SwitchButtons({ label, buttonLabels, options, field, infoText, images, 
 			const siblings = Array.from(parentRef.current.children);
 			siblings.forEach((sibling) => (sibling.dataset.selected = "false"));
 			setClasses(siblings);
-
-			//set fieldValue.current to the currently set field, in order to test what type of value is currently set
-			// fieldValue.current = projectData;
-			// const fieldValuesArray = field.split(".");
-			// fieldValuesArray.forEach((value) => {
-			// 	fieldValue.current = fieldValue.current[value];
-			// });
 		}
 	}, [buttonLabels]);
 
+	useEffect(() => {
+		//update which buttons are selected each time projectData changes
+		const buttons = Array.from(parentRef.current.children);
+		let currentField = projectData;
+		const fieldValuesArray = field.split(".");
+		fieldValuesArray.forEach((field) => {
+			currentField = currentField[field];
+		});
+		if (Array.isArray(currentField)) {
+			buttons.forEach((button, index) => {
+				if (
+					currentField.includes(options[index]) ||
+					currentField.some((item) => item.id === options[index].id)
+				) {
+					button.dataset.selected = "true";
+				} else {
+					button.dataset.selected = "false";
+				}
+			});
+		} else {
+			buttons.forEach((button, index) => {
+				if (currentField === options[index]) {
+					button.dataset.selected = "true";
+				} else {
+					button.dataset.selected = "false";
+				}
+			});
+		}
+		setClasses(buttons);
+	}, [projectData]);
+
 	function handleSwitch(event) {
 		const button = event.target;
-		const siblings = Array.from(parentRef.current.children);
-		console.log(options[parseFloat(button.dataset.index)]);
-
 		if (button.dataset.selected === "false") {
-			button.dataset.selected = "true";
 			if (multiple) {
 				dispatch({ type: "add", field: field, value: options[parseFloat(button.dataset.index)] });
 			} else {
 				dispatch({ type: "replace", field: field, value: options[parseFloat(button.dataset.index)] });
-				siblings
-					.filter((sibling) => sibling !== event.target)
-					.forEach((sibling) => (sibling.dataset.selected = "false"));
 			}
 		} else if (button.dataset.selected === "true" && multiple) {
-			button.dataset.selected = "false";
 			dispatch({ type: "remove", field: field, value: options[parseFloat(button.dataset.index)] });
 		}
-		setClasses(siblings);
 	}
 
 	function setClasses(buttons) {
