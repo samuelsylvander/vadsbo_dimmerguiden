@@ -53,7 +53,7 @@ export default function ProjectDataContextProvider({ children }) {
 					break;
 				case "decrease":
 					if (typeof reference[lastLevel] === "number") {
-						reference[lastLevel]++;
+						reference[lastLevel]--;
 					}
 					break;
 				case "add":

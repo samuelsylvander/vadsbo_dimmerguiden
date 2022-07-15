@@ -32,13 +32,13 @@ function RoomQuantity({ roomIndex, setAppState, setRoomIndex }) {
 
 	function handleIncrement(event) {
 		event.stopPropagation();
+		console.log(event.currentTarget.dataset.type);
 		let update = parseFloat(projectData.rooms[roomIndex].quantity);
-		if (event.currentTarget.dataset.type == "plus") {
-			update = update + 1;
-		} else if (event.currentTarget.dataset.type == "minus" && update > 1) {
-			update = update - 1;
+		if (event.currentTarget.dataset.type === "plus") {
+			dispatch({ type: "increase", field: `rooms.${roomIndex}.quantity` });
+		} else if (event.currentTarget.dataset.type === "minus" && update > 1) {
+			dispatch({ type: "decrease", field: `rooms.${roomIndex}.quantity` });
 		}
-		dispatch({ type: "increase", field: `rooms.${roomIndex}.quantity` });
 	}
 
 	function deleteRoom() {
