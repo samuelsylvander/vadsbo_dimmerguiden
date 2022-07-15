@@ -15,6 +15,7 @@ function SwitchButtons({ label, buttonLabels, options, field, infoText, images, 
 	const { dispatch } = useContext(ProjectDataContext);
 	const parentRef = useRef();
 	const buttonLabelsValue = useRef();
+	// const fieldValue = useRef();
 
 	useEffect(() => {
 		if (buttonLabelsValue.current !== JSON.stringify(buttonLabels)) {
@@ -22,26 +23,34 @@ function SwitchButtons({ label, buttonLabels, options, field, infoText, images, 
 			const siblings = Array.from(parentRef.current.children);
 			siblings.forEach((sibling) => (sibling.dataset.selected = "false"));
 			setClasses(siblings);
+
+			//set fieldValue.current to the currently set field, in order to test what type of value is currently set
+			// fieldValue.current = projectData;
+			// const fieldValuesArray = field.split(".");
+			// fieldValuesArray.forEach((value) => {
+			// 	fieldValue.current = fieldValue.current[value];
+			// });
 		}
 	}, [buttonLabels]);
 
 	function handleSwitch(event) {
 		const button = event.target;
 		const siblings = Array.from(parentRef.current.children);
+		console.log(options[parseFloat(button.dataset.index)]);
 
 		if (button.dataset.selected === "false") {
 			button.dataset.selected = "true";
 			if (multiple) {
-				dispatch({ type: "add", field: field, value: button.dataset.option });
+				dispatch({ type: "add", field: field, value: options[parseFloat(button.dataset.index)] });
 			} else {
-				dispatch({ type: "replace", field: field, value: button.dataset.option });
+				dispatch({ type: "replace", field: field, value: options[parseFloat(button.dataset.index)] });
 				siblings
 					.filter((sibling) => sibling !== event.target)
 					.forEach((sibling) => (sibling.dataset.selected = "false"));
 			}
 		} else if (button.dataset.selected === "true" && multiple) {
 			button.dataset.selected = "false";
-			dispatch({ type: "remove", field: field, value: button.dataset.option });
+			dispatch({ type: "remove", field: field, value: options[parseFloat(button.dataset.index)] });
 		}
 		setClasses(siblings);
 	}
@@ -69,7 +78,7 @@ function SwitchButtons({ label, buttonLabels, options, field, infoText, images, 
 						<button
 							key={index}
 							height='2rem'
-							data-option={option}
+							data-index={index}
 							data-selected={false}
 							className='btn btn-outline-dark mx-2 p-2 px-3'
 							// if changing class, don't forget to change it in setClasses above

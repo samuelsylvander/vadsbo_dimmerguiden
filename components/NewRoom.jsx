@@ -40,9 +40,9 @@ function NewRoom({ setAppState, roomIndex }) {
 			// );
 			let optionsFromTemplate = [];
 
-			if (projectData.rooms[roomIndex].sensor.selected === "true") {
+			if (projectData.rooms[roomIndex].sensor.selected === true) {
 				optionsFromTemplate = projectTemplate.sensor_options.yes.optional_products;
-			} else if (projectData.rooms[roomIndex].sensor.selected === "false") {
+			} else if (projectData.rooms[roomIndex].sensor.selected === false) {
 				optionsFromTemplate = projectTemplate.sensor_options.no.optional_products;
 			}
 
@@ -100,7 +100,7 @@ function NewRoom({ setAppState, roomIndex }) {
 
 			<div className='row pt-4 justify-content-center'>
 				<div className='col-auto'>
-					{/* <label>
+					<label>
 						<h3 className='d-inline-block mb-2'>Ge rummet ett namn</h3>
 
 						<Info text={"Välj ett passande namn till rummet."} />
@@ -118,7 +118,8 @@ function NewRoom({ setAppState, roomIndex }) {
 							}
 							required
 						/>
-					</label> */}
+					</label>
+
 					<SwitchButtons
 						label='Do you need a Sensor?'
 						buttonLabels={["Yes", "No"]}
@@ -128,8 +129,10 @@ function NewRoom({ setAppState, roomIndex }) {
 
 					<SwitchButtons
 						label='Sensor options'
-						buttonLabels={sensorOptions.map((option) => option?.name)}
-						options={sensorOptions.map((option) => option?.id)}
+						buttonLabels={sensorOptions.map((option) => option.name)}
+						options={sensorOptions.map((option) => {
+							return { id: option.id, quantity: 1 };
+						})}
 						field={`rooms.${roomIndex}.sensor.products`}
 						multiple
 					/>
@@ -155,7 +158,9 @@ function NewRoom({ setAppState, roomIndex }) {
 							<SwitchButtons
 								label={detailedOption.name}
 								buttonLabels={detailedOption.values.map((option) => option?.name)}
-								options={detailedOption.values.map((option) => option?.name)}
+								options={detailedOption.values.map((option) => {
+									return { id: option.id, quantity: 1 };
+								})}
 								field={`rooms.${roomIndex}.environmental_sensor.products.options.${detailedOption.name}`}
 							/>
 							{/* color options here */}
