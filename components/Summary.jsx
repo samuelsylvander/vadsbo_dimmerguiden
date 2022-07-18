@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import debounce from "../libs/debounce";
 import { ProjectDataContext } from "../libs/ProjectDataContext";
+import { Modal } from "bootstrap";
 
 export default function Summary({ setAppState, showToast, setRoomIndex }) {
 	const { projectData, dispatch } = useContext(ProjectDataContext);
@@ -94,35 +95,17 @@ export default function Summary({ setAppState, showToast, setRoomIndex }) {
 
 	useEffect(() => {
 		//set up the references to the bootstrap modals
-		const { Modal } = require("bootstrap");
-
-		const quote = document.getElementById("getQuote");
-		quoteModal.current = Modal.getOrCreateInstance(quote);
-		const confirmDelete = document.getElementById("confirmDelete");
-		deleteModal.current = Modal.getOrCreateInstance(confirmDelete);
-		const shareProject = document.getElementById("shareProject");
-		shareModal.current = Modal.getOrCreateInstance(shareProject);
-		const productDetails = document.getElementById("productDetails");
-		detailsModal.current = Modal.getOrCreateInstance(productDetails);
-		const confirm = document.getElementById("quoteSubmitted");
-		confirmModal.current = Modal.getOrCreateInstance(confirm);
-		const nameChange = document.getElementById("changeName");
-		nameModal.current = Modal.getOrCreateInstance(nameChange);
+		quoteModal.current = Modal.getOrCreateInstance(document.getElementById("getQuote"));
+		deleteModal.current = Modal.getOrCreateInstance(document.getElementById("confirmDelete"));
+		shareModal.current = Modal.getOrCreateInstance(document.getElementById("shareProject"));
+		detailsModal.current = Modal.getOrCreateInstance(document.getElementById("productDetails"));
+		confirmModal.current = Modal.getOrCreateInstance(document.getElementById("quoteSubmitted"));
+		nameModal.current = Modal.getOrCreateInstance(document.getElementById("changeName"));
 	}, []);
 
 	useEffect(() => {
 		debounce(saveToDB, 500);
 	}, [projectData, debounce]); //save project every time we change any details
-
-	useEffect(() => {
-		//uncollapse the details if less than six items
-		if (projectData.rooms.length <= 5) {
-			let collapsable = document.getElementsByClassName("collapse");
-			for (let i = 0; i < collapsable.length; i++) {
-				collapsable[i].className = "collapse show p-0";
-			}
-		}
-	}, [projectData.rooms.length]);
 
 	return (
 		<>

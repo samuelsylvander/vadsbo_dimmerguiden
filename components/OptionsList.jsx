@@ -19,7 +19,7 @@ export default function OptionsList({ label, handleEdit, handleDelete }) {
 	}, [projectData, projectTemplate]);
 
 	useEffect(() => {
-		collapseRef.current = new Collapse(document.getElementById("optionsdetails"));
+		collapseRef.current = new Collapse(document.getElementById("optionsdetails"), { toggle: false });
 	});
 
 	function handleCollapse() {
@@ -30,6 +30,13 @@ export default function OptionsList({ label, handleEdit, handleDelete }) {
 		}
 		collapseRef.current.toggle();
 	}
+
+	useEffect(() => {
+		if (projectData.rooms.length <= 5) {
+			document.getElementById("optionsdetails").classList.add("show");
+			chevronRef.current.style.transform = "rotate(180deg)";
+		}
+	}, []);
 
 	return (
 		<>

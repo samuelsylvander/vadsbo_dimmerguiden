@@ -68,7 +68,14 @@ function RoomQuantity({ roomIndex, setAppState, setRoomIndex, handleDelete }) {
 
 	useEffect(() => {
 		// set up the bootstrap collapse
-		collapseRef.current = new Collapse(document.getElementById("summarydetails" + roomIndex));
+		collapseRef.current = new Collapse(document.getElementById("summarydetails" + roomIndex), { toggle: false });
+	}, []);
+
+	useEffect(() => {
+		if (projectData.rooms.length <= 5) {
+			document.getElementById("summarydetails" + roomIndex).classList.add("show");
+			chevronRef.current.style.transform = "rotate(180deg)";
+		}
 	}, []);
 
 	return (
