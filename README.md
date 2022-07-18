@@ -47,9 +47,11 @@ Rewrote every component to dynamically present options and products based on pro
 
 Centralized all project data into one component
 
+Add cards, project name modal to landing page
+
 ### Still to do
 
-Add cards, project name modal to landing page
+Add loading indicator when creating new project
 
 Finish Addons page, decide on data structure for addons
 

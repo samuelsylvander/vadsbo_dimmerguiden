@@ -4,7 +4,63 @@
 			"id": 1,
 			"name": "Office",
 			"description": "Office project description",
-			"photo": "/photos/my-photo.png",
+			"photo": "/images/kontor 1.png",
+			"icon": "/icons/my-icon.png",
+			"required_products": [
+				{
+					"id": 1,
+					"quantity": 2
+				},
+				{
+					"id": 2,
+					"quantity": 3
+				}
+			],
+			"addons": [
+				{
+					"id": 1,
+					"quantity": 2,
+					"required": false
+				}
+			],
+			"rooms": [
+				{
+					"id": 1,
+					"name": "Small Office",
+					"description": "2-10m2",
+					"photo": "/images/my-photo.png",
+					"icon": "/icons/my-icon.png",
+					"quantity": 1,
+					"products": [
+						{
+							"id": 1,
+							"quantity": 2,
+							"required": false
+						},
+						{
+							"id": 2,
+							"quantity": 3,
+							"required": false
+						}
+					],
+					"sensor": {
+						"selected": true,
+						"required": false,
+						"products": [{ "id": 1, "quantity": 2, "required": true }]
+					},
+					"environmental_sensor": {
+						"selected": false,
+						"required": false,
+						"products": [{ "id": 301, "quantity": 2, "options": {} }]
+					}
+				}
+			]
+		},
+		{
+			"id": 2,
+			"name": "School",
+			"description": "Create the lighting for a school.",
+			"photo": "/images/kategorier_80 1.png",
 			"icon": "/icons/my-icon.png",
 			"required_products": [
 				{
