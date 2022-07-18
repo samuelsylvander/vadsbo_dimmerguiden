@@ -51,8 +51,6 @@ Add cards, project name modal to landing page
 
 ### Still to do
 
-Work on displaying deeply nested options for rooms, eg `environmental_sensor.products.options.brands.colors`
-
 Cosmetic work
 
 Add more test data
