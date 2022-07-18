@@ -17,7 +17,7 @@ export default function NewRoom({ setAppState, roomIndex }) {
 		setInputCompleteFlag(true);
 		dispatch({ type: "replace", field: `rooms.${roomIndex}`, value: selectedTemplate });
 
-		Array.from(templateParent.current.children).forEach((card) => {
+		Array.from(document.getElementsByClassName("room-template")).forEach((card) => {
 			if (card === e.currentTarget) {
 				card.classList.add("bg-primary");
 			} else {
@@ -34,22 +34,27 @@ export default function NewRoom({ setAppState, roomIndex }) {
 				Välj ett rum nedan så guidar vi dig med dina val för din belysning. Du kan enkelt lägga till fler rum
 				när du är klar med ditt första.
 			</p>
-			<div ref={templateParent}>
+			<div className='row justify-content-center'>
 				{projectTemplate.room_templates.map((template) => {
 					return (
-						<div
-							key={template.room_template_id}
-							className='card d-inline-block w-auto'
-							onClick={(e) => handleSelectTemplate(e, template)}
-						>
-							<Image
-								src={template.icon}
-								width='100px'
-								height='100px'
-								className='card-img-top'
-								alt={template.name}
-							/>
-							<div className='card-body'>{template.name}</div>
+						<div className='col-sm-2'>
+							<div
+								key={template.room_template_id}
+								className='room-template card d-inline-block w-100 h-100'
+								onClick={(e) => handleSelectTemplate(e, template)}
+							>
+								<Image
+									src={template.icon}
+									width='100px'
+									height='100px'
+									layout='responsive'
+									className='card-img-top'
+									alt={template.name}
+								/>
+								<div className='card-body'>
+									<h5 className='card-title'>{template.name}</h5>
+								</div>
+							</div>
 						</div>
 					);
 				})}
