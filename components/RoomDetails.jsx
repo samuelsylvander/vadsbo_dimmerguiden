@@ -9,9 +9,9 @@ export default function NewRoom({ setAppState, roomIndex }) {
 	const { projectData, dispatch } = useContext(ProjectDataContext);
 	const projectTemplate = useContext(ProjectTemplateContext);
 	const sensorOptions = useMemo(() => getSensorOptions(), [projectData, projectTemplate]);
-	const environmentalSensorOptions = useMemo(() => getEnvironmentalSensorOptions(), [projectData, projectTemplate]);
-	const environmentalSensorDetailedOptionsList = useMemo(
-		() => getEnvironmentalSensorDetailedOptionsList(),
+	const environmentalSensorProducts = useMemo(() => getEnvironmentalSensorProducts(), [projectData, projectTemplate]);
+	const environmentalSensorProductOptions = useMemo(
+		() => getEnvironmentalSensorProductOptions(),
 		[projectData, projectTemplate]
 	);
 	const [inputCompleteFlag, setInputCompleteFlag] = useState(false);
@@ -42,24 +42,24 @@ export default function NewRoom({ setAppState, roomIndex }) {
 		return optionsDetails;
 	}
 
-	function getEnvironmentalSensorOptions() {
-		const environmentalOptionsFromTemplate = projectTemplate.sensor_options.environmental.optional_products;
-		const environmentalOptionsDetails = environmentalOptionsFromTemplate.map((option) =>
+	function getEnvironmentalSensorProducts() {
+		const productOptions = projectTemplate.sensor_options.environmental.optional_products;
+		const envSensorProducts = productOptions.map((option) =>
 			projectTemplate.products.find((product) => product.id === option.id)
 		);
-		return environmentalOptionsDetails;
+		return envSensorProducts;
 	}
 
-	function getEnvironmentalSensorDetailedOptionsList() {
-		const chosenEnvironmentalSensorId = projectData.rooms[roomIndex].environmental_sensor.products.id;
-		const matchingProduct = projectTemplate.products.find((product) => product.id == chosenEnvironmentalSensorId);
+	function getEnvironmentalSensorProductOptions() {
+		const chosenProductId = projectData.rooms[roomIndex].environmental_sensor.products[0].id;
+		const matchingProduct = projectTemplate.products.find((product) => product.id == chosenProductId);
 
 		if (matchingProduct && matchingProduct.hasOwnProperty("options")) {
 			const optionKeys = Object.keys(matchingProduct.options);
-			const optionsArray = optionKeys.map((key) => {
+			const productOptions = optionKeys.map((key) => {
 				return { name: key, values: matchingProduct.options[key] };
 			});
-			return optionsArray;
+			return productOptions;
 		} else {
 			return [];
 		}
@@ -119,27 +119,56 @@ export default function NewRoom({ setAppState, roomIndex }) {
 					/>
 
 					{projectData.rooms[roomIndex].environmental_sensor.selected === true && (
-						<SwitchButtons
-							label='Environmental Sensor Options'
-							buttonLabels={environmentalSensorOptions.map((option) => option?.name)}
-							options={environmentalSensorOptions.map((option) => option?.id)}
-							field={`rooms.${roomIndex}.environmental_sensor.products.id`}
-						/>
-					)}
-
-					{environmentalSensorDetailedOptionsList.map((detailedOption) => (
 						<>
 							<SwitchButtons
-								label={detailedOption.name}
-								buttonLabels={detailedOption.values.map((option) => option?.name)}
-								options={detailedOption.values.map((option) => {
-									return { id: option.id, quantity: 1 };
+								label='Environmental Sensor Options'
+								buttonLabels={environmentalSensorProducts.map((option) => option.name)}
+								options={environmentalSensorProducts.map((option) => {
+									return { id: option.id, quantity: 1, options: {} };
 								})}
-								field={`rooms.${roomIndex}.environmental_sensor.products.options.${detailedOption.name}`}
+								field={`rooms.${roomIndex}.environmental_sensor.products.0`}
 							/>
-							{/* color options here */}
+
+							{environmentalSensorProductOptions.map((productOption) => (
+								<>
+									<SwitchButtons
+										label={productOption.name}
+										buttonLabels={productOption.values.map((option) => option.name)}
+										options={productOption.values.map((option) => {
+											return { id: option.id, quantity: 1 };
+										})}
+										field={`rooms.${roomIndex}.environmental_sensor.products.0.options.${productOption.name}`}
+									/>
+
+									{projectData.rooms[roomIndex].environmental_sensor.products[0].options?.[
+										productOption.name
+									]?.id &&
+										productOption.values.some((option) => !!option.color_options) && (
+											<SwitchButtons
+												label='Color Options'
+												buttonLabels={
+													productOption.values.find(
+														(option) =>
+															option.id ===
+															projectData.rooms[roomIndex].environmental_sensor
+																.products[0].options[productOption.name].id
+													).color_options
+												}
+												options={
+													productOption.values.find(
+														(option) =>
+															option.id ===
+															projectData.rooms[roomIndex].environmental_sensor
+																.products[0].options[productOption.name].id
+													).color_options
+												}
+												field={`rooms.${roomIndex}.environmental_sensor.products.0.options.${productOption.name}.color_options`}
+											/>
+										)}
+								</>
+							))}
 						</>
-					))}
+					)}
 
 					<button
 						className='btn btn-lg btn-dark w-auto my-3'

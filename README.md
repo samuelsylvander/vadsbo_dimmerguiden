@@ -51,8 +51,6 @@ Add cards, project name modal to landing page
 
 ### Still to do
 
-Add loading indicator when creating new project
-
 Work on displaying deeply nested options for rooms, eg `environmental_sensor.products.options.brands.colors`
 
 Cosmetic work

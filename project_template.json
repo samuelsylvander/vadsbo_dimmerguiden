@@ -141,7 +141,7 @@
 			"environmental_sensor": {
 				"selected": false,
 				"required": false,
-				"products": { "id": 301, "quantity": 2, "options": {} }
+				"products": [{ "id": 301, "quantity": 2, "options": {} }]
 			}
 		},
 		{
@@ -171,7 +171,7 @@
 			"environmental_sensor": {
 				"selected": false,
 				"required": false,
-				"products": { "id": 301, "quantity": 2, "options": {} }
+				"products": [{ "id": 301, "quantity": 2, "options": {} }]
 			}
 		}
 	],
@@ -236,12 +236,14 @@
 			"options": {
 				"brand": [
 					{
+						"id": 101,
 						"name": "Mpress Elko",
-						"color options": ["white", "black"]
+						"color_options": ["white", "black"]
 					},
 					{
+						"id": 102,
 						"name": "Exxact",
-						"color options": ["white", "black"]
+						"color_options": ["white", "black"]
 					}
 				]
 			}
@@ -304,12 +306,14 @@
 			"options": {
 				"brand": [
 					{
+						"id": 30201,
 						"name": "Mpress Elko",
-						"color options": ["white", "black"]
+						"color_options": ["white", "black"]
 					},
 					{
+						"id": 30202,
 						"name": "Exxact",
-						"color options": ["white", "black"]
+						"color_options": ["white", "black"]
 					}
 				]
 			}

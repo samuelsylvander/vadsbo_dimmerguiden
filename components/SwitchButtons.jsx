@@ -20,6 +20,9 @@ function SwitchButtons({ label, buttonLabels, options, field, infoText, images, 
 	function getCurrentField() {
 		let fieldValue = projectData;
 		field.split(".").forEach((nestedField) => {
+			if (!fieldValue.hasOwnProperty(nestedField)) {
+				fieldValue[nestedField] = {};
+			}
 			fieldValue = fieldValue[nestedField];
 		});
 		return fieldValue;
@@ -50,7 +53,7 @@ function SwitchButtons({ label, buttonLabels, options, field, infoText, images, 
 			});
 		} else {
 			buttons.forEach((button, index) => {
-				if (currentField === options[index]) {
+				if (currentField === options[index] || (currentField.id && currentField.id === options[index].id)) {
 					button.dataset.selected = "true";
 				} else {
 					button.dataset.selected = "false";
