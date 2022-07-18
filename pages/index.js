@@ -23,17 +23,17 @@ export default function Home() {
 	}
 
 	async function handleNewProject() {
-		projectNameModal.current.hide();
 		// set loading animation
-		// const newText = (
-		// 	<span>
-		// 		Skapar projekt
-		// 		<div className='d-flex align-items-center'>
-		// 			Laddar...
-		// 			<div className='spinner-border spinner-border-sm ms-auto' role='status' aria-hidden='true'></div>
-		// 		</div>
-		// 	</span>
-		// );
+		const newText = (
+			<span>
+				Skapar projekt
+				<div className='d-flex align-items-center'>
+					Laddar...
+					<div className='spinner-border spinner-border-sm ms-auto' role='status' aria-hidden='true'></div>
+				</div>
+			</span>
+		);
+		setButtonText(newText);
 
 		//start working
 		const url = "/api/savetodbAPI";
@@ -50,6 +50,7 @@ export default function Home() {
 			.then((response) => response.json())
 			.then((response) => {
 				// console.log("database response: " + JSON.stringify(response));
+				projectNameModal.current.hide();
 				router.push("./" + response.insertedId);
 			})
 			.catch((error) => console.log("database error: " + error));
@@ -111,7 +112,7 @@ export default function Home() {
 								Cancel
 							</button>
 							<button className='btn btn-primary' onClick={handleNewProject}>
-								Start Project
+								{buttonText}
 							</button>
 						</div>
 					</div>
