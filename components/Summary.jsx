@@ -18,8 +18,6 @@ export default function Summary({ setAppState, showToast, setRoomIndex }) {
 	const confirmModal = useRef();
 	const nameModal = useRef();
 
-	const saveProject = useCallback(debounce(saveToDB, 500), []);
-
 	function handleAddRoom() {
 		setRoomIndex(projectData.rooms.length);
 		setAppState("newroom");
@@ -112,7 +110,9 @@ export default function Summary({ setAppState, showToast, setRoomIndex }) {
 		nameModal.current = Modal.getOrCreateInstance(nameChange);
 	}, []);
 
-	useEffect(saveProject, [projectData]); //save project every time we change any details
+	useEffect(() => {
+		debounce(saveToDB, 500);
+	}, [projectData, debounce]); //save project every time we change any details
 
 	useEffect(() => {
 		//uncollapse the details if less than six items
@@ -122,7 +122,7 @@ export default function Summary({ setAppState, showToast, setRoomIndex }) {
 				collapsable[i].className = "collapse show p-0";
 			}
 		}
-	}, []);
+	}, [projectData.rooms.length]);
 
 	return (
 		<>

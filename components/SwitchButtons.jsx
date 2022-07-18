@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { ProjectDataContext } from "../libs/ProjectDataContext";
 import Info from "./Info";
 
@@ -15,7 +15,7 @@ function SwitchButtons({ label, buttonLabels, options, field, infoText, images, 
 	const { projectData, dispatch } = useContext(ProjectDataContext);
 	const parentRef = useRef();
 	const buttonLabelsValue = useRef();
-	let currentField = getCurrentField();
+	let currentField = useMemo(getCurrentField, [projectData]);
 
 	function getCurrentField() {
 		let fieldValue = projectData;
@@ -61,7 +61,7 @@ function SwitchButtons({ label, buttonLabels, options, field, infoText, images, 
 			});
 		}
 		setClasses(buttons);
-	}, [projectData]);
+	}, [projectData, currentField, options]);
 
 	function handleSwitch(event) {
 		const button = event.target;

@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { ProjectDataContext } from "../libs/ProjectDataContext";
 import { ProjectTemplateContext } from "../libs/ProjectTemplateContext";
 import Addon from "./Addon";
-import SwitchButtons from "./SwitchButtons";
 
 function MoreOptions({ setAppState }) {
 	const { projectData, dispatch } = useContext(ProjectDataContext);
@@ -26,8 +25,14 @@ function MoreOptions({ setAppState }) {
 			<div className='container-fluid text-center'>
 				<h1 className='py-4'>Möjliga tillval</h1>
 
-				{projectTemplate.addons.map((addon) => (
-					<Addon name={addon.name} description={addon.description} field={`addons`} value={addon} />
+				{projectTemplate.addons.map((addon, index) => (
+					<Addon
+						key={index}
+						name={addon.name}
+						description={addon.description}
+						field={`addons`}
+						value={addon}
+					/>
 				))}
 
 				<br />

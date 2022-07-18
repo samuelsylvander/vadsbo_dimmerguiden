@@ -60,7 +60,7 @@ export default function Project({ loadedProject, errorText }) {
 		if (loadedProject.rooms.length > 1) {
 			setAppState("summary");
 		}
-	}, []);
+	}, [loadedProject, dispatch]);
 
 	useEffect(() => {
 		//set up bootstrap toasts

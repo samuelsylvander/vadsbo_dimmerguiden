@@ -8,25 +8,9 @@ import { ProjectDataContext } from "../libs/ProjectDataContext";
 export default function NewRoom({ setAppState, roomIndex }) {
 	const { projectData, dispatch } = useContext(ProjectDataContext);
 	const projectTemplate = useContext(ProjectTemplateContext);
-	const sensorOptions = useMemo(() => getSensorOptions(), [projectData, projectTemplate]);
-	const environmentalSensorProducts = useMemo(() => getEnvironmentalSensorProducts(), [projectData, projectTemplate]);
-	const environmentalSensorProductOptions = useMemo(
-		() => getEnvironmentalSensorProductOptions(),
-		[projectData, projectTemplate]
-	);
 	const [inputCompleteFlag, setInputCompleteFlag] = useState(false);
 
-	useEffect(() => {
-		//check each div named 'switch-buttons', see if it has a selected value
-		const switchesArray = Array.from(document.getElementsByClassName("switch-buttons"));
-		const completedBoolean = switchesArray.every((switchDiv) => {
-			const children = Array.from(switchDiv.children);
-			return children.some((child) => child.dataset.selected === "true");
-		});
-		setInputCompleteFlag(completedBoolean);
-	}, [projectData]);
-
-	function getSensorOptions() {
+	const sensorOptions = useMemo(() => {
 		let optionsFromTemplate = [];
 
 		if (projectData.rooms[roomIndex].sensor.selected === true) {
@@ -40,17 +24,17 @@ export default function NewRoom({ setAppState, roomIndex }) {
 		);
 
 		return optionsDetails;
-	}
+	}, [projectData, projectTemplate]);
 
-	function getEnvironmentalSensorProducts() {
+	const environmentalSensorProducts = useMemo(() => {
 		const productOptions = projectTemplate.sensor_options.environmental.optional_products;
 		const envSensorProducts = productOptions.map((option) =>
 			projectTemplate.products.find((product) => product.id === option.id)
 		);
 		return envSensorProducts;
-	}
+	}, [projectData, projectTemplate]);
 
-	function getEnvironmentalSensorProductOptions() {
+	const environmentalSensorProductOptions = useMemo(() => {
 		const chosenProductId = projectData.rooms[roomIndex].environmental_sensor.products[0].id;
 		const matchingProduct = projectTemplate.products.find((product) => product.id == chosenProductId);
 
@@ -63,7 +47,17 @@ export default function NewRoom({ setAppState, roomIndex }) {
 		} else {
 			return [];
 		}
-	}
+	}, [projectData, projectTemplate]);
+
+	useEffect(() => {
+		//check each div named 'switch-buttons', see if it has a selected value
+		const switchesArray = Array.from(document.getElementsByClassName("switch-buttons"));
+		const completedBoolean = switchesArray.every((switchDiv) => {
+			const children = Array.from(switchDiv.children);
+			return children.some((child) => child.dataset.selected === "true");
+		});
+		setInputCompleteFlag(completedBoolean);
+	}, [projectData]);
 
 	function handleSaveRoom() {
 		setAppState("summary");

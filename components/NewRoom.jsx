@@ -37,8 +37,18 @@ export default function NewRoom({ setAppState, roomIndex }) {
 			<div ref={templateParent}>
 				{projectTemplate.room_templates.map((template) => {
 					return (
-						<div className='card d-inline-block w-auto' onClick={(e) => handleSelectTemplate(e, template)}>
-							<Image src={template.icon} width='100px' height='100px' className='card-img-top' />
+						<div
+							key={template.room_template_id}
+							className='card d-inline-block w-auto'
+							onClick={(e) => handleSelectTemplate(e, template)}
+						>
+							<Image
+								src={template.icon}
+								width='100px'
+								height='100px'
+								className='card-img-top'
+								alt={template.name}
+							/>
 							<div className='card-body'>{template.name}</div>
 						</div>
 					);

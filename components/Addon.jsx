@@ -10,21 +10,21 @@ export default function Addon({ name, description, value, icon, field }) {
 	useEffect(() => {
 		if (projectData.addons.some((addon) => addon.id === value.id)) {
 			setSelected(true);
+		} else {
+			setSelected(false);
 		}
-	}, []);
+	}, [projectData.addons, value.id]);
 
 	function handleSelectYes() {
-		setSelected(true);
 		dispatch({ type: "add", field: field, value: value });
 	}
 
 	function handleSelectNo() {
-		setSelected(false);
 		dispatch({ type: "remove", field: field, value: value });
 	}
 	return (
 		<div className='row pt-4 justify-content-center'>
-			{icon && <Image src={icon} />}
+			{icon && <Image src={icon} layout='fill' alt={name} />}
 			<div className='container'>
 				<h3 className='d-inline-block my-4'>{name}</h3>
 				{description && <Info text={description} />}

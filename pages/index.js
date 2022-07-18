@@ -1,10 +1,6 @@
 import Head from "next/head";
 import React, { useContext, useState, useEffect, useRef } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import "@fortawesome/fontawesome-svg-core/styles.css";
-import { config } from "@fortawesome/fontawesome-svg-core";
-config.autoAddCss = false;
+import Image from "next/image";
 import { useRouter } from "next/router";
 import Header from "../components/Header";
 import { ProjectTemplateContext } from "../libs/ProjectTemplateContext";
@@ -76,20 +72,30 @@ export default function Home() {
 				<p className='my-5'>
 					Välj vilken typ av projekt du vill designa här nedanför så guidar vi dig genom hela processen.
 				</p>
-				{projectTemplate.project_templates.map((template, index) => (
-					<div className='card w-auto d-inline-block mx-4'>
-						<img src={template.photo} alt={template.name} />
-						<div className='card-body'>
-							<h5 className='card-title'>{template.name}</h5>
-							<p className='card-text'>{template.description}</p>
-							<button onClick={() => getProjectName(index)} className='btn btn-dark mt-3'>
-								Start Project
-							</button>
+				<div className='row justify-content-center'>
+					{projectTemplate.project_templates.map((template, index) => (
+						<div key={index} className='col-sm-4'>
+							<div className='card h-100'>
+								<Image
+									src={template.photo}
+									alt={template.name}
+									layout='responsive'
+									width='300px'
+									height='300px'
+								/>
+								<div className='card-body'>
+									<h5 className='card-title'>{template.name}</h5>
+									<p className='card-text'>{template.description}</p>
+									<button onClick={() => getProjectName(index)} className='btn btn-dark mt-3'>
+										Start Project
+									</button>
+								</div>
+							</div>
 						</div>
-					</div>
-				))}
+					))}
+				</div>
 			</div>
-			<div className='modal' tabindex='-1' id='project-name-modal'>
+			<div className='modal' tabIndex='-1' id='project-name-modal'>
 				<div className='modal-dialog modal-dialog-centered'>
 					<div className='modal-content'>
 						<div className='modal-header'>
