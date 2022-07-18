@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { ProjectDataContext } from "../libs/ProjectDataContext";
 import { ProjectTemplateContext } from "../libs/ProjectTemplateContext";
+import Addon from "./Addon";
 import SwitchButtons from "./SwitchButtons";
 
 function MoreOptions({ setAppState }) {
@@ -26,19 +27,7 @@ function MoreOptions({ setAppState }) {
 				<h1 className='py-4'>Möjliga tillval</h1>
 
 				{projectTemplate.addons.map((addon) => (
-					// <div className='row pt-4 justify-content-center'>
-					<SwitchButtons
-						infoText={addon.description}
-						key={addon.name}
-						label={addon.name}
-						buttonLabels={["Yes", "No"]}
-						options={[
-							{ id: addon.id, quantity: 1 },
-							{ id: addon.id, quantity: 0 },
-						]}
-						field={`addons`}
-					/>
-					// </div>
+					<Addon name={addon.name} description={addon.description} field={`addons`} value={addon} />
 				))}
 
 				<br />

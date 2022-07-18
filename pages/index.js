@@ -23,6 +23,7 @@ export default function Home() {
 	}
 
 	async function handleNewProject() {
+		projectNameModal.current.hide();
 		// set loading animation
 		// const newText = (
 		// 	<span>

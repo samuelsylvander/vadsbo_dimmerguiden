@@ -1,17 +1,30 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ProjectDataContext } from "../libs/ProjectDataContext";
+import Image from "next/image";
 import Info from "./Info";
 
-export default function Addon({ name, description, icon }) {
+export default function Addon({ name, description, value, icon, field }) {
 	const [selected, setSelected] = useState(false);
-	const { dispatch } = useContext(ProjectDataContext);
+	const { dispatch, projectData } = useContext(ProjectDataContext);
+
+	useEffect(() => {
+		if (projectData.addons.some((addon) => addon.id === value.id)) {
+			setSelected(true);
+		}
+	}, []);
 
 	function handleSelectYes() {
-		dispatch({ action: "select", field: "addons.id" });
+		setSelected(true);
+		dispatch({ type: "add", field: field, value: value });
+	}
+
+	function handleSelectNo() {
+		setSelected(false);
+		dispatch({ type: "remove", field: field, value: value });
 	}
 	return (
 		<div className='row pt-4 justify-content-center'>
-			<Image src={icon} />
+			{icon && <Image src={icon} />}
 			<div className='container'>
 				<h3 className='d-inline-block my-4'>{name}</h3>
 				{description && <Info text={description} />}

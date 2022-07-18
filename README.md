@@ -53,13 +53,13 @@ Add cards, project name modal to landing page
 
 Add loading indicator when creating new project
 
-Finish Addons page, decide on data structure for addons
-
 Work on displaying deeply nested options for rooms, eg `environmental_sensor.products.options.brands.colors`
 
 Cosmetic work
 
 Add more test data
+
+Add back button to go back a step
 
 ### Changes to project_template.json
 

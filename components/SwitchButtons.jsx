@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { ProjectDataContext } from "../libs/ProjectDataContext";
 import Info from "./Info";
 
@@ -15,6 +15,15 @@ function SwitchButtons({ label, buttonLabels, options, field, infoText, images, 
 	const { projectData, dispatch } = useContext(ProjectDataContext);
 	const parentRef = useRef();
 	const buttonLabelsValue = useRef();
+	let currentField = getCurrentField();
+
+	function getCurrentField() {
+		let fieldValue = projectData;
+		field.split(".").forEach((nestedField) => {
+			fieldValue = fieldValue[nestedField];
+		});
+		return fieldValue;
+	}
 
 	useEffect(() => {
 		if (buttonLabelsValue.current !== JSON.stringify(buttonLabels)) {
@@ -28,11 +37,6 @@ function SwitchButtons({ label, buttonLabels, options, field, infoText, images, 
 	useEffect(() => {
 		//update which buttons are selected each time projectData changes
 		const buttons = Array.from(parentRef.current.children);
-		let currentField = projectData;
-		const fieldValuesArray = field.split(".");
-		fieldValuesArray.forEach((field) => {
-			currentField = currentField[field];
-		});
 		if (Array.isArray(currentField)) {
 			buttons.forEach((button, index) => {
 				if (
@@ -61,10 +65,27 @@ function SwitchButtons({ label, buttonLabels, options, field, infoText, images, 
 		if (button.dataset.selected === "false") {
 			if (multiple) {
 				dispatch({ type: "add", field: field, value: options[parseFloat(button.dataset.index)] });
+			} else if (Array.isArray(currentField)) {
+				console.log(label + " Is an Array");
+				options.forEach((option, index) => {
+					if (index === button.dataset.index) {
+						dispatch({
+							type: "add",
+							field: field,
+							value: option,
+						});
+					} else {
+						dispatch({
+							type: "remove",
+							field: field,
+							value: option,
+						});
+					}
+				});
 			} else {
 				dispatch({ type: "replace", field: field, value: options[parseFloat(button.dataset.index)] });
 			}
-		} else if (button.dataset.selected === "true" && multiple) {
+		} else if (multiple && button.dataset.selected === "true") {
 			dispatch({ type: "remove", field: field, value: options[parseFloat(button.dataset.index)] });
 		}
 	}
@@ -91,7 +112,6 @@ function SwitchButtons({ label, buttonLabels, options, field, infoText, images, 
 					return (
 						<button
 							key={index}
-							height='2rem'
 							data-index={index}
 							data-selected={false}
 							className='btn btn-outline-dark mx-2 p-2 px-3'
@@ -103,6 +123,7 @@ function SwitchButtons({ label, buttonLabels, options, field, infoText, images, 
 					);
 				})}
 			</div>
+			{/* {JSON.stringify(currentField)} */}
 		</div>
 	);
 }
