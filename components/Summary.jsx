@@ -146,13 +146,13 @@ export default function Summary({ setAppState, showToast, setRoomIndex }) {
 						);
 					})}
 
-					{/* {projectData.addons.length > 0 && (
+					{projectData.addons.length > 0 && (
 						<OptionsList
 							label='Tillval'
-							edit={() => setAppState("moreoptions")}
-							delete={() => dispatch({ type: "replace", field: "addons", value: [] })}
+							handleEdit={() => setAppState("moreoptions")}
+							handleDelete={() => dispatch({ type: "replace", field: "addons", value: [] })}
 						/>
-					)} */}
+					)}
 
 					<div className='py-5'>
 						<button className='btn btn-lg btn-dark mx-3' onClick={handleAddRoom}>

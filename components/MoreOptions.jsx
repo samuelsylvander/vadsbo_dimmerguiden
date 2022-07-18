@@ -4,17 +4,7 @@ import { ProjectTemplateContext } from "../libs/ProjectTemplateContext";
 import Addon from "./Addon";
 
 function MoreOptions({ setAppState }) {
-	const { projectData, dispatch } = useContext(ProjectDataContext);
 	const projectTemplate = useContext(ProjectTemplateContext);
-	const selectedOptions = getAddonDetails();
-
-	function getAddonDetails() {
-		const currentOptionsArray = projectData.addons;
-		const optionsDetailsArray = currentOptionsArray.map((option) =>
-			projectTemplate.products.find((product) => product.id === option)
-		);
-		return optionsDetailsArray;
-	}
 
 	function handleSave() {
 		setAppState("summary");
