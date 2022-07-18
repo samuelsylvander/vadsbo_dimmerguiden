@@ -1,10 +1,13 @@
-import React, { useContext, useMemo } from "react";
+import React, { useContext, useEffect, useMemo, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { ProjectDataContext } from "../libs/ProjectDataContext";
 import { ProjectTemplateContext } from "../libs/ProjectTemplateContext";
+import { Collapse } from "bootstrap";
 
-export default function OptionsList({ label, handleEdit, handleDelete, addons }) {
+export default function OptionsList({ label, handleEdit, handleDelete }) {
+	const collapseRef = useRef();
+	const chevronRef = useRef();
 	const { projectData } = useContext(ProjectDataContext);
 	const projectTemplate = useContext(ProjectTemplateContext);
 	const selectedAddonDetails = useMemo(() => {
@@ -14,6 +17,19 @@ export default function OptionsList({ label, handleEdit, handleDelete, addons })
 		);
 		return selectedAddonDetails;
 	}, [projectData, projectTemplate]);
+
+	useEffect(() => {
+		collapseRef.current = new Collapse(document.getElementById("optionsdetails"));
+	});
+
+	function handleCollapse() {
+		if (document.getElementById("optionsdetails").classList.contains("show")) {
+			chevronRef.current.style.transform = "rotate(0deg)";
+		} else {
+			chevronRef.current.style.transform = "rotate(180deg)";
+		}
+		collapseRef.current.toggle();
+	}
 
 	return (
 		<>
@@ -30,19 +46,20 @@ export default function OptionsList({ label, handleEdit, handleDelete, addons })
 							<FontAwesomeIcon icon={faTrashCan} />
 						</a>
 						<button
+							onClick={handleCollapse}
 							className='btn btn-primary'
 							type='button'
-							data-bs-toggle='collapse'
-							data-bs-target='#optionsdetails'
 							aria-expanded='false'
 							aria-controls='#optionsdetails'
 						>
-							<FontAwesomeIcon icon={faChevronDown} />
+							<div ref={chevronRef} style={{ transition: "all 300ms", transform: "rotate(0)" }}>
+								<FontAwesomeIcon icon={faChevronDown} />
+							</div>
 						</button>
 					</div>
 				</div>
 				<div id='optionsdetails' className='collapse p-0'>
-					<div className='card-body'>
+					<div className='card-body pb-0'>
 						{selectedAddonDetails.map((addon) => (
 							<p>{addon.name}</p>
 						))}

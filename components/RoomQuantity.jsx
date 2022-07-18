@@ -1,16 +1,31 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus, faChevronDown, faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { ProjectDataContext } from "../libs/ProjectDataContext";
 import { ProjectTemplateContext } from "../libs/ProjectTemplateContext";
+import { Collapse } from "bootstrap";
 
 // props required:
-// index: index of current room in roomList
+// roomIndex: index of current room in roomList
+// setAppState: function to change app 'screen', for opening rooms to edit
+// setRoomIndex: set index of currently edited room, use with setAppState
+// handleDelete: delete room after calling confirmation modal
 
 function RoomQuantity({ roomIndex, setAppState, setRoomIndex, handleDelete }) {
 	const { projectData, dispatch } = useContext(ProjectDataContext);
 	const projectTemplate = useContext(ProjectTemplateContext);
 	const roomProducts = getRoomProducts();
+	const collapseRef = useRef();
+	const chevronRef = useRef();
+
+	function handleCollapse() {
+		if (document.getElementById("summarydetails" + roomIndex).classList.contains("show")) {
+			chevronRef.current.style.transform = "rotate(0deg)";
+		} else {
+			chevronRef.current.style.transform = "rotate(180deg)";
+		}
+		collapseRef.current.toggle();
+	}
 
 	function getRoomProducts() {
 		const roomProducts = projectData.rooms[roomIndex].products;
@@ -50,6 +65,11 @@ function RoomQuantity({ roomIndex, setAppState, setRoomIndex, handleDelete }) {
 		e.stopPropagation();
 		handleDelete(roomIndex);
 	}
+
+	useEffect(() => {
+		// set up the bootstrap collapse
+		collapseRef.current = new Collapse(document.getElementById("summarydetails" + roomIndex));
+	}, []);
 
 	return (
 		<div className='card bg-secondary mb-4 p-3'>
@@ -97,18 +117,19 @@ function RoomQuantity({ roomIndex, setAppState, setRoomIndex, handleDelete }) {
 						<button
 							className='btn btn-primary'
 							type='button'
-							data-bs-toggle='collapse'
-							data-bs-target={"#summarydetails" + roomIndex}
 							aria-expanded='false'
 							aria-controls={"summarydetails" + roomIndex}
+							onClick={handleCollapse}
 						>
-							<FontAwesomeIcon icon={faChevronDown} />
+							<div ref={chevronRef} style={{ transition: "all 300ms", transform: "rotate(0)" }}>
+								<FontAwesomeIcon icon={faChevronDown} />
+							</div>
 						</button>
 					</div>
 				</div>
 			</div>
 			<div className='collapse p-0' id={"summarydetails" + roomIndex}>
-				<div className='card-body'>
+				<div className='card-body pb-0'>
 					{roomProducts.map((product, index) => {
 						return (
 							<p key={index}>
