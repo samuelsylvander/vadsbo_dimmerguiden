@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus, faChevronDown, faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { ProjectDataContext } from "../libs/ProjectDataContext";
 import { ProjectTemplateContext } from "../libs/ProjectTemplateContext";
-import { Collapse } from "bootstrap";
+// import { Collapse } from "bootstrap";
 
 // props required:
 // roomIndex: index of current room in roomList
@@ -68,6 +68,8 @@ function RoomQuantity({ roomIndex, setAppState, setRoomIndex, handleDelete }) {
 
 	useEffect(() => {
 		// set up the bootstrap collapse
+		const { Collapse } = require("bootstrap");
+
 		collapseRef.current = new Collapse(document.getElementById("summarydetails" + roomIndex), { toggle: false });
 	}, []);
 

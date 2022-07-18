@@ -7,11 +7,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import debounce from "../libs/debounce";
 import { ProjectDataContext } from "../libs/ProjectDataContext";
-import { Modal } from "bootstrap";
+// import { Modal } from "bootstrap";
 
 export default function Summary({ setAppState, showToast, setRoomIndex }) {
 	const { projectData, dispatch } = useContext(ProjectDataContext);
-
 	const quoteModal = useRef();
 	const deleteModal = useRef();
 	const shareModal = useRef();
@@ -95,6 +94,7 @@ export default function Summary({ setAppState, showToast, setRoomIndex }) {
 
 	useEffect(() => {
 		//set up the references to the bootstrap modals
+		const { Modal } = require("bootstrap");
 		quoteModal.current = Modal.getOrCreateInstance(document.getElementById("getQuote"));
 		deleteModal.current = Modal.getOrCreateInstance(document.getElementById("confirmDelete"));
 		shareModal.current = Modal.getOrCreateInstance(document.getElementById("shareProject"));
@@ -130,11 +130,7 @@ export default function Summary({ setAppState, showToast, setRoomIndex }) {
 					})}
 
 					{projectData.addons.length > 0 && (
-						<OptionsList
-							label='Tillval'
-							handleEdit={() => setAppState("moreoptions")}
-							handleDelete={() => dispatch({ type: "replace", field: "addons", value: [] })}
-						/>
+						<OptionsList label='Tillval' handleEdit={() => setAppState("moreoptions")} />
 					)}
 
 					<div className='py-5'>

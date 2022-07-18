@@ -45,7 +45,7 @@ export default function Project({ loadedProject, errorText }) {
 	const [appState, setAppState] = useState("newroom"); // state to control which page is displayed
 	const [roomIndex, setRoomIndex] = useState(0);
 	const toast = useRef();
-	const { isLoading, projectData, dispatch } = useContext(ProjectDataContext);
+	const { isLoading, dispatch } = useContext(ProjectDataContext);
 
 	function showToast(message) {
 		document.getElementById("toastMessage").innerHTML = message;

@@ -3,12 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { ProjectDataContext } from "../libs/ProjectDataContext";
 import { ProjectTemplateContext } from "../libs/ProjectTemplateContext";
-import { Collapse } from "bootstrap";
+// import { Collapse } from "bootstrap";
 
-export default function OptionsList({ label, handleEdit, handleDelete }) {
+export default function OptionsList({ label, handleEdit }) {
 	const collapseRef = useRef();
 	const chevronRef = useRef();
-	const { projectData } = useContext(ProjectDataContext);
+	const { projectData, dispatch } = useContext(ProjectDataContext);
 	const projectTemplate = useContext(ProjectTemplateContext);
 	const selectedAddonDetails = useMemo(() => {
 		const selectedAddons = projectData.addons;
@@ -19,6 +19,8 @@ export default function OptionsList({ label, handleEdit, handleDelete }) {
 	}, [projectData, projectTemplate]);
 
 	useEffect(() => {
+		//set up bootstrap collapse
+		const { Collapse } = require("bootstrap");
 		collapseRef.current = new Collapse(document.getElementById("optionsdetails"), { toggle: false });
 	});
 
@@ -31,7 +33,12 @@ export default function OptionsList({ label, handleEdit, handleDelete }) {
 		collapseRef.current.toggle();
 	}
 
+	// function handleDelete() {
+	// 	dispatch({ type: "replace", field: "addons", value: [] });
+	// }
+
 	useEffect(() => {
+		//uncollapse if fewer than five rooms in project
 		if (projectData.rooms.length <= 5) {
 			document.getElementById("optionsdetails").classList.add("show");
 			chevronRef.current.style.transform = "rotate(180deg)";
@@ -49,9 +56,9 @@ export default function OptionsList({ label, handleEdit, handleDelete }) {
 						<a className='text-dark me-2' onClick={handleEdit}>
 							<FontAwesomeIcon icon={faPenToSquare} />
 						</a>
-						<a className='text-dark me-2' onClick={handleDelete}>
+						{/* <a className='text-dark me-2' onClick={handleDelete}>
 							<FontAwesomeIcon icon={faTrashCan} />
-						</a>
+						</a> */}
 						<button
 							onClick={handleCollapse}
 							className='btn btn-primary'
