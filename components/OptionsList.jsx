@@ -43,7 +43,7 @@ export default function OptionsList({ label, handleEdit }) {
 			document.getElementById("optionsdetails").classList.add("show");
 			chevronRef.current.style.transform = "rotate(180deg)";
 		}
-	}, []);
+	}, [projectData.rooms.length]);
 
 	return (
 		<>
@@ -74,8 +74,8 @@ export default function OptionsList({ label, handleEdit }) {
 				</div>
 				<div id='optionsdetails' className='collapse p-0'>
 					<div className='card-body pb-0'>
-						{selectedAddonDetails.map((addon) => (
-							<p>{addon.name}</p>
+						{selectedAddonDetails.map((addon, i) => (
+							<p key={i}>{addon.name}</p>
 						))}
 					</div>
 				</div>

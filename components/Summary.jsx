@@ -39,21 +39,6 @@ export default function Summary({ setAppState, showToast, setRoomIndex }) {
 		};
 	}
 
-	async function saveToDB() {
-		const url = "/api/savetodbAPI";
-		try {
-			const response = await fetch(url, {
-				method: "POST",
-				body: JSON.stringify(projectData),
-			});
-			if (response.status === 200) {
-				showToast("Project Saved!");
-			}
-		} catch (error) {
-			console.log("database error: " + error);
-		}
-	}
-
 	async function handleGetQuote(event) {
 		event.preventDefault();
 		quoteModal.current.hide();
@@ -104,8 +89,22 @@ export default function Summary({ setAppState, showToast, setRoomIndex }) {
 	}, []);
 
 	useEffect(() => {
+		async function saveToDB() {
+			const url = "/api/savetodbAPI";
+			try {
+				const response = await fetch(url, {
+					method: "POST",
+					body: JSON.stringify(projectData),
+				});
+				if (response.status === 200) {
+					showToast("Project Saved!");
+				}
+			} catch (error) {
+				console.log("database error: " + error);
+			}
+		}
 		debounce(saveToDB, 500);
-	}, [projectData, debounce]); //save project every time we change any details
+	}, [projectData, showToast]); //save project every time we change any details
 
 	return (
 		<>

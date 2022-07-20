@@ -35,9 +35,9 @@ export default function NewRoom({ setAppState, roomIndex }) {
 				när du är klar med ditt första.
 			</p>
 			<div className='row justify-content-center'>
-				{projectTemplate.room_templates.map((template) => {
+				{projectTemplate.room_templates.map((template, i) => {
 					return (
-						<div className='col-sm-2'>
+						<div key={i} className='col-sm-2'>
 							<div
 								key={template.room_template_id}
 								className='room-template card d-inline-block w-100 h-100'

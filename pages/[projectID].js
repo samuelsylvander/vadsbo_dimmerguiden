@@ -5,7 +5,7 @@ import NewRoom from "../components/NewRoom";
 import Summary from "../components/Summary";
 import MoreOptions from "../components/MoreOptions";
 import RoomDetails from "../components/RoomDetails";
-import React, { useEffect, useState, useRef, useContext } from "react";
+import React, { useEffect, useState, useRef, useContext, useCallback } from "react";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 config.autoAddCss = false;
@@ -47,10 +47,10 @@ export default function Project({ loadedProject, errorText }) {
 	const toast = useRef();
 	const { isLoading, dispatch } = useContext(ProjectDataContext);
 
-	function showToast(message) {
+	const showToast = useCallback((message) => {
 		document.getElementById("toastMessage").innerHTML = message;
 		toast.current.show();
-	}
+	}, []);
 
 	useEffect(() => {
 		//initialise projectData with data from MongoDB

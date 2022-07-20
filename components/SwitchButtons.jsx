@@ -15,7 +15,7 @@ function SwitchButtons({ label, buttonLabels, options, field, infoText, images, 
 	const { projectData, dispatch } = useContext(ProjectDataContext);
 	const parentRef = useRef();
 	const buttonLabelsValue = useRef();
-	let currentField = useMemo(getCurrentField, [projectData]);
+	let currentField = useMemo(getCurrentField, [projectData, field]);
 
 	function getCurrentField() {
 		let fieldValue = projectData;

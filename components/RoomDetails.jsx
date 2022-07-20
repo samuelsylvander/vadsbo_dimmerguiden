@@ -24,7 +24,7 @@ export default function NewRoom({ setAppState, roomIndex }) {
 		);
 
 		return optionsDetails;
-	}, [projectData, projectTemplate]);
+	}, [projectData, projectTemplate, roomIndex]);
 
 	const environmentalSensorProducts = useMemo(() => {
 		const productOptions = projectTemplate.sensor_options.environmental.optional_products;
@@ -32,7 +32,7 @@ export default function NewRoom({ setAppState, roomIndex }) {
 			projectTemplate.products.find((product) => product.id === option.id)
 		);
 		return envSensorProducts;
-	}, [projectData, projectTemplate]);
+	}, [projectTemplate]);
 
 	const environmentalSensorProductOptions = useMemo(() => {
 		const chosenProductId = projectData.rooms[roomIndex].environmental_sensor.products[0].id;
@@ -47,7 +47,7 @@ export default function NewRoom({ setAppState, roomIndex }) {
 		} else {
 			return [];
 		}
-	}, [projectData, projectTemplate]);
+	}, [projectData, projectTemplate, roomIndex]);
 
 	useEffect(() => {
 		//check each div named 'switch-buttons', see if it has a selected value

@@ -71,14 +71,14 @@ function RoomQuantity({ roomIndex, setAppState, setRoomIndex, handleDelete }) {
 		const { Collapse } = require("bootstrap");
 
 		collapseRef.current = new Collapse(document.getElementById("summarydetails" + roomIndex), { toggle: false });
-	}, []);
+	}, [roomIndex]);
 
 	useEffect(() => {
 		if (projectData.rooms.length <= 5) {
 			document.getElementById("summarydetails" + roomIndex).classList.add("show");
 			chevronRef.current.style.transform = "rotate(180deg)";
 		}
-	}, []);
+	}, [projectData.rooms.length, roomIndex]);
 
 	return (
 		<div className='card bg-secondary mb-4 p-3'>
