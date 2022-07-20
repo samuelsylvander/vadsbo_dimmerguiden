@@ -37,16 +37,16 @@ export default function NewRoom({ setAppState, roomIndex }) {
 			<div className='row justify-content-center'>
 				{projectTemplate.room_templates.map((template, i) => {
 					return (
-						<div key={i} className='col-sm-2'>
+						<div key={i} className='col-lg-2 col-sm-3 col-6'>
 							<div
 								key={template.room_template_id}
 								className='room-template card d-inline-block w-100 h-100'
 								onClick={(e) => handleSelectTemplate(e, template)}
 							>
 								<Image
-									src={template.icon}
-									width='100px'
-									height='100px'
+									src={template.photo}
+									width='400px'
+									height='300px'
 									layout='responsive'
 									className='card-img-top'
 									alt={template.name}

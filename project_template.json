@@ -118,7 +118,7 @@
 			"room_template_id": 1,
 			"name": "Small Office",
 			"description": "2-10m2",
-			"photo": "/photos/my-photo.png",
+			"photo": "/images/office.jpg",
 			"icon": "/icons/my-icon.png",
 			"quantity": 1,
 			"products": [
@@ -148,7 +148,67 @@
 			"room_template_id": 2,
 			"name": "Conference Room",
 			"description": "10-20m2",
-			"photo": "/photos/my-photo.png",
+			"photo": "/images/conference.jpg",
+			"icon": "/icons/my-icon.png",
+			"quantity": 1,
+			"products": [
+				{
+					"id": 1,
+					"quantity": 4,
+					"required": false
+				},
+				{
+					"id": 2,
+					"quantity": 8,
+					"required": false
+				}
+			],
+			"sensor": {
+				"selected": true,
+				"required": false,
+				"products": [{ "id": 1, "quantity": 2, "required": true }]
+			},
+			"environmental_sensor": {
+				"selected": false,
+				"required": false,
+				"products": [{ "id": 301, "quantity": 2, "options": {} }]
+			}
+		},
+		{
+			"room_template_id": 3,
+			"name": "Reception",
+			"description": "10-20m2",
+			"photo": "/images/reception.jpg",
+			"icon": "/icons/my-icon.png",
+			"quantity": 1,
+			"products": [
+				{
+					"id": 1,
+					"quantity": 4,
+					"required": false
+				},
+				{
+					"id": 2,
+					"quantity": 8,
+					"required": false
+				}
+			],
+			"sensor": {
+				"selected": true,
+				"required": false,
+				"products": [{ "id": 1, "quantity": 2, "required": true }]
+			},
+			"environmental_sensor": {
+				"selected": false,
+				"required": false,
+				"products": [{ "id": 301, "quantity": 2, "options": {} }]
+			}
+		},
+		{
+			"room_template_id": 4,
+			"name": "Break Room",
+			"description": "10-20m2",
+			"photo": "/images/breakroom.jpg",
 			"icon": "/icons/my-icon.png",
 			"quantity": 1,
 			"products": [
