@@ -33,16 +33,13 @@ export default function OptionsList({ label, handleEdit }) {
 		collapseRef.current.toggle();
 	}
 
-	// function handleDelete() {
-	// 	dispatch({ type: "replace", field: "addons", value: [] });
-	// }
-
 	useEffect(() => {
 		//uncollapse if fewer than five rooms in project
 		if (projectData.rooms.length <= 5) {
 			document.getElementById("optionsdetails").classList.add("show");
 			chevronRef.current.style.transform = "rotate(180deg)";
 		}
+		requestAnimationFrame(() => (chevronRef.current.style.transition = "all 300ms"));
 	}, [projectData.rooms.length]);
 
 	return (
@@ -66,7 +63,7 @@ export default function OptionsList({ label, handleEdit }) {
 							aria-expanded='false'
 							aria-controls='#optionsdetails'
 						>
-							<div ref={chevronRef} style={{ transition: "all 300ms", transform: "rotate(0)" }}>
+							<div ref={chevronRef}>
 								<FontAwesomeIcon icon={faChevronDown} />
 							</div>
 						</button>

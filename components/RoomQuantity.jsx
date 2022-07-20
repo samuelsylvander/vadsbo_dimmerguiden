@@ -74,10 +74,12 @@ function RoomQuantity({ roomIndex, setAppState, setRoomIndex, handleDelete }) {
 	}, [roomIndex]);
 
 	useEffect(() => {
+		//uncollapse details if five or fewer rooms
 		if (projectData.rooms.length <= 5) {
 			document.getElementById("summarydetails" + roomIndex).classList.add("show");
 			chevronRef.current.style.transform = "rotate(180deg)";
 		}
+		requestAnimationFrame(() => (chevronRef.current.style.transition = "all 300ms"));
 	}, [projectData.rooms.length, roomIndex]);
 
 	return (
@@ -130,7 +132,7 @@ function RoomQuantity({ roomIndex, setAppState, setRoomIndex, handleDelete }) {
 							aria-controls={"summarydetails" + roomIndex}
 							onClick={handleCollapse}
 						>
-							<div ref={chevronRef} style={{ transition: "all 300ms", transform: "rotate(0)" }}>
+							<div ref={chevronRef}>
 								<FontAwesomeIcon icon={faChevronDown} />
 							</div>
 						</button>

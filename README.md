@@ -53,6 +53,8 @@ Add cards, project name modal to landing page
 
 Cosmetic work
 
+Long delay when creating new project
+
 Add more test data
 
 Add back button to go back a step
