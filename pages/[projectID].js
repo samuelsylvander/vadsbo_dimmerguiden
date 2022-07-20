@@ -42,7 +42,7 @@ export async function getServerSideProps(context) {
 export default function Project({ loadedProject, errorText }) {
 	// const blankRoom = { name: "", dali: "", lights: 0, group: "", app: "", switches: 0, noOfRooms: 1 };
 
-	const [appState, setAppState] = useState("newroom"); // state to control which page is displayed
+	const [appState, setAppState] = useState(""); // state to control which page is displayed
 	const [roomIndex, setRoomIndex] = useState(0);
 	const toast = useRef();
 	const { isLoading, dispatch } = useContext(ProjectDataContext);
@@ -52,13 +52,32 @@ export default function Project({ loadedProject, errorText }) {
 		toast.current.show();
 	}, []);
 
+	function navigate(locationString) {
+		if (locationString === "summary") {
+			window.location.hash = "";
+		} else {
+			window.location.hash = locationString;
+		}
+		// setAppState(locationString);
+	}
+
+	useEffect(() => {
+		function handleHashChange() {
+			setAppState(window.location.hash.slice(1));
+		}
+
+		window.addEventListener("hashchange", handleHashChange);
+
+		return () => window.removeEventListener("hashchange", handleHashChange);
+	}, []);
+
 	useEffect(() => {
 		//initialise projectData with data from MongoDB
 		dispatch({ type: "initialise", value: loadedProject });
 
 		//if this is an existing project, go straight to summary
-		if (loadedProject.rooms.length > 1) {
-			setAppState("summary");
+		if (loadedProject.rooms.length === 0) {
+			navigate("newroom");
 		}
 	}, [loadedProject, dispatch]);
 
@@ -113,14 +132,14 @@ export default function Project({ loadedProject, errorText }) {
 
 			{/* App Screens Here */}
 			<div className='vw-100 m-0 p-0'>
-				{!isLoading && appState == "newroom" && <NewRoom setAppState={setAppState} roomIndex={roomIndex} />}
+				{!isLoading && appState == "newroom" && <NewRoom setAppState={navigate} roomIndex={roomIndex} />}
 				{!isLoading && appState == "roomdetails" && (
-					<RoomDetails setAppState={setAppState} roomIndex={roomIndex} />
+					<RoomDetails setAppState={navigate} roomIndex={roomIndex} />
 				)}
-				{!isLoading && appState == "summary" && (
-					<Summary setAppState={setAppState} showToast={showToast} setRoomIndex={setRoomIndex} />
+				{!isLoading && appState == "" && (
+					<Summary setAppState={navigate} showToast={showToast} setRoomIndex={setRoomIndex} />
 				)}
-				{!isLoading && appState == "moreoptions" && <MoreOptions setAppState={setAppState} />}
+				{!isLoading && appState == "moreoptions" && <MoreOptions setAppState={navigate} />}
 			</div>
 
 			{/* Toast Alert */}

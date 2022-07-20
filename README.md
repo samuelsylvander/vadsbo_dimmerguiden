@@ -53,6 +53,8 @@ Add cards, project name modal to landing page
 
 Cosmetic work
 
+Fix button layout
+
 Long delay when creating new project
 
 Add more test data
