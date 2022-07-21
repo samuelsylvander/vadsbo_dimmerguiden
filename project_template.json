@@ -57,6 +57,48 @@
                     }
                 }]
             }
+		},{
+			"id": 2,
+			"name": "Big Office",
+			"description": "10m2+",
+			"photo": "/photos/my-photo.png",
+			"icon": "/icons/my-icon.png",
+			"products": [{
+                "id": 1,
+                "quantity": 2
+            },
+            {
+                "id": 2,
+                "quantity": 3
+            }],
+			"sensor": {
+                "optional": false,
+                "options": [
+                {
+                    "no": {
+                        "products": [{
+                            "id": 1,
+                            "quantity": 2
+                        }],
+                        "optional products": [{
+                            "id": 2,
+                            "quantity": 2
+                        }]
+                    }
+                },
+                {
+                    "yes": {
+                        "products": [{
+                            "id": 1,
+                            "quantity": 2
+                        }],
+                        "optional products": [{
+                            "id": 2,
+                            "quantity": 2
+                        }]
+                    }
+                }]
+            }
 		}]
 	}],
 	"products": [{
