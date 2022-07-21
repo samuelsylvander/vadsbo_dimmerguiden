@@ -1,119 +1,402 @@
 {
-	"project types": [{
-		"id": 1,
-		"name": "Office",
-		"description": "Office project description",
-		"photo": "/photos/my-photo.png",
-		"icon": "/icons/my-icon.png",
-		"products": [{
-				"id": 1,
-				"quantity": 2
-			},
-			{
-				"id": 2,
-				"quantity": 3
-			}
-		],
-		"addons": [1, 2],
-		"rooms": [{
+	"project_templates": [
+		{
 			"id": 1,
+			"name": "Office",
+			"description": "Office project description",
+			"photo": "/images/kontor 1.png",
+			"icon": "/icons/my-icon.png",
+			"required_products": [
+				{
+					"id": 1,
+					"quantity": 2
+				},
+				{
+					"id": 2,
+					"quantity": 3
+				}
+			],
+			"addons": [
+				{
+					"id": 1,
+					"quantity": 2,
+					"required": false
+				}
+			],
+			"rooms": [
+				{
+					"id": 1,
+					"name": "Small Office",
+					"description": "2-10m2",
+					"photo": "/images/my-photo.png",
+					"icon": "/icons/my-icon.png",
+					"quantity": 1,
+					"products": [
+						{
+							"id": 1,
+							"quantity": 2,
+							"required": false
+						},
+						{
+							"id": 2,
+							"quantity": 3,
+							"required": false
+						}
+					],
+					"sensor": {
+						"selected": true,
+						"required": false,
+						"products": [{ "id": 1, "quantity": 2, "required": true }]
+					},
+					"environmental_sensor": {
+						"selected": false,
+						"required": false,
+						"products": [{ "id": 301, "quantity": 2, "options": {} }]
+					}
+				}
+			]
+		},
+		{
+			"id": 2,
+			"name": "School",
+			"description": "Create the lighting for a school.",
+			"photo": "/images/kategorier_80 1.png",
+			"icon": "/icons/my-icon.png",
+			"required_products": [
+				{
+					"id": 1,
+					"quantity": 2
+				},
+				{
+					"id": 2,
+					"quantity": 3
+				}
+			],
+			"addons": [
+				{
+					"id": 1,
+					"quantity": 2,
+					"required": false
+				}
+			],
+			"rooms": [
+				{
+					"id": 1,
+					"name": "Small Office",
+					"description": "2-10m2",
+					"photo": "/photos/my-photo.png",
+					"icon": "/icons/my-icon.png",
+					"quantity": 1,
+					"products": [
+						{
+							"id": 1,
+							"quantity": 2,
+							"required": false
+						},
+						{
+							"id": 2,
+							"quantity": 3,
+							"required": false
+						}
+					],
+					"sensor": {
+						"selected": true,
+						"required": false,
+						"products": [{ "id": 1, "quantity": 2, "required": true }]
+					},
+					"environmental_sensor": {
+						"selected": false,
+						"required": false,
+						"products": [{ "id": 301, "quantity": 2, "options": {} }]
+					}
+				}
+			]
+		}
+	],
+	"room_templates": [
+		{
+			"room_template_id": 1,
 			"name": "Small Office",
 			"description": "2-10m2",
-			"photo": "/photos/my-photo.png",
+			"photo": "/images/office.jpg",
 			"icon": "/icons/my-icon.png",
-			"products": [{
-                "id": 1,
-                "quantity": 2
-            },
-            {
-                "id": 2,
-                "quantity": 3
-            }],
+			"quantity": 1,
+			"products": [
+				{
+					"id": 1,
+					"quantity": 2,
+					"required": false
+				},
+				{
+					"id": 2,
+					"quantity": 3,
+					"required": false
+				}
+			],
 			"sensor": {
-                "optional": false,
-                "options": [
-                {
-                    "no": {
-                        "products": [{
-                            "id": 1,
-                            "quantity": 2
-                        }],
-                        "optional products": [{
-                            "id": 2,
-                            "quantity": 2
-                        }]
-                    }
-                },
-                {
-                    "yes": {
-                        "products": [{
-                            "id": 1,
-                            "quantity": 2
-                        }],
-                        "optional products": [{
-                            "id": 2,
-                            "quantity": 2
-                        }]
-                    }
-                }]
-            }
-		}]
-	}],
-	"products": [{
+				"selected": true,
+				"required": false,
+				"products": [{ "id": 1, "quantity": 2, "required": true }]
+			},
+			"environmental_sensor": {
+				"selected": false,
+				"required": false,
+				"products": [{ "id": 301, "quantity": 2, "options": {} }]
+			}
+		},
+		{
+			"room_template_id": 2,
+			"name": "Conference Room",
+			"description": "10-20m2",
+			"photo": "/images/conference.jpg",
+			"icon": "/icons/my-icon.png",
+			"quantity": 1,
+			"products": [
+				{
+					"id": 1,
+					"quantity": 4,
+					"required": false
+				},
+				{
+					"id": 2,
+					"quantity": 8,
+					"required": false
+				}
+			],
+			"sensor": {
+				"selected": true,
+				"required": false,
+				"products": [{ "id": 1, "quantity": 2, "required": true }]
+			},
+			"environmental_sensor": {
+				"selected": false,
+				"required": false,
+				"products": [{ "id": 301, "quantity": 2, "options": {} }]
+			}
+		},
+		{
+			"room_template_id": 3,
+			"name": "Reception",
+			"description": "10-20m2",
+			"photo": "/images/reception.jpg",
+			"icon": "/icons/my-icon.png",
+			"quantity": 1,
+			"products": [
+				{
+					"id": 1,
+					"quantity": 4,
+					"required": false
+				},
+				{
+					"id": 2,
+					"quantity": 8,
+					"required": false
+				}
+			],
+			"sensor": {
+				"selected": true,
+				"required": false,
+				"products": [{ "id": 1, "quantity": 2, "required": true }]
+			},
+			"environmental_sensor": {
+				"selected": false,
+				"required": false,
+				"products": [{ "id": 301, "quantity": 2, "options": {} }]
+			}
+		},
+		{
+			"room_template_id": 4,
+			"name": "Break Room",
+			"description": "10-20m2",
+			"photo": "/images/breakroom.jpg",
+			"icon": "/icons/my-icon.png",
+			"quantity": 1,
+			"products": [
+				{
+					"id": 1,
+					"quantity": 4,
+					"required": false
+				},
+				{
+					"id": 2,
+					"quantity": 8,
+					"required": false
+				}
+			],
+			"sensor": {
+				"selected": true,
+				"required": false,
+				"products": [{ "id": 1, "quantity": 2, "required": true }]
+			},
+			"environmental_sensor": {
+				"selected": false,
+				"required": false,
+				"products": [{ "id": 301, "quantity": 2, "options": {} }]
+			}
+		}
+	],
+	"sensor_options": {
+		"no": {
+			"required_products": [
+				{
+					"id": 201,
+					"quantity": 2
+				}
+			],
+			"optional_products": [
+				{
+					"id": 201,
+					"quantity": 2
+				},
+				{
+					"id": 204,
+					"quantity": 2
+				}
+			]
+		},
+
+		"yes": {
+			"required_products": [
+				{
+					"id": 202,
+					"quantity": 2
+				}
+			],
+			"optional_products": [
+				{
+					"id": 202,
+					"quantity": 1
+				},
+				{
+					"id": 203,
+					"quantity": 1
+				}
+			]
+		},
+		"environmental": {
+			"optional_products": [
+				{
+					"id": 301,
+					"quantity": 1
+				},
+				{
+					"id": 302,
+					"quantity": 1
+				}
+			]
+		}
+	},
+	"products": [
+		{
 			"id": 1,
 			"name": "Dimmer",
 			"description": "",
-            "photo": "/photos/my-photo.png",
+			"photo": "/photos/my-photo.png",
 			"icon": "/icons/my-icon.png",
-			"options": 
-            {
-                "brand": [{
-                    "name": "Mpress Elko",
-                    "color options": [
-                        "white",
-                        "black"
-                    ]
-                }, {
-                    "name": "Exxact",
-                    "color options": [
-                        "white",
-                        "black"
-                    ]
-                }]
-		    }
-        },
+			"options": {
+				"brand": [
+					{
+						"id": 101,
+						"name": "Mpress Elko",
+						"color_options": ["white", "black"]
+					},
+					{
+						"id": 102,
+						"name": "Exxact",
+						"color_options": ["white", "black"]
+					}
+				]
+			}
+		},
 		{
 			"id": 2,
-			"name": "",
+			"name": "Second Option",
 			"description": "",
 			"photo": "/photos/my-photo.png",
 			"icon": "/icons/my-icon.png"
 		},
 		{
 			"id": 3,
-			"name": "",
+			"name": "Third Option",
 			"description": "",
 			"photo": "/photos/my-photo.png",
 			"icon": "/icons/my-icon.png"
+		},
+		{
+			"id": 201,
+			"name": "Sensor option 1",
+			"description": "",
+			"photo": "/photos/my-photo.png",
+			"icon": "/icons/my-icon.png"
+		},
+		{
+			"id": 202,
+			"name": "Sensor option 2",
+			"description": "",
+			"photo": "/photos/my-photo.png",
+			"icon": "/icons/my-icon.png"
+		},
+		{
+			"id": 203,
+			"name": "Sensor option 3",
+			"description": "",
+			"photo": "/photos/my-photo.png",
+			"icon": "/icons/my-icon.png"
+		},
+		{
+			"id": 204,
+			"name": "Sensor option 4",
+			"description": "",
+			"photo": "/photos/my-photo.png",
+			"icon": "/icons/my-icon.png"
+		},
+		{
+			"id": 301,
+			"name": "Environmental Sensor 1",
+			"description": "",
+			"photo": "/photos/my-photo.png",
+			"icon": "/icons/my-icon.png"
+		},
+		{
+			"id": 302,
+			"name": "Environmental Sensor 2",
+			"description": "",
+			"photo": "/photos/my-photo.png",
+			"icon": "/icons/my-icon.png",
+			"options": {
+				"brand": [
+					{
+						"id": 30201,
+						"name": "Mpress Elko",
+						"color_options": ["white", "black"]
+					},
+					{
+						"id": 30202,
+						"name": "Exxact",
+						"color_options": ["white", "black"]
+					}
+				]
+			}
 		}
 	],
-	"addons": [{
+	"addons": [
+		{
 			"id": 1,
-			"name": "",
+			"name": "Battery",
 			"description": "",
 			"photo": "/photos/my-photo.png",
 			"icon": "/icons/my-icon.png"
 		},
 		{
 			"id": 2,
-			"name": "",
+			"name": "Alarm",
 			"description": "",
 			"photo": "/photos/my-photo.png",
 			"icon": "/icons/my-icon.png"
 		},
 		{
 			"id": 3,
-			"name": "",
+			"name": "Boka",
 			"description": "",
 			"photo": "/photos/my-photo.png",
 			"icon": "/icons/my-icon.png"
