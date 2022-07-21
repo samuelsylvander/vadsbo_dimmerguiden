@@ -34,7 +34,43 @@
 							"quantity": 3
 						}
 					],
-					"room options": [1]
+					"sensor": {
+						"optional": false,
+						"options": [
+							{
+								"no": {
+									"products": [
+										{
+											"id": 1,
+											"quantity": 2
+										}
+									],
+									"optional products": [
+										{
+											"id": 2,
+											"quantity": 2
+										}
+									]
+								}
+							},
+							{
+								"yes": {
+									"products": [
+										{
+											"id": 1,
+											"quantity": 2
+										}
+									],
+									"optional products": [
+										{
+											"id": 2,
+											"quantity": 2
+										}
+									]
+								}
+							}
+						]
+					}
 				}
 			]
 		}
@@ -42,19 +78,22 @@
 	"products": [
 		{
 			"id": 1,
-			"name": "",
+			"name": "Dimmer",
 			"description": "",
-			"color options": ["white", "black"],
-			"brand options": [
-				{
-					"name": "Mpress Elko",
-					"color options": ["white", "black"]
-				},
-				{
-					"name": "Exxact",
-					"color options": ["white", "black"]
-				}
-			]
+			"photo": "/photos/my-photo.png",
+			"icon": "/icons/my-icon.png",
+			"options": {
+				"brand": [
+					{
+						"name": "Mpress Elko",
+						"color options": ["white", "black"]
+					},
+					{
+						"name": "Exxact",
+						"color options": ["white", "black"]
+					}
+				]
+			}
 		},
 		{
 			"id": 2,
@@ -92,38 +131,6 @@
 			"description": "",
 			"photo": "/photos/my-photo.png",
 			"icon": "/icons/my-icon.png"
-		}
-	],
-	"room options": [
-		{
-			"id": 1,
-			"name": "Small Office",
-			"description": "2-10m2",
-			"photo": "/photos/my-photo.png",
-			"icon": "/icons/my-icon.png",
-			"optional": false,
-			"options": [
-				{
-					"yes": {
-						"products": [
-							{
-								"id": 1,
-								"quantity": 2
-							}
-						],
-						"optional products": [
-							{
-								"id": 2,
-								"quantity": 2
-							}
-						]
-					},
-					"no": {
-						"products": [3],
-						"optional products": [1]
-					}
-				}
-			]
 		}
 	]
 }

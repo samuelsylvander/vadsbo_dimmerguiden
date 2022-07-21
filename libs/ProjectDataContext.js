@@ -1,47 +1,90 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useState } from "react";
 
 const ProjectDataContext = createContext();
 
 //reducer function called by dispatch({action: 'replace', field: 'room.name', value: 'new name'})
 
-function reducer({ state, action }) {
-	const { type, field, value } = action;
-	let newState = JSON.parse(JSON.stringify(state)); //deep copy
-
-	//assign editedField by reference to edit newState
-	let editedField = newState;
-	const fieldLevelsArray = field.split(".");
-	fieldLevelsArray.forEach((field) => (editedField = editedField[field]));
-
-	switch (type) {
-		case "initialise":
-			newState = JSON.parse(JSON.stringify(value));
-		case "replace":
-			editedField = value;
-			break;
-		case "increase":
-			if (typeof editedField === "number") {
-				editedField++;
-			}
-			break;
-		case "decrease":
-			if (typeof editedField === "number") {
-				editedField++;
-			}
-			break;
-		case "push":
-			if (editedField.isArray()) {
-				editedField.push(value);
-			}
-			break;
-	}
-	return newState;
-}
-
 export default function ProjectDataContextProvider({ children }) {
+	const [isLoading, setIsLoading] = useState(true);
 	const [projectData, dispatch] = useReducer(reducer, {});
 
-	const contextValue = { projectData, dispatch };
+	const contextValue = { isLoading, projectData, dispatch };
+
+	function reducer(state, action) {
+		let newState = {};
+		if (state) {
+			newState = JSON.parse(JSON.stringify(state)); //deep copy
+		} else {
+			if (!action) {
+				return {};
+			}
+		}
+
+		if (action.type === "initialise") {
+			newState = JSON.parse(JSON.stringify(action.value));
+			setIsLoading(false);
+		} else {
+			setDeep(action.field, action.value, action.type);
+		}
+
+		function setDeep(path, value, action) {
+			const pathLevelsArray = path.split(".");
+			const lastLevel = pathLevelsArray[pathLevelsArray.length - 1];
+			let reference = newState;
+			for (let i = 0; i < pathLevelsArray.length - 1; i++) {
+				if (!reference.hasOwnProperty(pathLevelsArray[i])) {
+					reference[pathLevelsArray[i]] = {};
+				}
+				reference = reference[pathLevelsArray[i]];
+			}
+			switch (action) {
+				case "replace":
+					if (Array.isArray(reference[lastLevel])) {
+						reference[lastLevel] = [value];
+					} else {
+						reference[lastLevel] = value;
+					}
+					break;
+				case "increase":
+					if (typeof reference[lastLevel] === "number") {
+						reference[lastLevel]++;
+					}
+					break;
+				case "decrease":
+					if (typeof reference[lastLevel] === "number") {
+						reference[lastLevel]--;
+					}
+					break;
+				case "add":
+					if (Array.isArray(reference[lastLevel])) {
+						if (
+							reference[lastLevel].includes(value) === false &&
+							reference[lastLevel].some((item) => item.id === value.id) === false
+						) {
+							reference[lastLevel].push(value);
+						}
+					}
+					break;
+				case "remove":
+					if (Array.isArray(reference[lastLevel])) {
+						const foundIndex = reference[lastLevel].indexOf(value);
+						if (foundIndex >= 0) {
+							reference[lastLevel].splice(foundIndex, 1);
+						} else {
+							const foundIdIndex = reference[lastLevel].findIndex((item) => item.id === value.id);
+							reference[lastLevel].splice(foundIdIndex, 1);
+						}
+					}
+					break;
+				case "remove-index":
+					if (Array.isArray(reference[lastLevel])) {
+						reference[lastLevel].splice(value, 1);
+					}
+					break;
+			}
+		}
+		return newState;
+	}
 
 	return <ProjectDataContext.Provider value={contextValue}>{children}</ProjectDataContext.Provider>;
 }

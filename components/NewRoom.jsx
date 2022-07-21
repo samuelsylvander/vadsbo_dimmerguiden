@@ -1,106 +1,68 @@
-//import React, { useEffect } from "react";
-import Quantity from "./Quantity";
-import SwitchButtons from "./SwitchButtons";
-import Info from "./Info";
-import daliLogo from "../public/dali-pictogram.png";
-import daliRGBLogo from "../public/dali-rgb-pictogram.png";
-import daliTWLogo from "../public/dali-tw-pictogram.png";
+import React, { useContext, useRef, useState } from "react";
 import Image from "next/image";
+import { ProjectTemplateContext } from "../libs/ProjectTemplateContext";
+import { ProjectDataContext } from "../libs/ProjectDataContext";
 
-// props required:
-// currentRoom - values to display/set
-// setCurrentRoom - function to update currentRoom
-// project - name of project to display
-// setRoom - function to submit details
-// error - array containing missing fields
+export default function NewRoom({ setAppState, roomIndex }) {
+	const { dispatch } = useContext(ProjectDataContext);
+	const projectTemplate = useContext(ProjectTemplateContext);
+	const [inputCompleteFlag, setInputCompleteFlag] = useState(false);
+	const templateParent = useRef();
 
+	function handleSaveRoom() {
+		setAppState("roomdetails");
+	}
 
-function NewRoom(props) {
-    const daliButtons = [
-        <Image src={daliLogo} height={200} width={200} key={daliLogo} alt="DALI logo"/>,
-        <Image src={daliTWLogo} height={200} width={200} key={daliTWLogo} alt="DALI TW logo"/>,
-        <Image src={daliRGBLogo} height={200} width={200} key={daliRGBLogo} alt="DALI RGB logo"/>
-    ]
+	function handleSelectTemplate(e, selectedTemplate) {
+		setInputCompleteFlag(true);
+		dispatch({ type: "replace", field: `rooms.${roomIndex}`, value: selectedTemplate });
 
-    return (
-    <div className="container-fluid text-center">
-        <h1 className="py-4">Lägg till ett rum</h1>
-        
-        <div className="row pt-4 justify-content-center">
-            <div className="col-auto">
-                <label>
-                    <h3 className="d-inline-block mb-2">Ge rummet ett namn</h3>
-                    <Info text={"Välj ett passande namn till rummet."} />
-                    <input 
-                        className="form-control bg-white" 
-                        type="text" 
-                        placeholder="T ex Kontor"
-                        value={props.currentRoom["name"]} 
-                        onChange={(event)=>props.setCurrentRoom(prevVal => ({...prevVal, name: event.target.value}))}
-                        required 
-                    />
-                </label>
-            </div>
-        </div>
+		Array.from(document.getElementsByClassName("room-template")).forEach((card) => {
+			if (card === e.currentTarget) {
+				card.classList.add("bg-primary");
+			} else {
+				card.classList.remove("bg-primary");
+			}
+		});
+	}
 
-        <div className="row pt-4">
-            <SwitchButtons
-                property="dali" 
-                currentRoom={props.currentRoom}
-                setCurrentRoom={props.setCurrentRoom} 
-                label="Vad vill du styra?"
-                images={daliButtons}
-                field={["DALI", "DALI TW", "DALI RGB"]}
-                infoText="Info text here"
-            />
-        </div>
+	return (
+		<div className='container-fluid text-center'>
+			<h1 className='py-4'>Börja med att välja ett rum</h1>
 
-        <div id="step1" className={!(props.currentRoom.name != "" && props.currentRoom.dali != "") ? "visually-hidden-focusable": "row pt-4 justify-content-center"}>
-            <Quantity 
-                property="lights"
-                currentRoom={props.currentRoom}
-                setCurrentRoom={props.setCurrentRoom} 
-                label="Antal armaturer" 
-                // infoText="Info text here"
-            />
-        </div>
+			<p>
+				Välj ett rum nedan så guidar vi dig med dina val för din belysning. Du kan enkelt lägga till fler rum
+				när du är klar med ditt första.
+			</p>
+			<div className='row justify-content-center'>
+				{projectTemplate.room_templates.map((template, i) => {
+					return (
+						<div key={i} className='col-lg-2 col-sm-3 col-6'>
+							<div
+								key={template.room_template_id}
+								className='room-template card d-inline-block w-100 h-100'
+								onClick={(e) => handleSelectTemplate(e, template)}
+							>
+								<Image
+									src={template.photo}
+									width='400px'
+									height='300px'
+									layout='responsive'
+									className='card-img-top'
+									alt={template.name}
+								/>
+								<div className='card-body'>
+									<h5 className='card-title'>{template.name}</h5>
+								</div>
+							</div>
+						</div>
+					);
+				})}
+			</div>
 
-        <div id="step2" className={!(props.currentRoom.lights > 0) ? "visually-hidden-focusable": "row pt-4 justify-content-center"}>
-            <SwitchButtons 
-                property="group"
-                currentRoom={props.currentRoom}
-                setCurrentRoom={props.setCurrentRoom} 
-                label="Vill du styra armaturerna ihop eller individuellt?" 
-                field={["Ihop", "Individuellt"]} 
-                infoText="Info text here"
-            />
-        </div>
-
-        <div id="step3" className={!(props.currentRoom.group != "") ? "visually-hidden-focusable": "row pt-4 justify-content-center"}>
-            <SwitchButtons 
-                property="app"
-                currentRoom={props.currentRoom}
-                setCurrentRoom={props.setCurrentRoom} 
-                label="Vill du styra med app (t ex tidstyrt) eller knapp?" 
-                field={["App", "Knapp"]} 
-                infoText="Info text here"
-            />
-
-            {props.currentRoom.app == "Knapp" && <Quantity 
-                property="switches"
-                currentRoom={props.currentRoom}
-                setCurrentRoom={props.setCurrentRoom} 
-                label="Switches" 
-                // infoText="Info text here"
-            />}
-        </div>
-
-        <div id="step4" className={!(props.currentRoom.switches > 0 || props.currentRoom.app == "App") ? "visually-hidden-focusable": "row pt-4 justify-content-center"}>
-            <button className="btn btn-lg btn-dark w-auto" onClick={props.saveRoom}>Spara rum</button>
-        </div>
-
-    </div>
-    )
-};
-
-export default NewRoom;
+			<button className='btn btn-lg btn-dark w-auto my-3' onClick={handleSaveRoom} disabled={!inputCompleteFlag}>
+				Spara rum
+			</button>
+		</div>
+	);
+}
