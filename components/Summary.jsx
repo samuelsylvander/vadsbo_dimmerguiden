@@ -45,7 +45,7 @@ export default function Summary({ setAppState, showToast, setRoomIndex }) {
 		confirmModal.current.show();
 		const formdata = new FormData(document.getElementById("get-quote-form"));
 		formdata.append("projectId", projectData.id);
-		formdata.append("url", window.location.href);
+		formdata.append("url", window.location.origin + window.location.pathname);
 		formdata.append("source", "getQuote");
 		const result = await sendEmail(formdata);
 		if (result === "success") {
@@ -60,7 +60,7 @@ export default function Summary({ setAppState, showToast, setRoomIndex }) {
 		shareModal.current.hide();
 		const formdata = new FormData(document.getElementById("share-project-form"));
 		formdata.append("projectId", projectData.id);
-		formdata.append("url", window.location.href);
+		formdata.append("url", window.location.origin + window.location.pathname);
 		formdata.append("source", "shareProject");
 		const result = await sendEmail(formdata);
 		if (result === "success") {
