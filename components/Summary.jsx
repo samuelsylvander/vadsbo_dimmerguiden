@@ -132,16 +132,22 @@ export default function Summary({ setAppState, showToast, setRoomIndex }) {
 						<OptionsList label='Tillval' handleEdit={() => setAppState("moreoptions")} />
 					)}
 
-					<div className='py-5'>
-						<button className='btn btn-lg btn-dark mx-3' onClick={handleAddRoom}>
-							Lägg till rum
-						</button>
-						<button className='btn btn-lg  btn-dark mx-3' onClick={() => setAppState("moreoptions")}>
-							Tillval
-						</button>
-						<button className='btn btn-lg  btn-dark mx-3' onClick={() => shareModal.current.show()}>
-							Dela
-						</button>
+					<div className='d-flex flex-wrap gap-3 my-5'>
+						<div className=''>
+							<button className='btn btn-lg btn-dark mx-3' onClick={handleAddRoom}>
+								Lägg till rum
+							</button>
+						</div>
+						<div className=''>
+							<button className='btn btn-lg  btn-dark mx-3' onClick={() => setAppState("moreoptions")}>
+								Tillval
+							</button>
+						</div>
+						<div className=''>
+							<button className='btn btn-lg  btn-dark mx-3' onClick={() => shareModal.current.show()}>
+								Dela
+							</button>
+						</div>
 					</div>
 				</div>
 

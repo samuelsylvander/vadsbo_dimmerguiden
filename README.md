@@ -53,8 +53,6 @@ Add cards, project name modal to landing page
 
 Cosmetic work
 
-Fix button layout
-
 Add more test data
 
 ### Changes to project_template.json
