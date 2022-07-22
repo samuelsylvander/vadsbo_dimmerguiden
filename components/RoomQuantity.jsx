@@ -85,7 +85,7 @@ function RoomQuantity({ roomIndex, setAppState, setRoomIndex, handleDelete }) {
 	return (
 		<div className='card bg-secondary mb-4 p-3'>
 			<div className='row align-items-center'>
-				<div className='col-lg-6 me-auto align-self-center'>
+				<div className='col-lg-6 me-auto'>
 					<h3 className='mb-0'>{projectData.rooms[roomIndex].name}</h3>
 				</div>
 				<div className='col-lg-auto row justify-content-end'>
