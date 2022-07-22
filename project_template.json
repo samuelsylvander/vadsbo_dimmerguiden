@@ -118,9 +118,9 @@
 			"room_template_id": 1,
 			"name": "Small Office",
 			"description": "2-10m2",
+			"quantity": 1,
 			"photo": "/images/office.jpg",
 			"icon": "/icons/my-icon.png",
-			"quantity": 1,
 			"products": [
 				{
 					"id": 1,
