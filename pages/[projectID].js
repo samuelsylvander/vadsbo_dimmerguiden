@@ -62,6 +62,14 @@ export default function Project({ loadedProject, errorText }) {
 	}
 
 	useEffect(() => {
+		//remove modal backdrop on first load
+		const modalBackground = document.querySelector(".modal-backdrop");
+		if (modalBackground) {
+			modalBackground.remove();
+		}
+	}, []);
+
+	useEffect(() => {
 		function handleHashChange() {
 			setAppState(window.location.hash.slice(1));
 		}

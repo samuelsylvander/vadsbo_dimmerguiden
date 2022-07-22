@@ -55,11 +55,7 @@ Cosmetic work
 
 Fix button layout
 
-Long delay when creating new project
-
 Add more test data
-
-Add back button to go back a step
 
 ### Changes to project_template.json
 

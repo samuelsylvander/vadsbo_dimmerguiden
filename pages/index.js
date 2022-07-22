@@ -46,7 +46,10 @@ export default function Home() {
 			.then((response) => response.json())
 			.then((response) => {
 				// console.log("database response: " + JSON.stringify(response));
-				projectNameModal.current.hide();
+				// don't hide the modal, so that the user has an indication that we are waiting for something to finish
+				// the modal backdrop will be removed when the next page loads
+				// this is a limitation of getServerSideProps
+				// projectNameModal.current.hide();
 				router.push("./" + response.insertedId);
 			})
 			.catch((error) => console.log("database error: " + error));
