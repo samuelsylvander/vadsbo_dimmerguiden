@@ -6,54 +6,20 @@
 			"description": "Office project description",
 			"photo": "/images/kontor 1.png",
 			"icon": "/icons/my-icon.png",
-			"required_products": [
-				{
-					"id": 1,
-					"quantity": 2
-				},
-				{
-					"id": 2,
-					"quantity": 3
-				}
-			],
-			"addons": [
+			"products": [
 				{
 					"id": 1,
 					"quantity": 2,
 					"required": false
+				},
+				{
+					"id": 2,
+					"quantity": 3,
+					"required": true
 				}
 			],
 			"rooms": [
-				{
-					"id": 1,
-					"name": "Small Office",
-					"description": "2-10m2",
-					"photo": "/images/my-photo.png",
-					"icon": "/icons/my-icon.png",
-					"quantity": 1,
-					"products": [
-						{
-							"id": 1,
-							"quantity": 2,
-							"required": false
-						},
-						{
-							"id": 2,
-							"quantity": 3,
-							"required": false
-						}
-					],
-					"sensor": {
-						"selected": true,
-						"required": false,
-						"products": [{ "id": 1, "quantity": 2, "required": true }]
-					},
-					"environmental_sensor": {
-						"selected": false,
-						"required": false,
-						"products": [{ "id": 301, "quantity": 2, "options": {} }]
-					}
-				}
+				1,2,4
 			]
 		},
 		{
@@ -64,52 +30,18 @@
 			"icon": "/icons/my-icon.png",
 			"required_products": [
 				{
-					"id": 1,
-					"quantity": 2
-				},
-				{
 					"id": 2,
-					"quantity": 3
-				}
-			],
-			"addons": [
-				{
-					"id": 1,
 					"quantity": 2,
 					"required": false
+				},
+				{
+					"id": 3,
+					"quantity": 3,
+					"required": true
 				}
 			],
 			"rooms": [
-				{
-					"id": 1,
-					"name": "Small Office",
-					"description": "2-10m2",
-					"photo": "/photos/my-photo.png",
-					"icon": "/icons/my-icon.png",
-					"quantity": 1,
-					"products": [
-						{
-							"id": 1,
-							"quantity": 2,
-							"required": false
-						},
-						{
-							"id": 2,
-							"quantity": 3,
-							"required": false
-						}
-					],
-					"sensor": {
-						"selected": true,
-						"required": false,
-						"products": [{ "id": 1, "quantity": 2, "required": true }]
-					},
-					"environmental_sensor": {
-						"selected": false,
-						"required": false,
-						"products": [{ "id": 301, "quantity": 2, "options": {} }]
-					}
-				}
+				3
 			]
 		}
 	],
@@ -118,7 +50,6 @@
 			"room_template_id": 1,
 			"name": "Small Office",
 			"description": "2-10m2",
-			"quantity": 1,
 			"photo": "/images/office.jpg",
 			"icon": "/icons/my-icon.png",
 			"products": [
@@ -134,14 +65,19 @@
 				}
 			],
 			"sensor": {
-				"selected": true,
-				"required": false,
-				"products": [{ "id": 1, "quantity": 2, "required": true }]
-			},
-			"environmental_sensor": {
-				"selected": false,
-				"required": false,
-				"products": [{ "id": 301, "quantity": 2, "options": {} }]
+				"required": true,
+				"products": [
+					{
+						"id": 2,
+						"quantity": 2,
+						"required": false
+					},
+					{
+						"id": 3,
+						"quantity": 3,
+						"required": true
+					}
+				]
 			}
 		},
 		{
@@ -164,14 +100,19 @@
 				}
 			],
 			"sensor": {
-				"selected": true,
-				"required": false,
-				"products": [{ "id": 1, "quantity": 2, "required": true }]
-			},
-			"environmental_sensor": {
-				"selected": false,
-				"required": false,
-				"products": [{ "id": 301, "quantity": 2, "options": {} }]
+				"required": true,
+				"products": [
+					{
+						"id": 2,
+						"quantity": 2,
+						"required": false
+					},
+					{
+						"id": 3,
+						"quantity": 3,
+						"required": true
+					}
+				]
 			}
 		},
 		{
@@ -194,14 +135,19 @@
 				}
 			],
 			"sensor": {
-				"selected": true,
-				"required": false,
-				"products": [{ "id": 1, "quantity": 2, "required": true }]
-			},
-			"environmental_sensor": {
-				"selected": false,
-				"required": false,
-				"products": [{ "id": 301, "quantity": 2, "options": {} }]
+				"required": true,
+				"products": [
+					{
+						"id": 2,
+						"quantity": 2,
+						"required": false
+					},
+					{
+						"id": 3,
+						"quantity": 3,
+						"required": true
+					}
+				]
 			}
 		},
 		{
@@ -224,68 +170,22 @@
 				}
 			],
 			"sensor": {
-				"selected": true,
-				"required": false,
-				"products": [{ "id": 1, "quantity": 2, "required": true }]
-			},
-			"environmental_sensor": {
-				"selected": false,
-				"required": false,
-				"products": [{ "id": 301, "quantity": 2, "options": {} }]
+				"required": true,
+				"products": [
+					{
+						"id": 2,
+						"quantity": 2,
+						"required": false
+					},
+					{
+						"id": 3,
+						"quantity": 3,
+						"required": true
+					}
+				]
 			}
 		}
 	],
-	"sensor_options": {
-		"no": {
-			"required_products": [
-				{
-					"id": 201,
-					"quantity": 2
-				}
-			],
-			"optional_products": [
-				{
-					"id": 201,
-					"quantity": 2
-				},
-				{
-					"id": 204,
-					"quantity": 2
-				}
-			]
-		},
-
-		"yes": {
-			"required_products": [
-				{
-					"id": 202,
-					"quantity": 2
-				}
-			],
-			"optional_products": [
-				{
-					"id": 202,
-					"quantity": 1
-				},
-				{
-					"id": 203,
-					"quantity": 1
-				}
-			]
-		},
-		"environmental": {
-			"optional_products": [
-				{
-					"id": 301,
-					"quantity": 1
-				},
-				{
-					"id": 302,
-					"quantity": 1
-				}
-			]
-		}
-	},
 	"products": [
 		{
 			"id": 1,
@@ -377,29 +277,6 @@
 					}
 				]
 			}
-		}
-	],
-	"addons": [
-		{
-			"id": 1,
-			"name": "Battery",
-			"description": "",
-			"photo": "/photos/my-photo.png",
-			"icon": "/icons/my-icon.png"
-		},
-		{
-			"id": 2,
-			"name": "Alarm",
-			"description": "",
-			"photo": "/photos/my-photo.png",
-			"icon": "/icons/my-icon.png"
-		},
-		{
-			"id": 3,
-			"name": "Boka",
-			"description": "",
-			"photo": "/photos/my-photo.png",
-			"icon": "/icons/my-icon.png"
 		}
 	]
 }
