@@ -13,7 +13,7 @@ import { ProjectTemplateContext } from "../libs/ProjectTemplateContext";
 
 function RoomQuantity({ roomIndex, setAppState, setRoomIndex, handleDelete }) {
 	const { projectData, dispatch } = useContext(ProjectDataContext);
-	const projectTemplate = useContext(ProjectTemplateContext);
+	const { products } = useContext(ProjectTemplateContext);
 	const roomProducts = getRoomProducts();
 	const collapseRef = useRef();
 	const chevronRef = useRef();
@@ -30,7 +30,7 @@ function RoomQuantity({ roomIndex, setAppState, setRoomIndex, handleDelete }) {
 	function getRoomProducts() {
 		const roomProducts = projectData.rooms[roomIndex].products;
 		const productDetails = roomProducts.map((roomProduct) =>
-			projectTemplate.products.find((product) => product.id === roomProduct.id)
+			products.find((product) => product.id === roomProduct.id)
 		);
 		return productDetails.map((product, index) => {
 			return { ...product, quantity: roomProducts[index].quantity };

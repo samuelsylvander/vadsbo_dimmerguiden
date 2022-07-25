@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useRef, useContext } from "react";
+import React, { useEffect, useRef, useContext } from "react";
 import RoomQuantity from "./RoomQuantity";
 import OptionsList from "./OptionsList";
 import Sidebar from "./Sidebar";
@@ -128,7 +128,7 @@ export default function Summary({ setAppState, showToast, setRoomIndex }) {
 						);
 					})}
 
-					{projectData.addons.length > 0 && (
+					{projectData.products.length > 0 && (
 						<OptionsList label='Tillval' handleEdit={() => setAppState("moreoptions")} />
 					)}
 

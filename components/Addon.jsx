@@ -8,12 +8,12 @@ export default function Addon({ name, description, value, icon, field }) {
 	const { dispatch, projectData } = useContext(ProjectDataContext);
 
 	useEffect(() => {
-		if (projectData.addons.some((addon) => addon.id === value.id)) {
+		if (projectData.products.some((addon) => addon.id === value.id)) {
 			setSelected(true);
 		} else {
 			setSelected(false);
 		}
-	}, [projectData.addons, value.id]);
+	}, [projectData.products, value.id]);
 
 	function handleSelectYes() {
 		dispatch({ type: "add", field: field, value: value });

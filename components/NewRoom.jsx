@@ -5,9 +5,13 @@ import { ProjectDataContext } from "../libs/ProjectDataContext";
 
 export default function NewRoom({ setAppState, roomIndex }) {
 	const { dispatch } = useContext(ProjectDataContext);
-	const projectTemplate = useContext(ProjectTemplateContext);
+	const { projectTemplate, roomTemplates } = useContext(ProjectTemplateContext);
 	const [inputCompleteFlag, setInputCompleteFlag] = useState(false);
-	const templateParent = useRef();
+	const roomTemplateDetails = () => {
+		return projectTemplate.rooms.map((roomId) =>
+			roomTemplates.find((template) => template.room_template_id === roomId)
+		);
+	};
 
 	function handleSaveRoom() {
 		setAppState("roomdetails");
@@ -15,7 +19,7 @@ export default function NewRoom({ setAppState, roomIndex }) {
 
 	function handleSelectTemplate(e, selectedTemplate) {
 		setInputCompleteFlag(true);
-		dispatch({ type: "replace", field: `rooms.${roomIndex}`, value: selectedTemplate });
+		dispatch({ type: "replace", field: `rooms.${roomIndex}`, value: { ...selectedTemplate, quantity: 1 } });
 
 		Array.from(document.getElementsByClassName("room-template")).forEach((card) => {
 			if (card === e.currentTarget) {
@@ -35,11 +39,10 @@ export default function NewRoom({ setAppState, roomIndex }) {
 				när du är klar med ditt första.
 			</p>
 			<div className='row justify-content-center'>
-				{projectTemplate.room_templates.map((template, i) => {
+				{roomTemplateDetails().map((template, i) => {
 					return (
 						<div key={i} className='col-lg-2 col-sm-3 col-6'>
 							<div
-								key={template.room_template_id}
 								className='room-template card d-inline-block w-100 h-100'
 								onClick={(e) => handleSelectTemplate(e, template)}
 							>

@@ -11,6 +11,7 @@ import { config } from "@fortawesome/fontawesome-svg-core";
 config.autoAddCss = false;
 import Header from "../components/Header";
 import { ProjectDataContext } from "../libs/ProjectDataContext";
+import { ProjectTemplateContext } from "../libs/ProjectTemplateContext";
 
 export async function getServerSideProps(context) {
 	const projectID = context.query.projectID;
@@ -42,10 +43,11 @@ export async function getServerSideProps(context) {
 export default function Project({ loadedProject, errorText }) {
 	// const blankRoom = { name: "", dali: "", lights: 0, group: "", app: "", switches: 0, noOfRooms: 1 };
 
-	const [appState, setAppState] = useState(""); // state to control which page is displayed
+	const [appState, setAppState] = useState("newroom"); // state to control which page is displayed
 	const [roomIndex, setRoomIndex] = useState(0);
 	const toast = useRef();
 	const { isLoading, dispatch } = useContext(ProjectDataContext);
+	const { setProjectTemplateId } = useContext(ProjectTemplateContext);
 
 	const showToast = useCallback((message) => {
 		document.getElementById("toastMessage").innerHTML = message;
@@ -82,10 +84,11 @@ export default function Project({ loadedProject, errorText }) {
 	useEffect(() => {
 		//initialise projectData with data from MongoDB
 		dispatch({ type: "initialise", value: loadedProject });
+		setProjectTemplateId(loadedProject.template_id);
 
 		//if this is an existing project, go straight to summary
-		if (loadedProject.rooms.length === 0) {
-			navigate("newroom");
+		if (loadedProject.rooms.length > 0) {
+			navigate("summary");
 		}
 	}, [loadedProject, dispatch]);
 

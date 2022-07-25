@@ -8,13 +8,14 @@ import { ProjectTemplateContext } from "../libs/ProjectTemplateContext";
 export default function Home() {
 	const [projectName, setProjectName] = useState("");
 	const [buttonText, setButtonText] = useState("Start Project");
-	const [projectTemplateIndex, setProjectTemplateIndex] = useState();
+	const [projectTemplate, setProjectTemplate] = useState();
 	const router = useRouter();
-	const projectTemplate = useContext(ProjectTemplateContext);
+	const { projectTemplateList } = useContext(ProjectTemplateContext);
 	const projectNameModal = useRef();
 
-	function getProjectName(cardIndex) {
-		setProjectTemplateIndex(cardIndex);
+	function getProjectName(projectId) {
+		const chosenTemplate = projectTemplateList.find((template) => template.id === parseFloat(projectId));
+		setProjectTemplate(chosenTemplate);
 		projectNameModal.current.show();
 	}
 
@@ -34,8 +35,9 @@ export default function Home() {
 		//start working
 		const url = "/api/savetodbAPI";
 		const newProject = {
-			...projectTemplate.project_templates[projectTemplateIndex],
-			template_id: projectTemplate.project_templates[projectTemplateIndex].id,
+			...projectTemplate,
+			template_id: projectTemplate.id,
+			rooms: [],
 			name: projectName,
 			id: undefined,
 		};
@@ -76,7 +78,7 @@ export default function Home() {
 					Välj vilken typ av projekt du vill designa här nedanför så guidar vi dig genom hela processen.
 				</p>
 				<div className='row justify-content-center'>
-					{projectTemplate.project_templates.map((template, index) => (
+					{projectTemplateList.map((template, index) => (
 						<div key={index} className='col-sm-4'>
 							<div className='card h-100'>
 								<Image
@@ -89,7 +91,7 @@ export default function Home() {
 								<div className='card-body'>
 									<h5 className='card-title'>{template.name}</h5>
 									<p className='card-text'>{template.description}</p>
-									<button onClick={() => getProjectName(index)} className='btn btn-dark mt-3'>
+									<button onClick={() => getProjectName(template.id)} className='btn btn-dark mt-3'>
 										Start Project
 									</button>
 								</div>

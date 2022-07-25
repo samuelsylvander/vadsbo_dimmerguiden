@@ -1,10 +1,18 @@
 import React, { useContext } from "react";
-import { ProjectDataContext } from "../libs/ProjectDataContext";
 import { ProjectTemplateContext } from "../libs/ProjectTemplateContext";
-import Addon from "./Addon";
+import SwitchButtons from "./SwitchButtons";
 
 function MoreOptions({ setAppState }) {
-	const projectTemplate = useContext(ProjectTemplateContext);
+	const { projectTemplate, products } = useContext(ProjectTemplateContext);
+	const addonDetails = getDetails();
+
+	function getDetails() {
+		const details = projectTemplate.products.map((product) => {
+			const lookup = products.find((lookup) => lookup.id === product.id);
+			return { ...product, ...lookup };
+		});
+		return details;
+	}
 
 	function handleSave() {
 		setAppState("summary");
@@ -14,15 +22,20 @@ function MoreOptions({ setAppState }) {
 		<>
 			<div className='container-fluid text-center'>
 				<h1 className='py-4'>Möjliga tillval</h1>
-
-				{projectTemplate.addons.map((addon, index) => (
-					<Addon
-						key={index}
-						name={addon.name}
-						description={addon.description}
-						field={`addons`}
-						value={addon}
-					/>
+				{addonDetails.map((addon, index) => (
+					<>
+						{addon.required === false && (
+							<SwitchButtons
+								key={index}
+								label={addon.name}
+								buttonLabels={["Yes", "No"]}
+								description={addon.description}
+								field={`products.${index}.selected`}
+								options={[true, false]}
+							/>
+						)}
+						{JSON.stringify(addon.name)}
+					</>
 				))}
 
 				<br />

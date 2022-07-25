@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState, useMemo } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import SwitchButtons from "./SwitchButtons";
 import Info from "./Info";
 
@@ -7,47 +7,25 @@ import { ProjectDataContext } from "../libs/ProjectDataContext";
 
 export default function NewRoom({ setAppState, roomIndex }) {
 	const { projectData, dispatch } = useContext(ProjectDataContext);
-	const projectTemplate = useContext(ProjectTemplateContext);
+	const { roomTemplates, products } = useContext(ProjectTemplateContext);
 	const [inputCompleteFlag, setInputCompleteFlag] = useState(false);
+	const currentRoomTemplate = roomTemplates.find(
+		(room) => room.room_template_id === projectData.rooms[roomIndex].room_template_id
+	);
+	const roomTemplateDetails = getRoomTemplateDetails();
 
-	const sensorOptions = useMemo(() => {
-		let optionsFromTemplate = [];
-
-		if (projectData.rooms[roomIndex].sensor.selected === true) {
-			optionsFromTemplate = projectTemplate.sensor_options.yes.optional_products;
-		} else if (projectData.rooms[roomIndex].sensor.selected === false) {
-			optionsFromTemplate = projectTemplate.sensor_options.no.optional_products;
-		}
-
-		const optionsDetails = optionsFromTemplate.map((option) =>
-			projectTemplate.products.find((product) => product.id === option.id)
-		);
-
-		return optionsDetails;
-	}, [projectData, projectTemplate, roomIndex]);
-
-	const environmentalSensorProducts = useMemo(() => {
-		const productOptions = projectTemplate.sensor_options.environmental.optional_products;
-		const envSensorProducts = productOptions.map((option) =>
-			projectTemplate.products.find((product) => product.id === option.id)
-		);
-		return envSensorProducts;
-	}, [projectTemplate]);
-
-	const environmentalSensorProductOptions = useMemo(() => {
-		const chosenProductId = projectData.rooms[roomIndex].environmental_sensor.products[0].id;
-		const matchingProduct = projectTemplate.products.find((product) => product.id == chosenProductId);
-
-		if (matchingProduct && matchingProduct.hasOwnProperty("options")) {
-			const optionKeys = Object.keys(matchingProduct.options);
-			const productOptions = optionKeys.map((key) => {
-				return { name: key, values: matchingProduct.options[key] };
-			});
-			return productOptions;
-		} else {
-			return [];
-		}
-	}, [projectData, projectTemplate, roomIndex]);
+	function getRoomTemplateDetails() {
+		let roomDetails = { ...currentRoomTemplate };
+		roomDetails.products = currentRoomTemplate.products.map((product) => {
+			const productDetails = products.find((item) => item.id === product.id);
+			return { ...product, ...productDetails };
+		});
+		roomDetails.sensor.products = currentRoomTemplate.sensor.products.map((product) => {
+			const productDetails = products.find((item) => item.id === product.id);
+			return { ...product, ...productDetails };
+		});
+		return roomDetails;
+	}
 
 	useEffect(() => {
 		//check each div named 'switch-buttons', see if it has a selected value
@@ -59,7 +37,27 @@ export default function NewRoom({ setAppState, roomIndex }) {
 		setInputCompleteFlag(completedBoolean);
 	}, [projectData]);
 
+	function addRequired() {
+		currentRoomTemplate.products.forEach((searchItem) => {
+			if (
+				searchItem.required === true &&
+				!projectData.rooms[roomIndex].products.some((listItem) => listItem.id === searchItem.id)
+			) {
+				dispatch({ type: "add", field: `rooms.${roomIndex}.products` });
+			}
+		});
+		currentRoomTemplate.sensor.products.forEach((searchItem) => {
+			if (
+				searchItem.required === true &&
+				!projectData.rooms[roomIndex].sensor.products.some((listItem) => listItem.id === searchItem.id)
+			) {
+				dispatch({ type: "add", field: `rooms.${roomIndex}.sensor.products` });
+			}
+		});
+	}
+
 	function handleSaveRoom() {
+		addRequired();
 		setAppState("summary");
 	}
 
@@ -88,42 +86,40 @@ export default function NewRoom({ setAppState, roomIndex }) {
 							required
 						/>
 					</label>
-					<SwitchButtons
-						label='Do you need a Sensor?'
-						buttonLabels={["Yes", "No"]}
-						options={[true, false]}
-						field={`rooms.${roomIndex}.sensor.selected`}
-					/>
 
-					<SwitchButtons
-						label='Sensor options'
-						buttonLabels={sensorOptions.map((option) => option.name)}
-						options={sensorOptions.map((option) => {
-							return { id: option.id, quantity: 1 };
-						})}
-						field={`rooms.${roomIndex}.sensor.products`}
-						multiple
-					/>
+					{roomTemplateDetails.products.map((product, index) => (
+						<SwitchButtons
+							key={index}
+							label={product.name}
+							buttonLabels={["Yes", "No"]}
+							options={[true, false]}
+							field={`rooms.${roomIndex}.products.${index}.selected`}
+						/>
+					))}
 
-					<SwitchButtons
-						label='Environmental Sensor?'
-						buttonLabels={["Yes", "No"]}
-						options={[true, false]}
-						field={`rooms.${roomIndex}.environmental_sensor.selected`}
-					/>
+					{projectData.rooms[roomIndex].sensor.required === false && (
+						<SwitchButtons
+							label='Do you need a Sensor?'
+							buttonLabels={["Yes", "No"]}
+							options={[true, false]}
+							field={`rooms.${roomIndex}.sensor.selected`}
+						/>
+					)}
 
-					{projectData.rooms[roomIndex].environmental_sensor.selected === true && (
+					{(projectData.rooms[roomIndex].sensor.required === true ||
+						projectData.rooms[roomIndex].sensor.selected === true) && (
 						<>
-							<SwitchButtons
-								label='Environmental Sensor Options'
-								buttonLabels={environmentalSensorProducts.map((option) => option.name)}
-								options={environmentalSensorProducts.map((option) => {
-									return { id: option.id, quantity: 1, options: {} };
-								})}
-								field={`rooms.${roomIndex}.environmental_sensor.products.0`}
-							/>
+							{roomTemplateDetails.sensor.products.map((product, index) => (
+								<SwitchButtons
+									key={index}
+									label={product.name}
+									buttonLabels={["Yes", "No"]}
+									options={[true, false]}
+									field={`rooms.${roomIndex}.sensor.products.${index}.selected`}
+								/>
+							))}
 
-							{environmentalSensorProductOptions.map((productOption) => (
+							{/* {environmentalSensorProductOptions.map((productOption) => (
 								<>
 									<SwitchButtons
 										label={productOption.name}
@@ -160,7 +156,7 @@ export default function NewRoom({ setAppState, roomIndex }) {
 											/>
 										)}
 								</>
-							))}
+							))} */}
 						</>
 					)}
 

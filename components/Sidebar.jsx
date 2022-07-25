@@ -6,7 +6,7 @@ import { ProjectTemplateContext } from "../libs/ProjectTemplateContext";
 
 function Sidebar({ showDetails }) {
 	const { projectData } = useContext(ProjectDataContext);
-	const projectTemplate = useContext(ProjectTemplateContext);
+	const { products } = useContext(ProjectTemplateContext);
 	const { productsTotal, addonsTotal } = calculateTotals(projectData);
 
 	function calculateTotals() {
@@ -21,10 +21,6 @@ function Sidebar({ showDetails }) {
 			}
 		}
 
-		projectData.required_products.forEach((product) => {
-			addProduct(product, productsTotal);
-		});
-
 		projectData.rooms.forEach((room) => {
 			const roomTotals = {};
 			room.products.forEach((product) => {
@@ -33,11 +29,6 @@ function Sidebar({ showDetails }) {
 			room.sensor.products.forEach((product) => {
 				addProduct(product, roomTotals);
 			});
-			if (room.environmental_sensor.selected) {
-				room.environmental_sensor.products.forEach((product) => {
-					addProduct(product, roomTotals);
-				});
-			}
 
 			Object.keys(roomTotals).forEach((id) =>
 				addProduct({ ...roomTotals[id], quantity: roomTotals[id].quantity * room.quantity }, productsTotal)
@@ -45,18 +36,20 @@ function Sidebar({ showDetails }) {
 		});
 
 		Object.keys(productsTotal).forEach((itemId) => {
-			const details = projectTemplate.products.find((product) => product.id == itemId);
+			const details = products.find((product) => product.id == itemId);
 			productsTotal[itemId].name = details.name;
 			productsTotal[itemId].description = details.description;
 		});
 
 		//total up addons, then get details
 		const addonsTotal = {};
-		projectData.addons.forEach((product) => {
-			addProduct(product, addonsTotal);
+		projectData.products.forEach((product) => {
+			if (product.required === true || product.selected === true) {
+				addProduct(product, addonsTotal);
+			}
 		});
 		Object.keys(addonsTotal).forEach((itemId) => {
-			const details = projectTemplate.addons.find((product) => product.id == itemId);
+			const details = products.find((product) => product.id == itemId);
 			addonsTotal[itemId].name = details.name;
 			addonsTotal[itemId].description = details.description;
 		});

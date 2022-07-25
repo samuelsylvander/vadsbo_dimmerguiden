@@ -3,20 +3,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { ProjectDataContext } from "../libs/ProjectDataContext";
 import { ProjectTemplateContext } from "../libs/ProjectTemplateContext";
-// import { Collapse } from "bootstrap";
 
 export default function OptionsList({ label, handleEdit }) {
 	const collapseRef = useRef();
 	const chevronRef = useRef();
-	const { projectData, dispatch } = useContext(ProjectDataContext);
-	const projectTemplate = useContext(ProjectTemplateContext);
-	const selectedAddonDetails = useMemo(() => {
-		const selectedAddons = projectData.addons;
-		const selectedAddonDetails = selectedAddons.map((selected) =>
-			projectTemplate.addons.find((product) => product.id === selected.id)
-		);
-		return selectedAddonDetails;
-	}, [projectData, projectTemplate]);
+	const { projectData } = useContext(ProjectDataContext);
+	const { projectTemplate, products } = useContext(ProjectTemplateContext);
+	const addonDetails = getDetails();
+
+	function getDetails() {
+		const details = projectTemplate.products.map((product) => {
+			const lookup = products.find((lookup) => lookup.id === product.id);
+			return { ...product, ...lookup };
+		});
+		return details;
+	}
 
 	useEffect(() => {
 		//set up bootstrap collapse
@@ -71,9 +72,10 @@ export default function OptionsList({ label, handleEdit }) {
 				</div>
 				<div id='optionsdetails' className='collapse p-0'>
 					<div className='card-body pb-0'>
-						{selectedAddonDetails.map((addon, i) => (
-							<p key={i}>{addon.name}</p>
-						))}
+						{addonDetails.map(
+							(addon, i) =>
+								(addon.selected === true || addon.required === true) && <p key={i}>{addon.name}</p>
+						)}
 					</div>
 				</div>
 			</div>
