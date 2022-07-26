@@ -8,11 +8,11 @@ export default function OptionsList({ label, handleEdit }) {
 	const collapseRef = useRef();
 	const chevronRef = useRef();
 	const { projectData } = useContext(ProjectDataContext);
-	const { projectTemplate, products } = useContext(ProjectTemplateContext);
+	const { products } = useContext(ProjectTemplateContext);
 	const addonDetails = getDetails();
 
 	function getDetails() {
-		const details = projectTemplate.products.map((product) => {
+		const details = projectData.products.map((product) => {
 			const lookup = products.find((lookup) => lookup.id === product.id);
 			return { ...product, ...lookup };
 		});
@@ -73,8 +73,15 @@ export default function OptionsList({ label, handleEdit }) {
 				<div id='optionsdetails' className='collapse p-0'>
 					<div className='card-body pb-0'>
 						{addonDetails.map(
-							(addon, i) =>
-								(addon.selected === true || addon.required === true) && <p key={i}>{addon.name}</p>
+							(product, index) =>
+								(product.required === true || product.selected === true) && (
+									<p key={index}>
+										{product.name + ": "}
+										<strong>{product.quantity}</strong>
+										{/* {product?.options?.brand && <em>{" " + product.options.brand + ", "}</em>}
+										{product?.options?.color && <em>{" " + product.options.color}</em>} */}
+									</p>
+								)
 						)}
 					</div>
 				</div>
