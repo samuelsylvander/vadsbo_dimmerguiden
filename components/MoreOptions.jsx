@@ -24,6 +24,7 @@ function MoreOptions({ setAppState }) {
 		<>
 			<div className='container-fluid text-center'>
 				<h1 className='py-4'>Möjliga tillval</h1>
+				{JSON.stringify(projectData.products)}
 				{addonDetails.map((addon, index) => (
 					<>
 						{addon.required === false && (
