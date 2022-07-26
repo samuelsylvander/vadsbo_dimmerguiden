@@ -10,9 +10,6 @@ function Sidebar({ showDetails }) {
 	const { productsTotal, addonsTotal } = calculateTotals(projectData);
 
 	function calculateTotals() {
-		//total up products, then get details
-		const productsTotal = {};
-
 		function addProduct(addFrom, addTo) {
 			if (addTo.hasOwnProperty(addFrom.id)) {
 				addTo[addFrom.id].quantity += addFrom.quantity;
@@ -21,33 +18,41 @@ function Sidebar({ showDetails }) {
 			}
 		}
 
+		//total up room products, then get details
+		const productsTotal = {};
+
 		projectData.rooms.forEach((room) => {
 			const roomTotals = {};
 			room.products.forEach((product) => {
-				addProduct(product, roomTotals);
+				if (product.selected || product.required) {
+					addProduct(product, roomTotals);
+				}
 			});
 			room.sensor.products.forEach((product) => {
-				addProduct(product, roomTotals);
+				if (product.selected || product.required) {
+					addProduct(product, roomTotals);
+				}
 			});
 
 			Object.keys(roomTotals).forEach((id) =>
 				addProduct({ ...roomTotals[id], quantity: roomTotals[id].quantity * room.quantity }, productsTotal)
 			);
 		});
-
+		// get product details
 		Object.keys(productsTotal).forEach((itemId) => {
 			const details = products.find((product) => product.id == itemId);
 			productsTotal[itemId].name = details.name;
 			productsTotal[itemId].description = details.description;
 		});
 
-		//total up addons, then get details
+		//total up addons
 		const addonsTotal = {};
 		projectData.products.forEach((product) => {
-			if (product.required === true || product.selected === true) {
+			if (product.required || product.selected) {
 				addProduct(product, addonsTotal);
 			}
 		});
+		//get addon details
 		Object.keys(addonsTotal).forEach((itemId) => {
 			const details = products.find((product) => product.id == itemId);
 			addonsTotal[itemId].name = details.name;
