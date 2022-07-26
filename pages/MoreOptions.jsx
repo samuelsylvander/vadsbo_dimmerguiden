@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { ProjectDataContext } from "../libs/ProjectDataContext";
 import { ProjectTemplateContext } from "../libs/ProjectTemplateContext";
-import SwitchButtons from "./SwitchButtons";
+import SwitchButtons from "../components/SwitchButtons";
 
 function MoreOptions({ setAppState }) {
 	const { projectData } = useContext(ProjectDataContext);

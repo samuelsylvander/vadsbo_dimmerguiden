@@ -1,10 +1,10 @@
 import { ObjectId } from "mongodb";
 import { connectToDatabase } from "../libs/mongodb";
 import Head from "next/head";
-import NewRoom from "../components/NewRoom";
-import Summary from "../components/Summary";
-import MoreOptions from "../components/MoreOptions";
-import RoomDetails from "../components/RoomDetails";
+import NewRoom from "./NewRoom";
+import Summary from "./Summary";
+import MoreOptions from "./MoreOptions";
+import RoomDetails from "./RoomDetails";
 import React, { useEffect, useState, useRef, useContext, useCallback } from "react";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
@@ -15,18 +15,15 @@ import { ProjectTemplateContext } from "../libs/ProjectTemplateContext";
 
 export async function getServerSideProps(context) {
 	const projectID = context.query.projectID;
-
-	console.log("url pid = " + projectID);
 	let output;
 
 	try {
 		const { db } = await connectToDatabase();
 		const dbResults = await db.collection("projects");
 		output = await dbResults.findOne({ _id: new ObjectId(projectID) });
-		// console.log("database access results: " + JSON.stringify(output))
 	} catch (e) {
 		console.log("getServerSideProps error");
-		// console.log(e)
+		console.log(e);
 		if (projectID.length != 24) {
 			return { props: { loadedProject: "errored", errorText: "Invalid Project ID" } };
 		}
@@ -41,8 +38,6 @@ export async function getServerSideProps(context) {
 }
 
 export default function Project({ loadedProject, errorText }) {
-	// const blankRoom = { name: "", dali: "", lights: 0, group: "", app: "", switches: 0, noOfRooms: 1 };
-
 	const [appState, setAppState] = useState("newroom"); // state to control which page is displayed
 	const [roomIndex, setRoomIndex] = useState(0);
 	const toast = useRef();
