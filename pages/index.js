@@ -51,7 +51,7 @@ export default function Home() {
 				// don't hide the modal, so that the user has an indication that we are waiting for something to finish
 				// the modal backdrop will be removed when the next page loads
 				// this is a limitation of getServerSideProps
-				// projectNameModal.current.hide();
+				projectNameModal.current.hide();
 				router.push("./" + response.insertedId);
 			})
 			.catch((error) => console.log("database error: " + error));
