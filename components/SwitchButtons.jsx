@@ -11,7 +11,15 @@ import Info from "./Info";
 // infoText - in case more information is needed
 // multiple - flag to add if you want to allow multiple values to be selected
 
-function SwitchButtons({ label, buttonLabels, options, field, infoText, images, multiple }) {
+function SwitchButtons({
+	label,
+	buttonLabels = ["Yes", "No"],
+	options = [true, false],
+	field,
+	infoText,
+	images,
+	multiple,
+}) {
 	const { projectData, dispatch } = useContext(ProjectDataContext);
 	const parentRef = useRef();
 	const buttonLabelsValue = useRef();

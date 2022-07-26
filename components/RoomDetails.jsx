@@ -7,24 +7,30 @@ import { ProjectDataContext } from "../libs/ProjectDataContext";
 
 export default function NewRoom({ setAppState, roomIndex }) {
 	const { projectData, dispatch } = useContext(ProjectDataContext);
-	const { roomTemplates, products } = useContext(ProjectTemplateContext);
+	const { products } = useContext(ProjectTemplateContext);
 	const [inputCompleteFlag, setInputCompleteFlag] = useState(false);
-	const currentRoomTemplate = roomTemplates.find(
-		(room) => room.room_template_id === projectData.rooms[roomIndex].room_template_id
-	);
 	const roomTemplateDetails = getRoomTemplateDetails();
 
 	function getRoomTemplateDetails() {
-		let roomDetails = { ...currentRoomTemplate };
-		roomDetails.products = currentRoomTemplate.products.map((product) => {
+		let roomDetails = { ...projectData.rooms[roomIndex] };
+		roomDetails.products = roomDetails.products.map((product) => {
 			const productDetails = products.find((item) => item.id === product.id);
 			return { ...product, ...productDetails };
 		});
-		roomDetails.sensor.products = currentRoomTemplate.sensor.products.map((product) => {
+		roomDetails.sensor.products = roomDetails.sensor.products.map((product) => {
 			const productDetails = products.find((item) => item.id === product.id);
 			return { ...product, ...productDetails };
 		});
 		return roomDetails;
+	}
+
+	function getColorOptions(selectedProduct, option) {
+		const lookup = selectedProduct.options.brand.find((brand) => brand.name === option);
+		if (lookup) {
+			return lookup.color_options;
+		} else {
+			return [];
+		}
 	}
 
 	useEffect(() => {
@@ -37,27 +43,7 @@ export default function NewRoom({ setAppState, roomIndex }) {
 		setInputCompleteFlag(completedBoolean);
 	}, [projectData]);
 
-	function addRequired() {
-		currentRoomTemplate.products.forEach((searchItem) => {
-			if (
-				searchItem.required === true &&
-				!projectData.rooms[roomIndex].products.some((listItem) => listItem.id === searchItem.id)
-			) {
-				dispatch({ type: "add", field: `rooms.${roomIndex}.products` });
-			}
-		});
-		currentRoomTemplate.sensor.products.forEach((searchItem) => {
-			if (
-				searchItem.required === true &&
-				!projectData.rooms[roomIndex].sensor.products.some((listItem) => listItem.id === searchItem.id)
-			) {
-				dispatch({ type: "add", field: `rooms.${roomIndex}.sensor.products` });
-			}
-		});
-	}
-
 	function handleSaveRoom() {
-		addRequired();
 		setAppState("summary");
 	}
 
@@ -87,76 +73,62 @@ export default function NewRoom({ setAppState, roomIndex }) {
 						/>
 					</label>
 
-					{roomTemplateDetails.products.map((product, index) => (
-						<SwitchButtons
-							key={index}
-							label={product.name}
-							buttonLabels={["Yes", "No"]}
-							options={[true, false]}
-							field={`rooms.${roomIndex}.products.${index}.selected`}
-						/>
+					{roomTemplateDetails.products.map((currentProduct, index) => (
+						<>
+							<SwitchButtons
+								key={index}
+								label={currentProduct.name}
+								field={`rooms.${roomIndex}.products.${index}.selected`}
+							/>
+							{currentProduct.selected === true && currentProduct.hasOwnProperty("options") && (
+								<>
+									<SwitchButtons
+										label={"Brand"}
+										buttonLabels={currentProduct.options.brand.map((option) => option.name)}
+										options={currentProduct.options.brand.map((option) => option.name)}
+										field={`rooms.${roomIndex}.products.${index}.options.brand`}
+									/>
+									{projectData.rooms[roomIndex].products[index]?.options?.brand && (
+										<>
+											<SwitchButtons
+												label={
+													projectData.rooms[roomIndex].products[index].options.brand +
+													" Color Options"
+												}
+												buttonLabels={getColorOptions(
+													currentProduct,
+													projectData.rooms[roomIndex].products[index].options.brand
+												)}
+												options={getColorOptions(
+													currentProduct,
+													projectData.rooms[roomIndex].products[index].options.brand
+												)}
+												field={`rooms.${roomIndex}.products.${index}.options.color`}
+											/>
+										</>
+									)}
+								</>
+							)}
+						</>
 					))}
 
 					{projectData.rooms[roomIndex].sensor.required === false && (
-						<SwitchButtons
-							label='Do you need a Sensor?'
-							buttonLabels={["Yes", "No"]}
-							options={[true, false]}
-							field={`rooms.${roomIndex}.sensor.selected`}
-						/>
+						<SwitchButtons label='Do you need a Sensor?' field={`rooms.${roomIndex}.sensor.selected`} />
 					)}
 
 					{(projectData.rooms[roomIndex].sensor.required === true ||
 						projectData.rooms[roomIndex].sensor.selected === true) && (
 						<>
 							{roomTemplateDetails.sensor.products.map((product, index) => (
-								<SwitchButtons
-									key={index}
-									label={product.name}
-									buttonLabels={["Yes", "No"]}
-									options={[true, false]}
-									field={`rooms.${roomIndex}.sensor.products.${index}.selected`}
-								/>
-							))}
-
-							{/* {environmentalSensorProductOptions.map((productOption) => (
 								<>
 									<SwitchButtons
-										label={productOption.name}
-										buttonLabels={productOption.values.map((option) => option.name)}
-										options={productOption.values.map((option) => {
-											return { id: option.id, quantity: 1 };
-										})}
-										field={`rooms.${roomIndex}.environmental_sensor.products.0.options.${productOption.name}`}
+										key={index}
+										label={product.name}
+										field={`rooms.${roomIndex}.sensor.products.${index}.selected`}
 									/>
-
-									{projectData.rooms[roomIndex].environmental_sensor.products[0].options?.[
-										productOption.name
-									]?.id &&
-										productOption.values.some((option) => !!option.color_options) && (
-											<SwitchButtons
-												label='Color Options'
-												buttonLabels={
-													productOption.values.find(
-														(option) =>
-															option.id ===
-															projectData.rooms[roomIndex].environmental_sensor
-																.products[0].options[productOption.name].id
-													).color_options
-												}
-												options={
-													productOption.values.find(
-														(option) =>
-															option.id ===
-															projectData.rooms[roomIndex].environmental_sensor
-																.products[0].options[productOption.name].id
-													).color_options
-												}
-												field={`rooms.${roomIndex}.environmental_sensor.products.0.options.${productOption.name}.color_options`}
-											/>
-										)}
+									{product.hasOwnProperty("options") && JSON.stringify(product.options)}
 								</>
-							))} */}
+							))}
 						</>
 					)}
 

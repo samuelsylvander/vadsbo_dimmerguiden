@@ -28,13 +28,15 @@ function RoomQuantity({ roomIndex, setAppState, setRoomIndex, handleDelete }) {
 	}
 
 	function getRoomProducts() {
-		const roomProducts = projectData.rooms[roomIndex].products;
-		const productDetails = roomProducts.map((roomProduct) =>
-			products.find((product) => product.id === roomProduct.id)
-		);
-		return productDetails.map((product, index) => {
-			return { ...product, quantity: roomProducts[index].quantity };
+		const productDetails = projectData.rooms[roomIndex].products.map((roomProduct) => {
+			const lookup = products.find((product) => product.id === roomProduct.id);
+			return { ...lookup, ...roomProduct };
 		});
+		const addonDetails = projectData.rooms[roomIndex].sensor.products.map((roomProduct) => {
+			const lookup = products.find((product) => product.id === roomProduct.id);
+			return { ...lookup, ...roomProduct };
+		});
+		return [...productDetails, ...addonDetails];
 	}
 
 	function handleQuantity(event) {
@@ -141,14 +143,17 @@ function RoomQuantity({ roomIndex, setAppState, setRoomIndex, handleDelete }) {
 			</div>
 			<div className='collapse p-0' id={"summarydetails" + roomIndex}>
 				<div className='card-body pb-0'>
-					{roomProducts.map((product, index) => {
-						return (
-							<p key={index}>
-								{product.name + ": "}
-								<strong>{product.quantity}</strong>
-							</p>
-						);
-					})}
+					{roomProducts.map(
+						(product, index) =>
+							(product.required === true || product.selected === true) && (
+								<p key={index}>
+									{product.name + ": "}
+									<strong>{product.quantity}</strong>
+									{product?.options?.brand && <em>{" " + product.options.brand + ", "}</em>}
+									{product?.options?.color && <em>{" " + product.options.color}</em>}
+								</p>
+							)
+					)}
 				</div>
 			</div>
 		</div>
