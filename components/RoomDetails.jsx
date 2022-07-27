@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from "react";
-import SwitchButtons from "../components/SwitchButtons";
-import Info from "../components/Info";
+import SwitchButtons from "./SwitchButtons";
+import Info from "./Info";
 import { ProjectTemplateContext } from "../libs/ProjectTemplateContext";
 import { ProjectDataContext } from "../libs/ProjectDataContext";
 

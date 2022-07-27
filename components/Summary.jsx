@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useContext } from "react";
-import RoomQuantity from "../components/SummaryRoomDetails";
-import OptionsList from "../components/SummaryOptionsDetails";
-import Sidebar from "../components/SummarySidebar";
+import RoomQuantity from "./SummaryRoomDetails";
+import OptionsList from "./SummaryOptionsDetails";
+import Sidebar from "./SummarySidebar";
 import sendEmail from "../libs/sendemail";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";

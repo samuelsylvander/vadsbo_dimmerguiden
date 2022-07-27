@@ -1,10 +1,10 @@
 import { ObjectId } from "mongodb";
 import { connectToDatabase } from "../libs/mongodb";
 import Head from "next/head";
-import NewRoom from "./NewRoom";
-import Summary from "./Summary";
-import MoreOptions from "./MoreOptions";
-import RoomDetails from "./RoomDetails";
+import NewRoom from "../components/NewRoom";
+import Summary from "../components/Summary";
+import MoreOptions from "../components/MoreOptions";
+import RoomDetails from "../components/RoomDetails";
 import React, { useEffect, useState, useRef, useContext, useCallback } from "react";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
